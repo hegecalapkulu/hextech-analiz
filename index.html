@@ -2,366 +2,697 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hextech İstemcisi // Şampiyon Seçimi: EFE</title>
-  <meta property="og:title" content="Hextech Telemetri // Şampiyon Seçimi & Doğrulama: EFE" />
-  <meta property="og:description" content="TR1 Sihirdar Kaydı #EFE-902 — Şampiyon Mekanik & Refleks Doğrulama Lobisi." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>League of Legends // Hextech İstemcisi — EFE</title>
+  <meta property="og:title" content="Riot Hextech İstemcisi // Dereceli Lobi: EFE" />
+  <meta property="og:description" content="TR1 Sihirdar Vadisi — Şampiyon Yasaklama ve Seçim Lobisi (Sihirdar: EFE)." />
   <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-5px) rotate(1.5deg); }
+    :root {
+      --hex-bg: #010a13;
+      --hex-panel: #091428;
+      --hex-gold-light: #f0e6d2;
+      --hex-gold: #c8aa6e;
+      --hex-gold-dark: #785a28;
+      --hex-gold-deep: #463714;
+      --hex-cyan: #0ac8b9;
+      --hex-cyan-dark: #005a82;
+      --hex-red: #c83c3c;
+      --hex-red-dark: #5c1616;
+      --hex-grey: #a09b8c;
     }
-    @keyframes pulseGlow {
-      0%, 100% { filter: drop-shadow(0 0 8px rgba(200, 155, 60, 0.5)); }
-      50% { filter: drop-shadow(0 0 18px rgba(200, 155, 60, 0.95)); }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
-    @keyframes shacoJitter {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(-2px, 1px) rotate(-2deg); }
-      50% { transform: translate(2px, -2px) rotate(2deg); }
-      75% { transform: translate(-2px, -1px) rotate(-1deg); }
+
+    body {
+      background-color: #010a13;
+      color: #f0e6d2;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
-    @keyframes fearSpin {
-      0% { transform: scale(0.3) rotate(-140deg); opacity: 0; }
-      35% { transform: scale(1.1) rotate(8deg); opacity: 1; }
-      80% { transform: scale(0.98) rotate(-3deg); opacity: 1; }
-      100% { transform: scale(1.25) rotate(15deg); opacity: 0; }
+
+    .font-beaufort {
+      font-family: 'Cinzel', Georgia, serif;
+      letter-spacing: 0.08em;
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(180deg, #f0e6d2 0%, #c8aa6e 55%, #937341 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cyan-gradient-text {
+      background: linear-gradient(180deg, #cdfafa 0%, #0ac8b9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Authentic Hextech Double Bevel Frame */
+    .hex-frame {
+      background: rgba(1, 10, 19, 0.92);
+      border: 2px solid #785a28;
+      box-shadow: inset 0 0 0 1px #010a13, inset 0 0 28px rgba(0, 0, 0, 0.9), 0 12px 40px rgba(0, 0, 0, 0.95);
+    }
+
+    .hex-subpanel {
+      background: linear-gradient(180deg, rgba(9, 20, 40, 0.88) 0%, rgba(1, 10, 19, 0.94) 100%);
+      border: 1px solid #463714;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.85);
+    }
+
+    .hex-subpanel-gold {
+      background: linear-gradient(180deg, rgba(20, 32, 52, 0.92) 0%, rgba(5, 12, 24, 0.96) 100%);
+      border: 1px solid #c8aa6e;
+      box-shadow: inset 0 0 18px rgba(200, 170, 110, 0.15);
+    }
+
+    /* Authentic Octagonal LoL Action Buttons */
+    .hex-btn-cyan {
+      position: relative;
+      background: linear-gradient(180deg, #1e282d 0%, #091428 100%);
+      border: 2px solid #0ac8b9;
+      color: #cdfafa;
+      font-family: 'Cinzel', serif;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: 0 0 18px rgba(10, 200, 185, 0.35), inset 0 0 12px rgba(10, 200, 185, 0.25);
+      clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0 50%);
+      transition: all 0.18s ease;
+    }
+    .hex-btn-cyan:hover:not(:disabled) {
+      background: linear-gradient(180deg, #0ac8b9 0%, #005a82 100%);
+      color: #010a13;
+      box-shadow: 0 0 26px rgba(10, 200, 185, 0.75);
+    }
+    .hex-btn-cyan:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+
+    .hex-btn-red {
+      position: relative;
+      background: linear-gradient(180deg, #2a1215 0%, #140709 100%);
+      border: 2px solid #e84057;
+      color: #ffcccc;
+      font-family: 'Cinzel', serif;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: 0 0 18px rgba(232, 64, 87, 0.35), inset 0 0 12px rgba(232, 64, 87, 0.25);
+      clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0 50%);
+      transition: all 0.18s ease;
+    }
+    .hex-btn-red:hover:not(:disabled) {
+      background: linear-gradient(180deg, #e84057 0%, #7a1624 100%);
+      color: #ffffff;
+      box-shadow: 0 0 26px rgba(232, 64, 87, 0.75);
+    }
+    .hex-btn-red:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+
+    .hex-btn-gold {
+      position: relative;
+      background: linear-gradient(180deg, #1e2328 0%, #11171d 100%);
+      border: 2px solid #c8aa6e;
+      color: #f0e6d2;
+      font-family: 'Cinzel', serif;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: 0 0 16px rgba(200, 170, 110, 0.3), inset 0 0 10px rgba(200, 170, 110, 0.2);
+      transition: all 0.18s ease;
+    }
+    .hex-btn-gold:hover {
+      border-color: #f0e6d2;
+      background: linear-gradient(180deg, #3c3222 0%, #1e1912 100%);
+      box-shadow: 0 0 22px rgba(200, 170, 110, 0.6);
+    }
+
+    /* Official LoL Spell Icon Frame */
+    .spell-slot {
+      position: relative;
+      border: 2px solid #785a28;
+      background: #010a13;
+      box-shadow: inset 0 0 6px #000000, 0 2px 6px rgba(0, 0, 0, 0.8);
+      transition: all 0.15s ease;
+    }
+    .spell-slot:hover, .spell-slot.active-spell {
+      border-color: #f0e6d2;
+      box-shadow: 0 0 14px rgba(200, 170, 110, 0.75);
+      transform: translateY(-2px);
+    }
+    .spell-key-badge {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      background: #010a13;
+      border: 1px solid #785a28;
+      color: #c8aa6e;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+      padding: 2px 4px;
+    }
+
+    /* Champion Portrait Card in Draft Grid */
+    .champ-portrait-card {
+      position: relative;
+      border: 1px solid #463714;
+      background: #010a13;
+      transition: all 0.15s ease;
+    }
+    .champ-portrait-card:hover {
+      border-color: #c8aa6e;
+    }
+    .champ-portrait-card.selected-pick {
+      border: 2px solid #0ac8b9;
+      box-shadow: 0 0 16px rgba(10, 200, 185, 0.65);
+    }
+    .champ-portrait-card.selected-ban {
+      border: 2px solid #e84057;
+      box-shadow: 0 0 16px rgba(232, 64, 87, 0.65);
+    }
+    .champ-portrait-card.is-banned img {
+      filter: grayscale(100%) contrast(1.1) brightness(0.45);
+    }
+
+    /* Ban Diagonal Red Slash */
+    .ban-slash::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 46%, #e84057 47%, #e84057 53%, transparent 54%);
+      pointer-events: none;
+    }
+
+    @keyframes pulseRing {
+      0%, 100% { box-shadow: 0 0 15px rgba(10, 200, 185, 0.4), inset 0 0 15px rgba(10, 200, 185, 0.25); }
+      50% { box-shadow: 0 0 32px rgba(10, 200, 185, 0.85), inset 0 0 25px rgba(10, 200, 185, 0.45); }
     }
     @keyframes candleFlicker {
       0%, 100% { transform: scaleY(1) rotate(-2deg); opacity: 1; }
       50% { transform: scaleY(1.18) rotate(2deg); opacity: 0.85; }
     }
-    .hextech-border {
-      border: 1px solid rgba(200, 155, 60, 0.45);
-      box-shadow: inset 0 0 25px rgba(10, 20, 40, 0.85), 0 0 25px rgba(0, 0, 0, 0.75);
+    @keyframes ultZoom {
+      0% { transform: scale(0.5); opacity: 0; }
+      30% { transform: scale(1.04); opacity: 1; }
+      85% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.12); opacity: 0; }
     }
-    .party-border {
-      border: 1px solid rgba(250, 204, 21, 0.65);
-      box-shadow: inset 0 0 30px rgba(88, 28, 135, 0.4), 0 0 30px rgba(200, 155, 60, 0.3);
-    }
-    .float-anim { animation: floatSlow 3.2s ease-in-out infinite; }
-    .glow-anim { animation: pulseGlow 2.4s ease-in-out infinite; }
-    .jitter-anim:hover { animation: shacoJitter 0.35s ease-in-out infinite; }
+    .ready-ring { animation: pulseRing 2s infinite ease-in-out; }
     .candle-flame { animation: candleFlicker 0.6s ease-in-out infinite; transform-origin: bottom center; }
-    button, g { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   </style>
 </head>
-<body class="bg-[#040811] text-[#f0e6d2] antialiased min-h-screen flex flex-col items-center justify-center p-2 sm:p-6 select-none overflow-x-hidden">
+<body class="min-h-screen flex flex-col items-center justify-center p-0 sm:p-4 select-none">
 
-  <!-- Outer Hextech Client Frame -->
-  <div id="app-frame" class="relative w-full max-w-4xl rounded-xl overflow-hidden hextech-border bg-[#09101a] text-[#f0e6d2] transition-all duration-700 shadow-2xl">
+  <!-- Persistent HTML5 Audio Elements for 100% Mobile / iOS Silent-Switch Bypass -->
+  <audio id="sfx-player" playsinline preload="auto"></audio>
+  <audio id="vo-player" playsinline preload="auto"></audio>
+  <audio id="bgm-player" playsinline preload="auto"></audio>
+
+  <!-- ===================================================== -->
+  <!-- OVERLAY 0: MATCH FOUND (KARŞILAŞMA BULUNDU!) MODAL    -->
+  <!-- ===================================================== -->
+  <div id="ready-check-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-[#010a13]/95 backdrop-blur-md p-4">
+    <div class="relative w-full max-w-md hex-frame p-6 sm:p-8 flex flex-col items-center text-center">
+      <!-- Top Gold Ornament Line -->
+      <div class="w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#c8aa6e] to-transparent mb-5"></div>
+
+      <!-- Circular Hextech Ready Ring -->
+      <div class="relative w-44 h-44 sm:w-48 sm:h-48 rounded-full border-4 border-[#c8aa6e] bg-[#091428] flex flex-col items-center justify-center ready-ring mb-6">
+        <div class="absolute inset-2 rounded-full border border-[#0ac8b9]/60 pointer-events-none"></div>
+        <img src="https://ddragon.leagueoflegends.com/cdn/16.21.1/img/profileicon/29.png" alt="Hextech" class="w-16 h-16 rounded-full border-2 border-[#c8aa6e] mb-2 shadow-lg" />
+        <span class="font-beaufort text-xs tracking-[0.2em] text-[#0ac8b9] uppercase">DERECELİ ESNEK</span>
+        <span class="font-beaufort text-sm font-bold text-[#f0e6d2] mt-0.5">SİHİRDAR: EFE</span>
+      </div>
+
+      <h1 class="font-beaufort text-xl sm:text-2xl font-black gold-gradient-text tracking-widest uppercase">
+        KARŞILAŞMA BULUNDU!
+      </h1>
+      <p class="text-xs text-[#a09b8c] mt-1 mb-6">
+        Sihirdar Vadisi // Şampiyon Yasaklama ve Seçim Lobisi Hazır
+      </p>
+
+      <button onclick="acceptMatch()" class="hex-btn-cyan w-64 py-3.5 text-sm sm:text-base cursor-pointer">
+        KABUL ET!
+      </button>
+
+      <div class="w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#785a28] to-transparent mt-6"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <!-- ULTIMATE / AMBUSH FULLSCREEN CINEMATIC OVERLAY        -->
+  <!-- ===================================================== -->
+  <div id="ambush-overlay" class="pointer-events-none fixed inset-0 z-50 hidden items-center justify-center bg-[#010a13]/95 backdrop-blur-md p-4">
+    <div id="ambush-bg" class="absolute inset-0 bg-cover bg-center opacity-35 transition-all duration-500"></div>
+    <div class="relative z-10 flex flex-col items-center text-center max-w-lg p-6" style="animation: ultZoom 1.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+      <div class="relative mb-4">
+        <img id="ambush-spell-img" src="" alt="Ulti" class="w-24 h-24 sm:w-28 sm:h-28 border-2 border-[#f0e6d2] shadow-[0_0_40px_rgba(200,170,110,0.9)]" />
+        <span class="spell-key-badge text-xs px-2 py-0.5">R</span>
+      </div>
+      <div id="ambush-title" class="font-beaufort text-xl sm:text-3xl font-black gold-gradient-text uppercase tracking-widest drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"></div>
+      <div id="ambush-subtitle" class="text-sm sm:text-base text-[#f0e6d2] font-medium mt-2 italic drop-shadow"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <!-- MAIN HEXTECH CLIENT WINDOW                            -->
+  <!-- ===================================================== -->
+  <div id="app-frame" class="relative w-full max-w-5xl min-h-[100dvh] sm:min-h-0 sm:rounded-none hex-frame overflow-hidden flex flex-col justify-between">
     
-    <!-- Particle & Effects Canvas -->
+    <!-- Dynamic Official Splash Art Background + Hextech Vignette -->
+    <div id="client-splash-bg" class="pointer-events-none absolute inset-0 bg-cover bg-center transition-all duration-700 opacity-35" style="background-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Shaco_0.jpg');"></div>
+    <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(circle at 50% 25%, rgba(1,10,19,0.45) 0%, rgba(1,10,19,0.88) 65%, #010a13 100%);"></div>
+
+    <!-- Particle Canvas -->
     <canvas id="fx-canvas" class="pointer-events-none absolute inset-0 w-full h-full z-30"></canvas>
 
-    <!-- Dynamic Champion Ambush / Ult Overlay (Hidden until Step 3 clicked) -->
-    <div id="ambush-overlay" class="pointer-events-none fixed inset-0 z-50 hidden items-center justify-center bg-black/90 backdrop-blur-md">
-      <div id="ambush-card" class="flex flex-col items-center text-center p-6 max-w-md" style="animation: fearSpin 1.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
-        <div id="ambush-icon" class="w-28 h-28 sm:w-36 sm:h-36 mb-4 flex items-center justify-center rounded-full border-4 border-amber-400 bg-[#161f33] shadow-[0_0_40px_rgba(250,204,21,0.8)]"></div>
-        <div id="ambush-title" class="text-xl sm:text-3xl font-black tracking-widest text-amber-300 uppercase drop-shadow-[0_0_14px_rgba(220,38,38,0.95)]"></div>
-        <div id="ambush-subtitle" class="text-sm sm:text-lg text-white font-semibold mt-2 italic"></div>
-      </div>
-    </div>
-
-    <!-- Top Hextech Header Bar -->
-    <div id="top-bar" class="relative z-20 flex items-center justify-between gap-2 px-3 sm:px-6 py-2.5 sm:py-3 bg-[#050911]/90 border-b border-[#c89b3c]/30">
-      <div class="flex items-center gap-2 min-w-0">
-        <div id="status-dot" class="w-2.5 h-2.5 rounded-full bg-[#0ac8b9] shadow-[0_0_8px_#0ac8b9] shrink-0"></div>
-        <span id="header-title" class="text-xs sm:text-sm font-bold tracking-wider sm:tracking-widest uppercase text-[#c89b3c] truncate">
-          HEXTECH LOBİSİ // SİHİRDAR: EFE
+    <!-- ===================================================== -->
+    <!-- TOP HEXTECH CLIENT BAR                                -->
+    <!-- ===================================================== -->
+    <div class="relative z-20 flex items-center justify-between px-3 sm:px-6 py-2.5 bg-[#010a13]/95 border-b border-[#785a28]">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <!-- LoL L Icon Emblem -->
+        <div class="w-6 h-6 border border-[#c8aa6e] bg-[#091428] flex items-center justify-center shrink-0">
+          <span class="font-beaufort text-xs font-black text-[#c8aa6e]">L</span>
+        </div>
+        <span id="header-title" class="font-beaufort text-xs sm:text-sm font-bold tracking-widest uppercase text-[#c8aa6e] truncate">
+          SİHİRDAR VADİSİ // DERECELİ SEÇİM LOBİSİ
         </span>
       </div>
+
       <div class="flex items-center gap-2 shrink-0">
-        <button id="change-champ-top-btn" onclick="goToChampSelect()" class="hidden text-xs px-2.5 py-1 rounded border border-[#0ac8b9]/50 bg-[#0ac8b9]/15 text-[#0ac8b9] hover:bg-[#0ac8b9]/25 transition font-bold cursor-pointer">
-          🔄 Şampiyon Değiştir
+        <button id="change-champ-top-btn" onclick="goToChampSelect()" class="hidden hex-btn-gold text-xs px-3 py-1 cursor-pointer">
+          LOBİYE DÖN
         </button>
-        <button id="sound-btn" onclick="toggleAudio()" class="text-xs px-2.5 py-1 rounded border border-[#c89b3c]/40 bg-[#111927] text-[#f0e6d2] hover:border-[#c89b3c] transition flex items-center gap-1 cursor-pointer">
+        <button id="sound-btn" onclick="toggleAudio()" class="hex-subpanel px-2.5 py-1 text-xs text-[#f0e6d2] hover:border-[#c8aa6e] transition flex items-center gap-1.5 cursor-pointer">
           <span id="sound-icon">🔊</span>
-          <span id="sound-label">Ses: Açık</span>
+          <span id="sound-label" class="font-semibold">SES AÇIK</span>
         </button>
       </div>
     </div>
 
     <!-- ===================================================== -->
-    <!-- STAGE 0: CHAMPION SELECT LOBBY (NO BIRTHDAY CLUES!)   -->
+    <!-- STAGE 0: AUTHENTIC LOL DRAFT LOBBY (BAN -> PICK)      -->
     <!-- ===================================================== -->
-    <div id="stage-select" class="relative z-20 p-3.5 sm:p-6 space-y-4 sm:space-y-5">
+    <div id="stage-select" class="relative z-20 flex-1 flex flex-col justify-between p-3 sm:p-5 space-y-3 sm:space-y-4">
       
-      <!-- Lobby Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3.5 rounded-lg bg-[#0d1624]/90 border border-[#c89b3c]/30">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-[#0ac8b9]/15 text-[#0ac8b9] border border-[#0ac8b9]/40 font-semibold">
-              DERECELİ DOĞRULAMA LOBİSİ
-            </span>
-            <span class="text-xs text-[#a09b8c]">Sihirdar: <strong class="text-[#f0e6d2]">EFE</strong></span>
+      <!-- Top Draft Status Header + Ban Slots + Countdown Timer -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-2 pb-2 border-b border-[#463714]">
+        
+        <!-- Blue Team Bans -->
+        <div class="flex items-center gap-2 self-start sm:self-center">
+          <span class="font-beaufort text-xs text-[#a09b8c] uppercase tracking-wider">YASAKLANAN:</span>
+          <div id="ban-slot-box" class="w-9 h-9 border border-[#785a28] bg-[#010a13] relative flex items-center justify-center overflow-hidden">
+            <span id="ban-slot-empty" class="text-xs text-[#e84057] font-bold">—</span>
+            <img id="ban-slot-img" src="" alt="Yasaklanan" class="hidden w-full h-full object-cover grayscale brightness-50" />
+            <div id="ban-slot-slash" class="hidden ban-slash"></div>
           </div>
-          <h1 class="text-lg sm:text-xl font-black tracking-wide text-[#f0e6d2] mt-1">
-            ŞAMPİYONUNU SEÇ VE KİLİTLE
-          </h1>
-          <p class="text-xs text-[#a09b8c]">
-            Refleks ve mekanik doğrulama simülasyonunu başlatmak için havuzundaki bir şampiyonu seç.
-          </p>
+          <span id="ban-champ-name" class="text-xs text-[#e84057] font-semibold">Yok</span>
         </div>
+
+        <!-- Center Phase Title & Timer -->
+        <div class="text-center">
+          <div id="draft-phase-subtitle" class="text-xs uppercase tracking-[0.2em] text-[#e84057] font-bold">
+            EVRE 1 // YASAKLAMA SIRASI SENDE
+          </div>
+          <h2 id="draft-phase-title" class="font-beaufort text-lg sm:text-2xl font-black gold-gradient-text tracking-widest uppercase">
+            BİR ŞAMPİYON YASAKLA!
+          </h2>
+        </div>
+
+        <!-- Countdown Timer -->
         <div class="flex items-center gap-2 self-end sm:self-center">
-          <div class="text-right">
-            <div class="text-xs text-[#a09b8c]">Seçilen Şampiyon</div>
-            <div id="selected-champ-name" class="text-sm font-black text-[#c89b3c]">Shaco</div>
-          </div>
+          <span class="text-xs text-[#a09b8c] uppercase">SÜRE:</span>
+          <span id="draft-timer" class="font-beaufort text-2xl sm:text-3xl font-black text-[#f0e6d2] w-10 text-right">28</span>
         </div>
       </div>
 
-      <!-- 7-Champion Grid -->
-      <div id="champ-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5">
-        <!-- Populated dynamically by JS -->
-      </div>
+      <!-- Main Draft Body: Left Summoner List + Center Champion Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 items-stretch">
+        
+        <!-- Left Column: Blue Team Summoner Slots (4 cols on desktop) -->
+        <div class="md:col-span-4 flex flex-col justify-between space-y-2">
+          <div class="text-xs font-beaufort font-bold uppercase tracking-widest text-[#c8aa6e] px-1">
+            MAVİ TAKIM
+          </div>
 
-      <!-- Selected Champion Preview & Lock In Bar -->
-      <div id="champ-preview-box" class="p-4 rounded-xl bg-gradient-to-r from-[#0d1624] via-[#131f33] to-[#0d1624] border border-[#c89b3c]/45 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <!-- Active Summoner Slot: EFE -->
+          <div id="efe-summoner-card" class="hex-subpanel-gold p-3 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="relative w-14 h-14 rounded-full border-2 border-[#c8aa6e] bg-[#010a13] overflow-hidden shrink-0 shadow-[0_0_15px_rgba(200,170,110,0.4)]">
+                <img id="efe-slot-portrait" src="https://ddragon.leagueoflegends.com/cdn/16.21.1/img/champion/Shaco.png" alt="EFE" class="w-full h-full object-cover scale-110" />
+              </div>
+              <div class="min-w-0">
+                <div id="efe-slot-action" class="text-xs font-bold uppercase tracking-wider text-[#e84057]">
+                  YASAKLIYOR...
+                </div>
+                <div class="font-beaufort text-base font-black text-[#f0e6d2] truncate">
+                  EFE
+                </div>
+                <div id="efe-slot-champ" class="text-xs text-[#c8aa6e] truncate">
+                  Shaco — İblis Soytarı
+                </div>
+              </div>
+            </div>
+
+            <!-- Official Summoner Spells (Flash & Smite) -->
+            <div class="flex flex-col gap-1 shrink-0">
+              <img src="https://ddragon.leagueoflegends.com/cdn/16.21.1/img/spell/SummonerFlash.png" alt="Sıçra" title="Sıçra (D)" class="w-6 h-6 border border-[#785a28]" />
+              <img src="https://ddragon.leagueoflegends.com/cdn/16.21.1/img/spell/SummonerSmite.png" alt="Çarp" title="Çarp (F)" class="w-6 h-6 border border-[#785a28]" />
+            </div>
+          </div>
+
+          <!-- Selected Champion Abilities Preview Panel (Official Passive + Q W E R Icons) -->
+          <div class="hex-subpanel p-3 space-y-2.5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between border-b border-[#463714] pb-1.5">
+                <span id="preview-champ-name" class="font-beaufort text-sm font-bold text-[#f0e6d2]">SHACO</span>
+                <span id="preview-champ-role" class="text-xs text-[#c8aa6e] uppercase font-semibold">Suikastçı</span>
+              </div>
+              <p id="preview-champ-desc" class="text-xs text-[#a09b8c] mt-1.5 leading-relaxed"></p>
+            </div>
+
+            <!-- Official 5 Spell Icons Row -->
+            <div>
+              <div class="text-xs text-[#c8aa6e] font-beaufort uppercase tracking-wider mb-1.5">
+                ŞAMPİYON YETENEKLERİ:
+              </div>
+              <div id="lobby-spells-row" class="grid grid-cols-5 gap-1.5"></div>
+              <div id="lobby-spell-name" class="text-xs text-[#f0e6d2] font-semibold mt-1.5 truncate"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center/Right Column: Official 7 Champion Portraits Grid (8 cols on desktop) -->
+        <div class="md:col-span-8 hex-subpanel p-3 sm:p-4 flex flex-col justify-between space-y-3">
+          <div class="flex items-center justify-between border-b border-[#463714] pb-2">
+            <span class="font-beaufort text-xs font-bold uppercase tracking-widest text-[#c8aa6e]">
+              ŞAMPİYON HAVUZU (7 ŞAMPİYON AKTİF)
+            </span>
+            <span id="pool-hint" class="text-xs text-[#a09b8c]">
+              Yasaklamak istediğin şampiyona dokun
+            </span>
+          </div>
+
+          <!-- Champion Portraits Grid -->
+          <div id="champ-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 sm:gap-3 my-auto py-1">
+            <!-- Populated by JS with official DDragon square portraits -->
+          </div>
+
+          <!-- Bottom Lock-In / Ban Action Bar -->
+          <div class="pt-2 border-t border-[#463714] flex flex-col sm:flex-row items-center justify-between gap-2.5">
+            <div id="ban-override-msg" class="text-xs text-[#a09b8c] text-center sm:text-left">
+              İpucu: Önce 1 şampiyon yasakla, ardından oynayacağın şampiyonu kilitle.
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-center">
+              <button id="skip-ban-btn" onclick="skipBanPhase()" class="hex-subpanel px-3 py-2.5 text-xs text-[#a09b8c] hover:text-[#f0e6d2] hover:border-[#c8aa6e] cursor-pointer">
+                YASAKLAMAYI GEÇ
+              </button>
+              <button id="draft-action-btn" onclick="handleDraftAction()" class="hex-btn-red flex-1 sm:flex-initial px-7 py-2.5 text-xs sm:text-sm cursor-pointer">
+                YASAKLA
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- STAGE 1: IN-GAME 3-STEP SKILL TRAP (NO BIRTHDAY CLUE) -->
+    <!-- ===================================================== -->
+    <div id="stage-disguise" class="hidden relative z-20 flex-1 flex flex-col justify-between p-3 sm:p-6 space-y-4">
+      
+      <!-- Top Summoner Telemetry Bar -->
+      <div class="hex-subpanel p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div class="flex items-center gap-3.5">
-          <div id="preview-avatar" class="w-14 h-14 rounded-full border-2 border-[#c89b3c] bg-[#161f33] flex items-center justify-center shrink-0 glow-anim"></div>
+          <div class="relative w-14 h-14 border-2 border-[#c8aa6e] bg-[#010a13] shrink-0">
+            <img id="disguise-champ-img" src="" alt="Champ" class="w-full h-full object-cover" />
+            <span class="absolute -bottom-1.5 -right-1.5 bg-[#010a13] border border-[#c8aa6e] text-[#c8aa6e] text-[10px] font-bold px-1.5 py-0.5">
+              SV 18
+            </span>
+          </div>
           <div>
             <div class="flex items-center gap-2">
-              <span id="preview-title" class="text-base sm:text-lg font-black text-[#f0e6d2]">SHACO</span>
-              <span id="preview-sub" class="text-xs px-2 py-0.5 rounded bg-[#c89b3c]/20 text-[#c89b3c] font-bold">İblis Soytarı</span>
-            </div>
-            <p id="preview-diag" class="text-xs text-[#cdbe91] mt-1"></p>
-          </div>
-        </div>
-
-        <button onclick="lockInChampion()" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-gradient-to-r from-[#c89b3c] via-[#e6b84d] to-[#c89b3c] hover:brightness-110 active:scale-95 text-[#09101a] font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(200,155,60,0.5)] transition cursor-pointer shrink-0">
-          🔒 ŞAMPİYONU KİLİTLE (LOCK IN)
-        </button>
-      </div>
-    </div>
-
-    <!-- ===================================================== -->
-    <!-- STAGE 1: CHAMPION-SPECIFIC 3-STEP DISGUISE TRAP       -->
-    <!-- ===================================================== -->
-    <div id="stage-disguise" class="hidden relative z-20 p-3.5 sm:p-7 space-y-4 sm:space-y-6">
-      
-      <!-- Summoner & Locked Champion Profile Banner -->
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-lg bg-[#0d1624]/90 border border-[#c89b3c]/30">
-        <div class="flex items-center gap-3.5 sm:gap-4">
-          <div id="disguise-avatar" class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#c89b3c] bg-[#161f33] flex items-center justify-center shrink-0 glow-anim"></div>
-          <div>
-            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-[#0ac8b9]/15 text-[#0ac8b9] border border-[#0ac8b9]/40 font-semibold">
-                TR1 // MEKANİK TESTİ
+              <span class="text-xs uppercase tracking-widest px-2 py-0.5 bg-[#005a82]/40 text-[#0ac8b9] border border-[#0ac8b9]/50 font-bold">
+                VADİ SİMÜLASYONU
               </span>
-              <span id="disguise-champ-tag" class="text-xs text-[#c89b3c] font-bold"></span>
+              <span id="disguise-champ-tag" class="font-beaufort text-xs text-[#c8aa6e] font-bold"></span>
             </div>
-            <h1 class="text-lg sm:text-2xl font-black tracking-wide text-[#f0e6d2] mt-1">
-              SİHİRDAR: <span class="text-[#c89b3c]">EFE</span>
+            <h1 class="font-beaufort text-lg sm:text-xl font-black gold-gradient-text mt-1">
+              SİHİRDAR: EFE
             </h1>
-            <p id="disguise- syndrome" class="text-xs sm:text-sm text-[#a09b8c]"></p>
+            <p id="disguise-syndrome" class="text-xs text-[#a09b8c]"></p>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-2 w-full sm:w-auto text-left sm:text-right border-t sm:border-t-0 pt-2.5 sm:pt-0 border-[#c89b3c]/20">
-          <div class="bg-[#09101a]/80 px-2.5 py-1.5 rounded border border-[#c89b3c]/20">
-            <div id="metric-1-label" class="text-xs text-[#a09b8c]">Rakip Tilt Oranı</div>
-            <div id="metric-1-val" class="text-xs sm:text-sm font-bold text-[#ef4444]">%99.4 (KRİTİK)</div>
+        <div class="grid grid-cols-2 gap-2 w-full sm:w-auto">
+          <div class="hex-frame px-3 py-1.5">
+            <div id="metric-1-label" class="text-[11px] text-[#a09b8c] uppercase"></div>
+            <div id="metric-1-val" class="text-xs sm:text-sm font-bold text-[#e84057]"></div>
           </div>
-          <div class="bg-[#09101a]/80 px-2.5 py-1.5 rounded border border-[#c89b3c]/20">
-            <div id="metric-2-label" class="text-xs text-[#a09b8c]">Refleks Süresi</div>
-            <div id="metric-2-val" class="text-xs sm:text-sm font-bold text-[#0ac8b9]">0.12 sn</div>
+          <div class="hex-frame px-3 py-1.5">
+            <div id="metric-2-label" class="text-[11px] text-[#a09b8c] uppercase"></div>
+            <div id="metric-2-val" class="text-xs sm:text-sm font-bold text-[#0ac8b9]"></div>
           </div>
         </div>
       </div>
 
-      <!-- Vanguard / Hextech Notice -->
-      <div class="p-3.5 sm:p-4 rounded-lg bg-[#141c2b]/80 border-l-4 border-[#c89b3c] space-y-1.5">
-        <div class="flex items-center justify-between gap-2">
-          <span id="mission-header" class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
-            ⚠️ SİSTEM UYARISI: MEKANİK DOĞRULAMA GEREKLİ
-          </span>
-          <span id="step-counter" class="text-xs font-bold px-2 py-0.5 rounded bg-[#c89b3c]/20 text-[#f0e6d2] shrink-0">
-            Adım 1 / 3
-          </span>
+      <!-- Mission Prompt -->
+      <div class="hex-subpanel-gold p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div class="space-y-1">
+          <div class="font-beaufort text-xs font-bold uppercase tracking-widest text-[#c8aa6e]">
+            MEKANİK DOĞRULAMA GÖREVİ
+          </div>
+          <p id="mission-desc" class="text-xs sm:text-sm text-[#f0e6d2]"></p>
         </div>
-        <p id="mission-desc" class="text-xs sm:text-sm text-[#cdbe91] leading-relaxed"></p>
+        <span id="step-counter" class="font-beaufort text-xs font-black px-3 py-1 border border-[#c8aa6e] bg-[#010a13] text-[#c8aa6e] shrink-0 self-start sm:self-center">
+          ADIM 1 / 3
+        </span>
       </div>
 
-      <!-- Interactive Arena -->
-      <div id="arena" class="relative h-64 sm:h-72 rounded-xl bg-gradient-to-b from-[#070c14] via-[#0c1626] to-[#08101c] border border-[#c89b3c]/35 overflow-hidden flex flex-col items-center justify-center p-3 sm:p-4">
-        <div class="pointer-events-none absolute inset-0 opacity-15" style="background-image: radial-gradient(#c89b3c 1px, transparent 1px); background-size: 24px 24px;"></div>
+      <!-- Interactive Summoner's Rift Tactical Arena -->
+      <div id="arena" class="relative h-64 sm:h-72 hex-frame overflow-hidden flex flex-col items-center justify-center p-3">
+        <!-- Tactical Grid -->
+        <div class="pointer-events-none absolute inset-0 opacity-15" style="background-image: linear-gradient(to right, #785a28 1px, transparent 1px), linear-gradient(to bottom, #785a28 1px, transparent 1px); background-size: 32px 32px;"></div>
 
-        <div id="arena-toast" class="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 w-[92%] sm:w-auto max-w-full px-3 py-1 rounded-lg sm:rounded-full bg-[#09101a]/95 border border-[#c89b3c]/40 text-xs font-semibold text-[#f0e6d2] text-center leading-snug transition-all"></div>
+        <!-- Arena Banner -->
+        <div id="arena-toast" class="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 w-[94%] sm:w-auto px-4 py-1.5 bg-[#010a13]/95 border border-[#785a28] text-xs font-semibold text-[#f0e6d2] text-center"></div>
 
-        <div id="targets-wrapper" class="relative w-full h-full flex items-center justify-center pt-6">
-          <!-- Step 1 & 2 Target Button -->
-          <button id="trap-target-btn" onclick="handleTrapClick(event)" class="group relative flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-xl transition-all duration-200 cursor-pointer jitter-anim focus:outline-none">
-            <div class="w-24 h-2.5 bg-black/80 border border-[#c89b3c] rounded-sm mb-1.5 overflow-hidden flex">
-              <div id="trap-hp" class="w-full h-full bg-gradient-to-r from-red-600 to-amber-500 transition-all duration-300"></div>
+        <!-- Target Area -->
+        <div class="relative w-full h-full flex items-center justify-center pt-6">
+          
+          <!-- Step 1 & 2 Target (Authentic LoL Healthbar + Official Spell Icon) -->
+          <button id="trap-target-btn" onclick="handleTrapClick(event)" class="group relative flex flex-col items-center justify-center p-2 transition-all duration-200 cursor-pointer focus:outline-none">
+            <!-- LoL In-Game Overhead Name & Segmented Healthbar -->
+            <div class="text-[11px] font-bold text-[#f0e6d2] mb-0.5 drop-shadow">Hedef_Kukla (Sv 18)</div>
+            <div class="w-28 h-3 bg-[#010a13] border border-[#785a28] p-[1px] mb-1.5 flex items-center">
+              <div id="trap-hp" class="w-full h-full bg-gradient-to-r from-[#b91c1c] via-[#ef4444] to-[#dc2626] transition-all duration-300"></div>
             </div>
-            <div id="trap-icon-box" class="relative w-18 h-18 sm:w-20 sm:h-20 flex items-center justify-center rounded-xl bg-[#161f33]/90 border-2 border-[#c89b3c] group-hover:border-amber-400 group-hover:shadow-[0_0_20px_rgba(250,204,21,0.5)] transition p-2"></div>
-            <span id="trap-btn-label" class="mt-1.5 text-xs font-bold tracking-wider uppercase px-2.5 py-0.5 rounded bg-[#09101a]/90 border border-[#c89b3c]/50 text-[#f0e6d2] group-hover:text-amber-300"></span>
+            <!-- Official Spell / Champion Icon -->
+            <div class="relative w-16 h-16 sm:w-20 sm:h-20 border-2 border-[#c8aa6e] bg-[#010a13] group-hover:border-[#0ac8b9] shadow-[0_0_20px_rgba(200,170,110,0.5)] transition overflow-hidden">
+              <img id="trap-icon-img" src="" alt="Target" class="w-full h-full object-cover" />
+              <span id="trap-key-badge" class="spell-key-badge">W</span>
+            </div>
+            <span id="trap-btn-label" class="mt-1.5 font-beaufort text-xs font-bold tracking-wider uppercase px-3 py-0.5 bg-[#010a13] border border-[#785a28] text-[#c8aa6e] group-hover:border-[#f0e6d2]"></span>
           </button>
 
-          <!-- Step 3 Dual Choice Container -->
-          <div id="clones-container" class="hidden w-full h-full items-center justify-around px-1 sm:px-10 gap-2 sm:gap-4">
-            <button onclick="triggerFinalAmbush(event)" class="group flex flex-col items-center p-2 sm:p-3 rounded-xl hover:scale-105 active:scale-95 transition cursor-pointer jitter-anim">
-              <div class="text-xs text-[#0ac8b9] font-bold mb-1">EFE (Seviye 18)</div>
-              <div class="w-20 sm:w-24 h-2.5 bg-black/80 border border-[#c89b3c] rounded-sm mb-1.5 overflow-hidden">
-                <div class="w-4/5 h-full bg-emerald-500"></div>
+          <!-- Step 3 Dual Clones (Authentic LoL Healthbars + Official Portraits) -->
+          <div id="clones-container" class="hidden w-full h-full items-center justify-around px-2 sm:px-12 gap-3">
+            <button onclick="triggerFinalAmbush(event)" class="group flex flex-col items-center p-2 hover:scale-105 active:scale-95 transition cursor-pointer">
+              <div class="text-[11px] text-[#0ac8b9] font-bold mb-0.5">EFE (Sv 18)</div>
+              <div class="w-24 h-2.5 bg-[#010a13] border border-[#785a28] p-[1px] mb-1.5">
+                <div class="w-4/5 h-full bg-[#22c55e]"></div>
               </div>
-              <div id="clone-a-icon" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#1a1433] border-2 border-purple-500 group-hover:border-amber-400 shadow-[0_0_20px_rgba(168,85,247,0.5)] flex items-center justify-center"></div>
-              <span id="clone-a-label" class="mt-1.5 text-xs font-bold px-2 sm:px-3 py-1 rounded bg-purple-950/90 border border-purple-400 text-purple-200 text-center"></span>
+              <div class="relative w-16 h-16 sm:w-20 sm:h-20 border-2 border-[#0ac8b9] group-hover:border-[#f0e6d2] bg-[#010a13] shadow-[0_0_20px_rgba(10,200,185,0.45)] overflow-hidden">
+                <img id="clone-a-img" src="" alt="Clone A" class="w-full h-full object-cover" />
+                <span class="spell-key-badge">R</span>
+              </div>
+              <span id="clone-a-label" class="mt-1.5 font-beaufort text-xs font-bold px-2.5 py-0.5 bg-[#010a13] border border-[#0ac8b9] text-[#cdfafa]"></span>
             </button>
 
-            <button onclick="triggerFinalAmbush(event)" class="group flex flex-col items-center p-2 sm:p-3 rounded-xl hover:scale-105 active:scale-95 transition cursor-pointer jitter-anim">
-              <div class="text-xs text-[#0ac8b9] font-bold mb-1">EFE (Seviye 18)</div>
-              <div class="w-20 sm:w-24 h-2.5 bg-black/80 border border-[#c89b3c] rounded-sm mb-1.5 overflow-hidden">
-                <div class="w-4/5 h-full bg-emerald-500"></div>
+            <button onclick="triggerFinalAmbush(event)" class="group flex flex-col items-center p-2 hover:scale-105 active:scale-95 transition cursor-pointer">
+              <div class="text-[11px] text-[#0ac8b9] font-bold mb-0.5">EFE (Sv 18)</div>
+              <div class="w-24 h-2.5 bg-[#010a13] border border-[#785a28] p-[1px] mb-1.5">
+                <div class="w-4/5 h-full bg-[#22c55e]"></div>
               </div>
-              <div id="clone-b-icon" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#1a1433] border-2 border-red-500 group-hover:border-amber-400 shadow-[0_0_20px_rgba(239,68,68,0.5)] flex items-center justify-center"></div>
-              <span id="clone-b-label" class="mt-1.5 text-xs font-bold px-2 sm:px-3 py-1 rounded bg-red-950/90 border border-red-400 text-red-200 text-center"></span>
+              <div class="relative w-16 h-16 sm:w-20 sm:h-20 border-2 border-[#e84057] group-hover:border-[#f0e6d2] bg-[#010a13] shadow-[0_0_20px_rgba(232,64,87,0.45)] overflow-hidden">
+                <img id="clone-b-img" src="" alt="Clone B" class="w-full h-full object-cover" />
+                <span class="spell-key-badge">R</span>
+              </div>
+              <span id="clone-b-label" class="mt-1.5 font-beaufort text-xs font-bold px-2.5 py-0.5 bg-[#010a13] border border-[#e84057] text-[#ffcccc]"></span>
             </button>
           </div>
+
         </div>
       </div>
 
       <div class="flex items-center justify-between text-xs text-[#a09b8c] px-1">
         <span id="telemetry-log">> Sistem hazır. Sihirdar EFE doğrulaması bekleniyor...</span>
-        <span class="font-mono text-[#c89b3c]">PING: 9 ms</span>
+        <span class="font-mono text-[#c8aa6e]">TR1 // 9 ms</span>
       </div>
     </div>
 
-    <!-- ========================================================== -->
-    <!-- STAGE 2: THE SURPRISE BIRTHDAY AMBUSH! (HIDDEN INITIALLY)  -->
-    <!-- ========================================================== -->
-    <div id="stage-birthday" class="hidden relative z-20 p-3.5 sm:p-7 space-y-5">
+    <!-- ===================================================== -->
+    <!-- STAGE 2: SURPRISE BIRTHDAY SCREEN & REAL LOL HUD      -->
+    <!-- ===================================================== -->
+    <div id="stage-birthday" class="hidden relative z-20 flex-1 flex flex-col justify-between p-3 sm:p-6 space-y-4">
       
-      <!-- Top Level Up / Ult Announcement Banner -->
-      <div id="bday-banner" class="relative rounded-xl p-4 sm:p-5 bg-gradient-to-r from-[#2e1065] via-[#4c0519] to-[#2e1065] border-2 border-[#facc15] text-center shadow-[0_0_35px_rgba(168,85,247,0.5)] overflow-hidden">
-        <div id="bday-kicker" class="text-xs font-black tracking-[0.2em] uppercase text-amber-300 mb-1"></div>
-        <h1 class="text-2xl sm:text-4xl font-black tracking-wide text-white uppercase drop-shadow-[0_2px_10px_rgba(250,204,21,0.8)]">
-          İYİ Kİ DOĞDUN <span class="text-[#facc15]">EFE!</span> 🎂
+      <!-- Top Victory / Birthday Banner -->
+      <div class="hex-subpanel-gold p-4 sm:p-5 text-center relative overflow-hidden">
+        <div id="bday-kicker" class="font-beaufort text-xs font-bold tracking-[0.2em] uppercase text-[#0ac8b9] mb-1"></div>
+        <h1 class="font-beaufort text-2xl sm:text-4xl font-black gold-gradient-text uppercase tracking-widest">
+          ZAFER // İYİ Kİ DOĞDUN EFE!
         </h1>
-        <p id="bday-quote" class="mt-2 text-xs sm:text-base text-amber-100 italic font-medium"></p>
+        <p id="bday-quote" class="mt-1.5 text-xs sm:text-sm text-[#f0e6d2] italic max-w-2xl mx-auto"></p>
       </div>
 
-      <!-- Quick Champion Switcher Bar inside Birthday Mode -->
-      <div class="rounded-xl bg-[#0b1220] border border-[#c89b3c]/40 p-3">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#0ac8b9]">
-            🎭 DİĞER ŞAMPİYONLARIN DOĞUM GÜNÜ SÜRPRİZLERİNİ DENE:
-          </span>
-          <span class="text-xs text-[#a09b8c]">
-            Bir şampiyona dokunarak onun ulti sürprizini veya tuzağını aç!
+      <!-- Quick 7-Champion Switcher Bar (With Official Portraits) -->
+      <div class="hex-subpanel p-2.5">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <span class="font-beaufort text-xs font-bold uppercase tracking-wider text-[#c8aa6e]">
+            ŞAMPİYON DEĞİŞTİR (TÜM ŞAMPİYONLARIN SES VE YETENEKLERİNİ DENE):
           </span>
         </div>
-        <div id="bday-champ-bar" class="grid grid-cols-4 sm:grid-cols-7 gap-1.5">
-          <!-- Populated dynamically by JS -->
-        </div>
+        <div id="bday-champ-bar" class="grid grid-cols-7 gap-1.5 sm:gap-2"></div>
       </div>
 
-      <!-- Interactive Centerpiece: Cake & Patch Notes Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 items-stretch">
+      <!-- Center Content: Birthday Cake + Patch Notes -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
         
-        <!-- Left Column: Interactive Birthday Cake (7 cols) -->
-        <div class="md:col-span-7 rounded-xl bg-[#0e1525]/95 border border-purple-500/40 p-4 flex flex-col items-center justify-between relative overflow-hidden">
-          <div class="w-full flex items-center justify-between border-b border-purple-500/20 pb-2 mb-2">
-            <span id="cake-title" class="text-xs font-bold uppercase tracking-wider text-purple-300">
-              🎪 SÜRPRİZ DOĞUM GÜNÜ PASTASI
-            </span>
-            <span id="candle-status" class="text-xs font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/40">
-              🔥 3 Mum Yanıyor
+        <!-- Left: Cake & Candle Interaction (7 cols) -->
+        <div class="md:col-span-7 hex-subpanel p-4 flex flex-col items-center justify-between">
+          <div class="w-full flex items-center justify-between border-b border-[#463714] pb-2">
+            <span id="cake-title" class="font-beaufort text-xs font-bold uppercase tracking-wider text-[#c8aa6e]"></span>
+            <span id="candle-status" class="text-xs font-bold px-2.5 py-0.5 border border-[#c8aa6e] bg-[#010a13] text-[#c8aa6e]">
+              3 MUM AKTİF
             </span>
           </div>
 
-          <div id="cake-stage" class="relative my-1 flex flex-col items-center justify-center py-1 transition-all duration-500">
-            <!-- Champion Mascot Badge Above Cake -->
-            <div id="cake-champ-badge" class="w-14 h-14 rounded-full border-2 border-amber-400 bg-[#161f33] flex items-center justify-center -mb-3 z-10 shadow-[0_0_20px_rgba(250,204,21,0.5)]"></div>
+          <div id="cake-stage" class="relative my-2 flex flex-col items-center justify-center transition-all duration-500">
+            <div class="relative w-16 h-16 rounded-full border-2 border-[#c8aa6e] bg-[#010a13] overflow-hidden -mb-3 z-10 shadow-[0_0_20px_rgba(200,170,110,0.6)]">
+              <img id="cake-champ-img" src="" alt="Champion" class="w-full h-full object-cover scale-110" />
+            </div>
+
             <svg class="w-48 h-36 overflow-visible" viewBox="0 0 200 145" fill="none">
-              <!-- 3 Birthday Candles -->
               <g onclick="blowCandle(0)" class="cursor-pointer">
-                <rect x="66" y="33" width="8" height="24" rx="2" fill="#ec4899" stroke="#fbcfe8" stroke-width="1.5"/>
+                <rect x="66" y="33" width="8" height="24" rx="1" fill="#c8aa6e" stroke="#f0e6d2" stroke-width="1.5"/>
                 <g id="flame-0" class="candle-flame">
-                  <path d="M70 15 C64 25, 66 32, 70 32 C74 32, 76 25, 70 15 Z" fill="#facc15"/>
-                  <circle cx="70" cy="27" r="2.5" fill="#ef4444"/>
+                  <path d="M70 15 C64 25, 66 32, 70 32 C74 32, 76 25, 70 15 Z" fill="#0ac8b9"/>
+                  <circle cx="70" cy="27" r="2.5" fill="#f0e6d2"/>
                 </g>
               </g>
               <g onclick="blowCandle(1)" class="cursor-pointer">
-                <rect x="96" y="29" width="8" height="28" rx="2" fill="#a855f7" stroke="#e9d5ff" stroke-width="1.5"/>
+                <rect x="96" y="29" width="8" height="28" rx="1" fill="#c8aa6e" stroke="#f0e6d2" stroke-width="1.5"/>
                 <g id="flame-1" class="candle-flame">
-                  <path d="M100 11 C94 21, 96 28, 100 28 C104 28, 106 21, 100 11 Z" fill="#facc15"/>
-                  <circle cx="100" cy="23" r="2.5" fill="#ef4444"/>
+                  <path d="M100 11 C94 21, 96 28, 100 28 C104 28, 106 21, 100 11 Z" fill="#0ac8b9"/>
+                  <circle cx="100" cy="23" r="2.5" fill="#f0e6d2"/>
                 </g>
               </g>
               <g onclick="blowCandle(2)" class="cursor-pointer">
-                <rect x="126" y="33" width="8" height="24" rx="2" fill="#0ac8b9" stroke="#99f6e4" stroke-width="1.5"/>
+                <rect x="126" y="33" width="8" height="24" rx="1" fill="#c8aa6e" stroke="#f0e6d2" stroke-width="1.5"/>
                 <g id="flame-2" class="candle-flame">
-                  <path d="M130 15 C124 25, 126 32, 130 32 C134 32, 136 25, 130 15 Z" fill="#facc15"/>
-                  <circle cx="130" cy="27" r="2.5" fill="#ef4444"/>
+                  <path d="M130 15 C124 25, 126 32, 130 32 C134 32, 136 25, 130 15 Z" fill="#0ac8b9"/>
+                  <circle cx="130" cy="27" r="2.5" fill="#f0e6d2"/>
                 </g>
               </g>
 
-              <!-- Cake Tiers -->
-              <rect x="52" y="55" width="96" height="32" rx="6" fill="#3b0764" stroke="#c084fc" stroke-width="2.5"/>
-              <path d="M52 65 Q64 77 76 65 T100 65 T124 65 T148 65" stroke="#f43f5e" stroke-width="4" fill="none"/>
-              <rect x="36" y="87" width="128" height="40" rx="8" fill="#4c0519" stroke="#facc15" stroke-width="2.5"/>
-              <text x="100" y="112" text-anchor="middle" fill="#facc15" font-size="15" font-weight="900" letter-spacing="2">EFE OP GG</text>
-              <ellipse cx="100" cy="129" rx="76" ry="7" fill="#c89b3c"/>
+              <!-- Hextech Styled Cake -->
+              <rect x="52" y="55" width="96" height="32" rx="2" fill="#091428" stroke="#c8aa6e" stroke-width="2"/>
+              <path d="M52 66 H148" stroke="#0ac8b9" stroke-width="2" stroke-dasharray="6 4"/>
+              <rect x="36" y="87" width="128" height="40" rx="2" fill="#010a13" stroke="#c8aa6e" stroke-width="2.5"/>
+              <text x="100" y="112" text-anchor="middle" fill="#f0e6d2" font-family="Cinzel, serif" font-size="14" font-weight="900" letter-spacing="3">SİHİRDAR EFE</text>
+              <ellipse cx="100" cy="129" rx="78" ry="5" fill="#785a28"/>
             </svg>
           </div>
 
-          <p id="cake-action-text" class="text-xs text-center text-[#cdbe91] mb-3">
-            Mumlara tek tek dokun ya da aşağıdaki özel şampiyon yeteneğiyle tek seferde söndür!
+          <p id="cake-action-text" class="text-xs text-center text-[#a09b8c] mb-3">
+            Mumlara dokun ya da aşağıdaki resmi yetenek butonuyla tek seferde söndür!
           </p>
 
-          <button id="blow-btn" onclick="castSkill('E')" class="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-red-600 via-purple-600 to-red-600 hover:from-red-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg border border-amber-400/60 transition cursor-pointer"></button>
+          <button id="blow-btn" onclick="castSkill('E')" class="hex-btn-cyan w-full py-2.5 px-4 text-xs sm:text-sm cursor-pointer"></button>
         </div>
 
-        <!-- Right Column: Efe's Champion-Specific Birthday Patch Notes (5 cols) -->
-        <div class="md:col-span-5 rounded-xl bg-[#0e1525]/95 border border-[#c89b3c]/40 p-4 flex flex-col justify-between space-y-3">
+        <!-- Right: Official Patch Notes & Message (5 cols) -->
+        <div class="md:col-span-5 hex-subpanel p-4 flex flex-col justify-between space-y-3">
           <div>
-            <div class="flex items-center justify-between border-b border-[#c89b3c]/30 pb-2">
-              <span id="patch-title" class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
-                📜 YAMA NOTLARI: EFE (YENİ YAŞ)
-              </span>
-              <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
-                BUFFLANDI
+            <div class="flex items-center justify-between border-b border-[#463714] pb-2">
+              <span id="patch-title" class="font-beaufort text-xs font-bold uppercase tracking-wider text-[#c8aa6e]"></span>
+              <span class="text-[11px] px-2 py-0.5 border border-[#0ac8b9] text-[#0ac8b9] font-bold">
+                 YENİ YAŞ BUFFI
               </span>
             </div>
-
-            <ul id="patch-list" class="mt-3 space-y-2.5 text-xs sm:text-sm"></ul>
+            <ul id="patch-list" class="mt-3 space-y-2.5 text-xs"></ul>
           </div>
 
-          <div class="p-3 rounded-lg bg-[#161f33]/90 border border-purple-500/30 text-xs text-[#f0e6d2] leading-relaxed">
-            <div class="font-bold text-amber-300 mb-1">💌 Dostundan Mesaj:</div>
-            "İyi ki doğdun <strong>Efe</strong>! Hangi şampiyonu seçersen seç her maçı taşımaya, etrafına neşe saçmaya devam et. Yeni yaşın sana bol LP, bol kahkaha ve efsane anılar getirsin kanka!"
+          <div class="hex-frame p-3 text-xs text-[#f0e6d2] leading-relaxed">
+            <div class="font-beaufort font-bold text-[#c8aa6e] mb-1">DOSTUNDAN MESAJ:</div>
+            "İyi ki doğdun <strong>Efe</strong>! Hangi şampiyonu kilitlersen kilitle her maçı taşımaya devam et. Yeni yaşın sana bol LP, bol kahkaha ve efsane zaferler getirsin kanka!"
           </div>
         </div>
       </div>
 
-      <!-- Interactive LoL HUD Skill Bar (P, Q, W, E, R) -->
-      <div class="rounded-xl bg-[#070b12] border border-[#c89b3c]/50 p-3 sm:p-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2.5">
-          <span id="skillbar-title" class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]"></span>
-          <span id="skill-feedback" class="text-xs text-purple-300 font-medium">
-            Bir yeteneğe dokunarak özel doğum günü efektini ateşle!
-          </span>
-        </div>
+      <!-- ===================================================== -->
+      <!-- AUTHENTIC LEAGUE OF LEGENDS IN-GAME HUD SKILL BAR     -->
+      <!-- ===================================================== -->
+      <div class="hex-frame p-3 bg-[#010a13]">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+          
+          <!-- Left HUD: Champion Circular Portrait + Level 18 Badge -->
+          <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+            <div class="flex items-center gap-2.5">
+              <div class="relative w-14 h-14 rounded-full border-2 border-[#c8aa6e] bg-[#010a13] overflow-hidden shrink-0">
+                <img id="hud-champ-img" src="" alt="HUD" class="w-full h-full object-cover scale-110" />
+                <span class="absolute bottom-0 right-0 bg-[#010a13] border border-[#c8aa6e] text-[#f0e6d2] text-[10px] font-black px-1">
+                  18
+                </span>
+              </div>
+              <div>
+                <div id="hud-champ-name" class="font-beaufort text-xs font-bold text-[#f0e6d2] uppercase"></div>
+                <div id="skill-feedback" class="text-xs text-[#0ac8b9]">Yetenek ikonlarına dokunarak kullan!</div>
+              </div>
+            </div>
+            <button onclick="playCurrentVoice('choose')" class="hex-subpanel px-2.5 py-1.5 text-xs text-[#c8aa6e] hover:border-[#c8aa6e] cursor-pointer shrink-0">
+              🔊 Repliği Dinle
+            </button>
+          </div>
 
-        <div id="skill-buttons-grid" class="grid grid-cols-5 gap-2 sm:gap-3">
-          <!-- Populated dynamically by JS -->
-        </div>
-      </div>
+          <!-- Center HUD: Official Passive + Q + W + E + R Icons + HP / Mana Bars -->
+          <div class="w-full sm:w-auto flex flex-col items-center gap-2">
+            <!-- 5 Official Spell Slots -->
+            <div id="skill-buttons-grid" class="grid grid-cols-5 gap-2 sm:gap-2.5 w-full sm:w-auto justify-items-center"></div>
 
-      <!-- Footer Replay Controls -->
-      <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-[#a09b8c] pt-1">
-        <span id="footer-champ-tag">🃏 Özel Doğum Günü Sürümü // Sihirdar: EFE</span>
-        <div class="flex items-center gap-3">
-          <button onclick="replayCurrentChampTrap()" class="text-xs underline hover:text-amber-300 cursor-pointer">
-            🎯 Bu Şampiyonun Tuzağını Tekrar Oyna
-          </button>
-          <button onclick="goToChampSelect()" class="text-xs font-bold text-[#0ac8b9] underline hover:text-amber-300 cursor-pointer">
-            🔄 Şampiyon Seçim Ekranına Dön
-          </button>
+            <!-- Authentic LoL Green Health & Blue Resource Bars -->
+            <div class="w-full max-w-md space-y-1">
+              <div class="w-full h-3 bg-[#091428] border border-[#463714] relative overflow-hidden">
+                <div class="w-full h-full bg-gradient-to-r from-[#15803d] via-[#22c55e] to-[#16a34a]"></div>
+                <span class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white drop-shadow">
+                  2450 / 2450 (+1 YAŞ)
+                </span>
+              </div>
+              <div class="w-full h-2.5 bg-[#091428] border border-[#463714] relative overflow-hidden">
+                <div class="w-full h-full bg-gradient-to-r from-[#0369a1] via-[#0ea5e9] to-[#0284c7]"></div>
+                <span class="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-white drop-shadow">
+                  1000 / 1000 (%100 MUTLULUK)
+                </span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -369,435 +700,385 @@
   </div>
 
   <script>
+    const DDRAGON_VER = '16.21.1';
+    const DDRAGON_BASE = `https://ddragon.leagueoflegends.com/cdn/${DDRAGON_VER}`;
+
     // =====================================================
-    // 7 CHAMPIONS DATA (SHACO, TWITCH, LILLIA, NOCTURNE, NUNU, SERAPHINE, MORGANA)
+    // OFFICIAL RIOT GAMES DATA DRAGON CHAMPION & SPELL DATA
     // =====================================================
     const CHAMPIONS = {
       shaco: {
         id: 'shaco',
+        ddragonId: 'Shaco',
         name: 'Shaco',
         title: 'İblis Soytarı',
-        role: 'Suikastçı',
-        color: '#a855f7',
+        role: 'Suikastçı // Orman',
         smokeScheme: 'orange',
-        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
-          <path d="M12 26 C6 10, 24 6, 30 20" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
-          <path d="M52 26 C58 10, 40 6, 34 20" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="10" cy="14" r="3.5" fill="#eab308"/><circle cx="54" cy="14" r="3.5" fill="#eab308"/>
-          <polygon points="18,30 28,33 20,37" fill="#eab308"/><polygon points="46,30 36,33 44,37" fill="#eab308"/>
-          <path d="M20 44 Q32 56 44 44" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"/>
-        </svg>`,
-        diag: 'Teşhis: %99.4 Rakip Ormancı Tilt Etme & Çalıya Kutu Kurma Bağımlılığı.',
+        diag: 'Sihirdar Teşhisi: %99.4 Rakip Ormancı Tilt Etme & Çalıya Kutu Kurma Uzmanı.',
         metric1: ['Rakip Tilt Oranı', '%99.4 (KRİTİK)'],
         metric2: ['Q Görünmezlik', '0.12 sn Refleks'],
-        missionDesc: 'Sihirdar <strong>EFE</strong>, son maçlarda aşırı dozda <em>Kandırmaca (Q)</em> ve çalıya <em>Soytarı Kutusu (W)</em> kurma tespit edildi. Raporu açmak için aşağıdaki <strong>Soytarı Kutusunu</strong> yakala!',
-        step1Toast: '🎯 Soytarı Kutusunun (W) üzerine dokun ve etkisiz hale getir!',
-        step1Btn: 'Soytarı Kutusu (W)',
-        step2Toast: '💨 <span class="text-orange-400">Kandırmaca (Q)!</span> Kutu turuncu dumanla görünmez olup kaçtı, tekrar dokun!',
-        step2Btn: 'Kandırmaca (Q)! Yakala!',
-        step2Log: '> UYARI: Hedef Q (Kandırmaca) kullandı! Arkana bak Efe...',
-        step3Toast: '👯 <span class="text-purple-400">ULTİ: Halüsinasyon (R)!</span> Hangisi gerçek Shaco? Birine dokun!',
-        step3CloneA: '🎯 Gerçek Shaco!',
-        step3CloneB: '🗡️ Hayır, Gerçek Bu!',
-        ambushTitle: '😱 KORKUTULDUN! (FEARED)',
-        ambushSub: '"Neden bu kadar ciddisin Efe?!"',
-        bdayKicker: '🗡️ ARKADAN VURUŞ (PASİF) %100 KRİTİK VURDU! 🗡️',
-        bdayQuote: '"Bir sonraki numaramda... doğum günü pastanı yok edeceğim! Şaka şaka, yeni yaşın kutlu olsun Efe!"',
-        blowBtnText: '🗡️ E - Çift Zehirli Bıçak Fırlat (Mumları Söndür!)',
+        missionDesc: 'Çalıya gizlenmiş <strong>Soytarı Kutusunu (W)</strong> ve <strong>Halüsinasyon (R)</strong> klonunu etkisiz hale getir.',
+        step1Toast: 'Adım 1: Çalıdaki Soytarı Kutusuna (W) dokun!',
+        step1SpellIdx: 2, // W
+        step2Toast: 'Kandırmaca (Q)! Hedef turuncu dumanla görünmez olup kaçtı, tekrar dokun!',
+        step2SpellIdx: 1, // Q
+        step2Log: '> UYARI: Shaco Q (Kandırmaca) kullandı! Arkana bak Efe...',
+        step3Toast: 'Halüsinasyon (R)! İki Shaco belirdi, gerçek olana dokun!',
+        step3CloneA: 'GERÇEK SHACO',
+        step3CloneB: 'KLON SHACO',
+        ambushTitle: 'ARKADAN VURUŞ & HALÜSİNASYON!',
+        ambushSub: '"Neden bu kadar ciddisin Efe?! Doğum günün kutlu olsun!"',
+        bdayKicker: 'ARKADAN VURUŞ (PASİF) %100 KRİTİK VURDU',
+        bdayQuote: '"Bir sonraki numaramda... doğum günü pastanı yok edeceğim! Şaka şaka, iyi ki doğdun Efe!"',
+        blowBtnText: 'E — ÇİFT ZEHİRLİ BIÇAK FIRLAT (MUMLARI SÖNDÜR)',
         patches: [
-          ['Seviye Atlama (Level Up):', 'Taban Karizma, Akıl Oyunları ve Mutluluk nitelikleri +%100 artırıldı.'],
-          ['Kandırmaca (Q) Güncellemesi:', 'Hayattaki tüm stres ve dertlere karşı Kalıcı Görünmezlik eklendi.'],
-          ['Halüsinasyon (R) Bereketi:', 'Yeni yaşında eğlence ve başarıların klonlanarak ikiye katlanacak!']
+          ['Arkadan Vuruş (Pasif):', 'Yeni yaşında tüm başarıları ve şansı tek hamlede kritik vuruşla alacaksın.'],
+          ['Kandırmaca (Q):', 'Hayattaki tüm stres ve dertlere karşı Kalıcı Görünmezlik eklendi.'],
+          ['Halüsinasyon (R):', 'Yeni yaşında eğlence ve mutluluğun klonlanarak ikiye katlanacak!']
         ],
-        skills: [
-          { key: 'P', icon: '🗡️', name: 'Arkadan Vuruş', color: 'text-amber-300', msg: '"Pasif: Arkadan Vuruş! Doğum günü kutlamasını hiç beklemediğin anda arkadan kritik vuruşla aldın Efe!"' },
-          { key: 'Q', icon: '💨', name: 'Kandırmaca', color: 'text-orange-400', msg: '"Kandırmaca (Q)! Pasta turuncu dumanla görünmez oldu ve mumları yenilenmiş olarak geri döndü!"' },
-          { key: 'W', icon: '🤡', name: 'Soytarı Kutusu', color: 'text-purple-400', msg: '"Soytarı Kutusu (W) kuruldu! Kutu patladı ve etrafa konfetiler saçıldı! Neden bu kadar ciddisin Efe?!"' },
-          { key: 'E', icon: '🔪', name: 'Zehirli Bıçak', color: 'text-red-400', msg: '"Çift Zehirli Bıçak (E) tam on ikiden vurdu! Tüm mumlar söndü, dileğin kabul edildi Efe!"' },
-          { key: 'R', icon: '👯', name: 'Halüsinasyon', color: 'text-emerald-400', msg: '"ULTİ: HALÜSİNASYON (R)! İki kat eğlence, iki kat şans, iki kat mutluluk! İyi ki doğdun Efe!"' }
+        spells: [
+          { key: 'P', name: 'Arkadan Vuruş', img: `${DDRAGON_BASE}/img/passive/Jester_CarefulStrikes.png`, msg: '"Arkadan Vuruş (Pasif): Doğum günü kutlamasını hiç beklemediğin anda kritik vuruşla aldın Efe!"' },
+          { key: 'Q', name: 'Kandırmaca', img: `${DDRAGON_BASE}/img/spell/Deceive.png`, msg: '"Kandırmaca (Q): Pasta turuncu dumanla görünmez oldu ve mumları yenilenmiş olarak geri döndü!"' },
+          { key: 'W', name: 'Soytarı Kutusu', img: `${DDRAGON_BASE}/img/spell/JackInTheBox.png`, msg: '"Soytarı Kutusu (W): Kutu patladı ve etrafa konfetiler saçıldı! Neden bu kadar ciddisin Efe?!"' },
+          { key: 'E', name: 'Çift Zehirli Bıçak', img: `${DDRAGON_BASE}/img/spell/TwoShivPoison.png`, msg: '"Çift Zehirli Bıçak (E): Tam on ikiden vurdu! Tüm mumlar söndü, dileğin kabul edildi Efe!"' },
+          { key: 'R', name: 'Halüsinasyon', img: `${DDRAGON_BASE}/img/spell/HallucinateFull.png`, msg: '"Halüsinasyon (R): Klon patladı! İki kat eğlence, iki kat şans! İyi ki doğdun Efe!"' }
         ]
       },
 
       twitch: {
         id: 'twitch',
+        ddragonId: 'Twitch',
         name: 'Twitch',
         title: 'Veba Getiren',
-        titleShort: 'Veba Getiren',
-        role: 'Nişancı',
-        color: '#22c55e',
+        role: 'Nişancı // Orman',
         smokeScheme: 'green',
-        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
-          <circle cx="18" cy="18" r="8" fill="#14532d" stroke="#4ade80" stroke-width="2.5"/>
-          <circle cx="46" cy="18" r="8" fill="#14532d" stroke="#4ade80" stroke-width="2.5"/>
-          <path d="M18 32 Q32 18 46 32 L40 50 Q32 56 24 50 Z" fill="#166534" stroke="#86efac" stroke-width="2"/>
-          <circle cx="26" cy="34" r="4" fill="#ef4444"/><circle cx="38" cy="34" r="4" fill="#ef4444"/>
-          <circle cx="32" cy="46" r="3" fill="#facc15"/>
-        </svg>`,
-        diag: 'Teşhis: 1. Seviyede Görünmez Gank Atma & Küflü Peynir Koleksiyonculuğu.',
-        metric1: ['Pusu (Q) Süresi', '60 sn Kamuflaj'],
-        metric2: ['R Menzili', '850 Birim (TAM İSABET)'],
-        missionDesc: 'Sihirdar <strong>EFE</strong>, nehir çalısında kamuflajda bekleyen <strong>Twitch</strong> tespit edildi. Raporu açmak için peynir tuzağını ve Twitch\'i yakala!',
-        step1Toast: '🧀 Peynir Tuzağına dokun ve Twitch\'i saklandığı yerden çıkar!',
-        step1Btn: 'Şüpheli Peynir (Q)',
-        step2Toast: '🧪 <span class="text-emerald-400">Pusu (Q)!</span> "Saklanıyordum!" Twitch kamuflaja girip kaçtı, tekrar dokun!',
-        step2Btn: 'Kamuflajdaki Twitch!',
+        diag: 'Sihirdar Teşhisi: 1. Seviyede Görünmez Pusu (Q) Gankı & 850 Menzil Zehir Salvosu.',
+        metric1: ['Pusu (Q) Kamuflaj', 'Maksimum Süre'],
+        metric2: ['Zehir Salvosu (R)', '850 Menzil'],
+        missionDesc: 'Nehirde kamuflajda bekleyen <strong>Twitch</strong>\'i ve <strong>Zehir Şişesini (W)</strong> yakala.',
+        step1Toast: 'Adım 1: Zehir Şişesi (W) tuzağına dokun!',
+        step1SpellIdx: 2,
+        step2Toast: 'Pusu (Q)! "Saklanıyordum!" Twitch kamuflaja girip kaçtı, tekrar dokun!',
+        step2SpellIdx: 1,
         step2Log: '> UYARI: Twitch Q (Pusu) açtı! Kokuyu takip et Efe...',
-        step3Toast: '🛢️ <span class="text-lime-400">Zehir Şişesi (W)!</span> Hangi fıçının arkasında gerçek Twitch var?',
-        step3CloneA: '🐀 Bu Fıçıda!',
-        step3CloneB: '🧀 Hayır, Peynir Burada!',
-        ambushTitle: '🐀 CE-EEE! BEN GELDİM! (PUSU AÇILDI)',
+        step3Toast: 'Zehir Salvosu (R)! Hangi hedef gerçek Twitch? Birine dokun!',
+        step3CloneA: 'GERÇEK TWITCH',
+        step3CloneB: 'GÖLGE HEDEF',
+        ambushTitle: 'ZEHİR SALVOSU (R) — BEN GELDİM!',
         ambushSub: '"Saklanıyordum Efe! Hahaha! Kokmuş peynir değil, doğum günü pastasıymış!"',
-        bdayKicker: '🏹 ZEHİR OKU (R) AÇILDI: 850 MENZİLDEN DOĞUM GÜNÜ KUTLAMASI! 🏹',
+        bdayKicker: 'ZEHİR SALVOSU (R) AÇILDI // 850 MENZİLDEN KUTLAMA',
         bdayQuote: '"Kokmuş peynir mi o?! Hayır, Efe\'nin doğum günü pastasıymış! Bana da bir dilim ayır, iyi ki doğdun!"',
-        blowBtnText: '🧪 E - Bulaştır (6 Yükte Tüm Mumları Patlatarak Söndür!)',
+        blowBtnText: 'E — BULAŞTIR (6 YÜKTE TÜM MUMLARI SÖNDÜR)',
         patches: [
           ['Ölümcül Zehir (Pasif):', 'Yeni yaşında her saniye 6 yük Neşe ve Başarı biriktireceksin.'],
-          ['Pusu (Q) Güncellemesi:', 'Sıkıcı ortamlardan %70 hareket hızıyla görünmez sıvışma yeteneği eklendi.'],
-          ['Zehir Oku (R) Buffı:', 'Hedeflediğin tüm hayaller 850 menzilden delici vuruşla gerçekleşecek!']
+          ['Pusu (Q):', 'Sıkıcı ortamlardan yüksek hareket hızıyla görünmez sıvışma yeteneği eklendi.'],
+          ['Zehir Salvosu (R):', 'Hedeflediğin tüm hayaller 850 menzilden delici vuruşla gerçekleşecek!']
         ],
-        skills: [
-          { key: 'P', icon: '☠️', name: 'Ölümcül Zehir', color: 'text-lime-400', msg: '"Pasif: 6 Yük Doğum Günü Neşesi birikti! Efe şu an durdurulamaz!"' },
-          { key: 'Q', icon: '🐀', name: 'Pusu', color: 'text-emerald-400', msg: '"Pusu (Q): Saklanıyordum Efe! Hahaha! Pasta kamuflajdan taze mumlarla çıktı!"' },
-          { key: 'W', icon: '🧪', name: 'Zehir Şişesi', color: 'text-green-400', msg: '"Zehir Şişesi (W): Yeşil konfeti bulutu patladı! Kimse eğlenceden kaçamaz!"' },
-          { key: 'E', icon: '💥', name: 'Bulaştır', color: 'text-amber-400', msg: '"Bulaştır (E): 6 yük patladı ve pastadaki tüm mumlar tek seferde söndü! İyi ki doğdun Efe!"' },
-          { key: 'R', icon: '🏹', name: 'Zehir Oku', color: 'text-red-400', msg: '"ULTİ: ZEHİR OKU (R)! Ta-ta-ta-ta! Her yere delici doğum günü konfetileri yağdı!"' }
+        spells: [
+          { key: 'P', name: 'Ölümcül Zehir', img: `${DDRAGON_BASE}/img/passive/Twitch_Passive.png`, msg: '"Ölümcül Zehir (Pasif): 6 Yük Doğum Günü Neşesi birikti! Efe şu an durdurulamaz!"' },
+          { key: 'Q', name: 'Pusu', img: `${DDRAGON_BASE}/img/spell/TwitchHideInShadows.png`, msg: '"Pusu (Q): Saklanıyordum Efe! Hahaha! Pasta kamuflajdan taze mumlarla çıktı!"' },
+          { key: 'W', name: 'Zehir Şişesi', img: `${DDRAGON_BASE}/img/spell/TwitchVenomCask.png`, msg: '"Zehir Şişesi (W): Yeşil konfeti bulutu patladı! Kimse eğlenceden kaçamaz!"' },
+          { key: 'E', name: 'Bulaştır', img: `${DDRAGON_BASE}/img/spell/TwitchExpunge.png`, msg: '"Bulaştır (E): 6 yük patladı ve pastadaki tüm mumlar tek seferde söndü! İyi ki doğdun Efe!"' },
+          { key: 'R', name: 'Zehir Salvosu', img: `${DDRAGON_BASE}/img/spell/TwitchFullAutomatic.png`, msg: '"Zehir Salvosu (R): Ta-ta-ta-ta! Her yere delici doğum günü konfetileri yağdı!"' }
         ]
       },
 
       lillia: {
         id: 'lillia',
+        ddragonId: 'Lillia',
         name: 'Lillia',
-        title: 'Çekingen Çiçek',
-        role: 'Ormancı',
-        color: '#f472b6',
+        title: 'Narin Gonca',
+        role: 'Biçici // Orman',
         smokeScheme: 'pink',
-        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
-          <path d="M20 20 Q12 8 24 10" stroke="#f472b6" stroke-width="3" fill="none"/>
-          <path d="M44 20 Q52 8 40 10" stroke="#f472b6" stroke-width="3" fill="none"/>
-          <circle cx="32" cy="14" r="6" fill="#ec4899" stroke="#fbcfe8" stroke-width="2"/>
-          <circle cx="32" cy="34" r="14" fill="#581c87" stroke="#f9a8d4" stroke-width="2"/>
-          <circle cx="26" cy="32" r="3" fill="#38bdf8"/><circle cx="38" cy="32" r="3" fill="#38bdf8"/>
-          <path d="M28 40 Q32 44 36 40" stroke="#fbcfe8" stroke-width="2" fill="none"/>
-        </svg>`,
-        diag: 'Teşhis: 4 Yük Şahlanan Hızla (Q) Haritada 700 Hızla Sekerek Koşma.',
-        metric1: ['Şahlanan Hız', '4/4 Yük (MAKSİMUM)'],
-        metric2: ['Ninni (R) Uyku', '%100 Tatlı Rüya'],
-        missionDesc: 'Sihirdar <strong>EFE</strong>, ormanda 4 yük hızla sekerek kaçan <strong>Lillia</strong> tespit edildi. Raporu açmak için Düş Dalı küresini yakala!',
-        step1Toast: '🌸 Çiçek açan Düş Dalı küresine dokun!',
-        step1Btn: 'Düş Dalı Küresi (Q)',
-        step2Toast: '🦌 <span class="text-pink-400">İiiik! Çok hızlı!</span> Lillia Şahlanan Hız (Q) ile sekerek kaçtı, tekrar dokun!',
-        step2Btn: 'Sekerek Kaçan Lillia!',
-        step2Log: '> UYARI: Lillia 650 hareket hızına ulaştı! Yakala Efe...',
-        step3Toast: '🌰 <span class="text-purple-300">Dönertohum (E)!</span> Hangi rüya tohumu gerçek? Birine dokun!',
-        step3CloneA: '🌸 Pembe Rüya Tohumu!',
-        step3CloneB: '🦌 Parlayan Düş Dalı!',
-        ambushTitle: '💤 UYUŞUK... VE UYUDUN! (NİNNİ - R)',
+        diag: 'Sihirdar Teşhisi: 4 Yük Çiçek Açtıran (Q) Hızıyla Haritada Sekerek Koşma.',
+        metric1: ['Hareket Hızı Yükü', '4 / 4 (MAKSİMUM)'],
+        metric2: ['Mışıl Mışıl (R)', '%100 Tatlı Rüya'],
+        missionDesc: 'Ormanda 4 yük hızla sekerek kaçan <strong>Lillia</strong>\'yı ve <strong>Dönertohumu (E)</strong> yakala.',
+        step1Toast: 'Adım 1: Dikkat Et! İik! (W) hedefine dokun!',
+        step1SpellIdx: 2,
+        step2Toast: 'Çiçek Açtıran (Q)! Lillia 4 yük hızla sekerek kaçtı, tekrar dokun!',
+        step2SpellIdx: 1,
+        step2Log: '> UYARI: Lillia maksimum hareket hızına ulaştı! Yakala Efe...',
+        step3Toast: 'Mışıl Mışıl (R)! Hangi rüya küresi gerçek? Birine dokun!',
+        step3CloneA: 'DÜŞ DALI',
+        step3CloneB: 'DÖNERTOHUM',
+        ambushTitle: 'MIŞIL MIŞIL (R) — RÜYA BAŞLADI!',
         ambushSub: '"İiiik! Korkma Efe, bu gördüğün en güzel doğum günü rüyası!"',
-        bdayKicker: '🌸 SAKİNLEŞTİRİCİ NİNNİ (R): RÜYA GİBİ BİR YENİ YAŞ OLSUN! 🌸',
+        bdayKicker: 'MIŞIL MIŞIL (R) AKTİF // RÜYA GİBİ BİR YENİ YAŞ OLSUN',
         bdayQuote: '"İiiik! Ayaklarıma dolanıp pastayı düşürecektim az kalsın! İyi ki doğdun Efe, tüm hayallerin çiçek açsın!"',
-        blowBtnText: '🌰 E - Dönertohum Yuvarla (Mumları Söndür & Dilek Tut!)',
+        blowBtnText: 'E — DÖNERTOHUM YUVARLA (MUMLARI SÖNDÜR)',
         patches: [
-          ['Şahlanan Hız (Q):', 'Yeni yaşında hedeflerine 4 yük maksimum hızla koşacaksın!'],
           ['Düş Dalı (Pasif):', 'Kurduğun tüm hayaller gerçeğe dönüşmek üzere güçlendirildi.'],
-          ['Sakinleştirici Ninni (R):', 'Uykusuzluk ve yorgunluk kaldırıldı, her gün enerjik uyanacaksın!']
+          ['Çiçek Açtıran (Q):', 'Yeni yaşında hedeflerine 4 yük maksimum hızla koşacaksın!'],
+          ['Mışıl Mışıl (R):', 'Uykusuzluk ve yorgunluk kaldırıldı, her gün enerjik uyanacaksın!']
         ],
-        skills: [
-          { key: 'P', icon: '🌿', name: 'Düş Dalı', color: 'text-pink-300', msg: '"Pasif: Düş Dalı! Pastanın etrafına büyülü rüya tozları saçıldı Efe!"' },
-          { key: 'Q', icon: '🌸', name: 'Çiçek Darbesi', color: 'text-pink-400', msg: '"Çiçek Açan Darbeler (Q): Hop! Sekerek döndü ve pastadaki mumları tekrar yaktı!"' },
-          { key: 'W', icon: '🦌', name: 'Dikkat Et! İik!', color: 'text-fuchsia-400', msg: '"Dikkat Et! İik! (W): Tam pastanın ortasına dev eğlence darbesi indi!"' },
-          { key: 'E', icon: '🌰', name: 'Dönertohum', color: 'text-purple-300', msg: '"Dönertohum (E): Bowling gibi yuvarlandı ve tüm mumları tek seferde söndürdü! İyi ki doğdun Efe!"' },
-          { key: 'R', icon: '💤', name: 'Ninni (Ulti)', color: 'text-sky-300', msg: '"ULTİ: SAKİNLEŞTİRİCİ NİNNİ (R)! Her yer pembe-mavi rüya konfetileriyle doldu!"' }
+        spells: [
+          { key: 'P', name: 'Düş Dalı', img: `${DDRAGON_BASE}/img/passive/Lillia_Icon_Passive.png`, msg: '"Düş Dalı (Pasif): Pastanın etrafına büyülü rüya tozları saçıldı Efe!"' },
+          { key: 'Q', name: 'Çiçek Açtıran', img: `${DDRAGON_BASE}/img/spell/LilliaQ.png`, msg: '"Çiçek Açtıran (Q): Sekerek döndü ve pastadaki mumları tekrar yaktı!"' },
+          { key: 'W', name: 'Dikkat Et! İik!', img: `${DDRAGON_BASE}/img/spell/LilliaW.png`, msg: '"Dikkat Et! İik! (W): Tam pastanın ortasına dev eğlence darbesi indi!"' },
+          { key: 'E', name: 'Dönertohum', img: `${DDRAGON_BASE}/img/spell/LilliaE.png`, msg: '"Dönertohum (E): Yuvarlandı ve tüm mumları tek seferde söndürdü! İyi ki doğdun Efe!"' },
+          { key: 'R', name: 'Mışıl Mışıl', img: `${DDRAGON_BASE}/img/spell/LilliaR.png`, msg: '"Mışıl Mışıl (R): Her yer pembe-mavi rüya konfetileriyle doldu!"' }
         ]
       },
 
       nocturne: {
         id: 'nocturne',
+        ddragonId: 'Nocturne',
         name: 'Nocturne',
         title: 'Ebedi Kâbus',
-        role: 'Suikastçı',
-        color: '#ef4444',
+        role: 'Suikastçı // Orman',
         smokeScheme: 'dark',
-        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
-          <path d="M12 18 L32 8 L52 18 L46 48 L32 56 L18 48 Z" fill="#0f172a" stroke="#ef4444" stroke-width="2.5"/>
-          <polygon points="18,28 29,32 20,36" fill="#ef4444"/>
-          <polygon points="46,28 35,32 44,36" fill="#ef4444"/>
-          <path d="M10 42 Q32 28 54 42" stroke="#7f1d1d" stroke-width="3" fill="none"/>
-        </svg>`,
-        diag: 'Teşhis: 6. Seviye Olur Olmaz Işıkları Kapatıp Haritayı Karartma.',
+        diag: 'Sihirdar Teşhisi: 6. Seviyede Paranoya (R) ile Tüm Haritanın Işıklarını Kapatma.',
         metric1: ['Paranoya (R)', 'Küresel Karartma'],
-        metric2: ['Büyü Kalkanı (W)', 'Refleks Tam Blok'],
-        missionDesc: 'Sihirdar <strong>EFE</strong>, haritada <em>Alacakaranlık İzi (Q)</em> bırakan <strong>Nocturne</strong> gölgesi tespit edildi. Raporu açmak için gölge çekirdeğini yakala!',
-        step1Toast: '🌑 Alacakaranlık Gölgesine dokun ve karanlığı dağıt!',
-        step1Btn: 'Alacakaranlık İzi (Q)',
-        step2Toast: '🛡️ <span class="text-sky-400">Karanlık Örtüsü (W)!</span> Nocturne dokunuşunu büyü kalkanıyla blokladı ve kaçtı! Tekrar dokun!',
-        step2Btn: 'Kalkanı Kır (W)!',
+        metric2: ['Karanlık Örtüsü (W)', 'Büyü Kalkanı Aktif'],
+        missionDesc: 'Haritada <strong>Karanlığın Eli (Q)</strong> izi bırakan <strong>Nocturne</strong> gölgesini yakala.',
+        step1Toast: 'Adım 1: Karanlığın Eli (Q) gölgesine dokun!',
+        step1SpellIdx: 1,
+        step2Toast: 'Karanlık Örtüsü (W)! Nocturne dokunuşunu büyü kalkanıyla blokladı! Kalkanı kır!',
+        step2SpellIdx: 2,
         step2Log: '> UYARI: Nocturne W (Karanlık Örtüsü) ile tıklamanı blokladı!',
-        step3Toast: '🌑 <span class="text-red-500">Paranoya Gölgesi!</span> Hangi gölge gerçek Nocturne? Birine dokun!',
-        step3CloneA: '🌑 Sol Gölge!',
-        step3CloneB: '🩸 Sağ Kâbus!',
-        ambushTitle: '🌑 KARANLIKLAR... (PARANOYA - R)',
+        step3Toast: 'Paranoya (R)! Hangi gölge gerçek Nocturne? Birine dokun!',
+        step3CloneA: 'KARANLIK GÖLGE',
+        step3CloneB: 'EBEDİ KÂBUS',
+        ambushTitle: 'PARANOYA (R) — KARANLIKLAR!',
         ambushSub: '"Işıklar söndü Efe... Çünkü doğum günü pastanın mumları parlasın diye!"',
-        bdayKicker: '🌑 PARANOYA (R): TÜM HARİTA KARARDI, SADECE PASTADAKİ MUMLAR PARLIYOR! 🌑',
+        bdayKicker: 'PARANOYA (R) AKTİF // KARANLIKTA PARLAYAN DOĞUM GÜNÜ PASTASI',
         bdayQuote: '"Karanlıktan korkma Efe... Çünkü karanlıkta doğum günü pastasının mumları çok daha havalı görünüyor! İyi ki doğdun!"',
-        blowBtnText: '🌑 Q - Alacakaranlıkgetiren Fırlat (Mumları Söndür!)',
+        blowBtnText: 'E — TARİFSİZ DEHŞET (MUMLARI SÖNDÜR)',
         patches: [
-          ['Paranoya (R) Güncellemesi:', 'Yeni yaşında istediğin her hedefe küresel menzilden tek tıkla uçacaksın!'],
+          ['Umbra Bıçakları (Pasif):', 'Pastayı tek darbede bütün arkadaşlarına eşit dilimleme özelliği aktif!'],
           ['Karanlık Örtüsü (W):', 'Hayattaki tüm negatif enerjileri bloklayan kalıcı Büyü Kalkanı eklendi.'],
-          ['Umbra Bıçakları (Pasif):', 'Pastayı tek darbede bütün arkadaşlarına eşit dilimleme özelliği aktif!']
+          ['Paranoya (R):', 'Yeni yaşında istediğin her hedefe küresel menzilden tek tıkla uçacaksın!']
         ],
-        skills: [
-          { key: 'P', icon: '⚔️', name: 'Umbra Bıçakları', color: 'text-red-400', msg: '"Pasif: Umbra Bıçakları! Dairesel darbeyle doğum günü pastası kusursuz dilimlendi Efe!"' },
-          { key: 'Q', icon: '🌑', name: 'Alacakaranlık', color: 'text-purple-400', msg: '"Alacakaranlıkgetiren (Q): Karanlık izinden yürüdün ve mumlar tekrar alevlendi!"' },
-          { key: 'W', icon: '🛡️', name: 'Karanlık Örtüsü', color: 'text-sky-400', msg: '"Karanlık Örtüsü (W): Büyü kalkanı aktif! Yeni yaşında hiçbir dert sana işlemez Efe!"' },
-          { key: 'E', icon: '⛓️', name: 'Korku Zinciri', color: 'text-amber-400', msg: '"Tarif Edilemez Korku (E): Mumlar korkudan kendi kendine söndü! Dileğin kabul edildi Efe!"' },
-          { key: 'R', icon: '👁️', name: 'Paranoya (Ulti)', color: 'text-rose-500', msg: '"ULTİ: KARANLIKLAR! Işıklar kapandı ve gökyüzünde doğum günü havai fişekleri patladı!"' }
+        spells: [
+          { key: 'P', name: 'Umbra Bıçakları', img: `${DDRAGON_BASE}/img/passive/Nocturne_UmbraBlades.png`, msg: '"Umbra Bıçakları (Pasif): Dairesel darbeyle doğum günü pastası kusursuz dilimlendi Efe!"' },
+          { key: 'Q', name: 'Karanlığın Eli', img: `${DDRAGON_BASE}/img/spell/NocturneDuskbringer.png`, msg: '"Karanlığın Eli (Q): Alacakaranlık izinden yürüdün ve mumlar tekrar alevlendi!"' },
+          { key: 'W', name: 'Karanlık Örtüsü', img: `${DDRAGON_BASE}/img/spell/NocturneShroudofDarkness.png`, msg: '"Karanlık Örtüsü (W): Büyü kalkanı aktif! Yeni yaşında hiçbir dert sana işlemez Efe!"' },
+          { key: 'E', name: 'Tarifsiz Dehşet', img: `${DDRAGON_BASE}/img/spell/NocturneUnspeakableHorror.png`, msg: '"Tarifsiz Dehşet (E): Mumlar korkudan kendi kendine söndü! Dileğin kabul edildi Efe!"' },
+          { key: 'R', name: 'Paranoya', img: `${DDRAGON_BASE}/img/spell/NocturneParanoia.png`, msg: '"Paranoya (R): KARANLIKLAR! Işıklar kapandı ve gökyüzünde havai fişekler patladı!"' }
         ]
       },
 
       nunu: {
         id: 'nunu',
+        ddragonId: 'Nunu',
         name: 'Nunu ve Willump',
-        title: 'Çocuk ve Yeti',
-        role: 'Ormancı',
-        color: '#38bdf8',
+        title: 'Ayrılmaz İkili',
+        role: 'Tank // Orman',
         smokeScheme: 'ice',
-        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
-          <circle cx="32" cy="34" r="18" fill="#0284c7" stroke="#bae6fd" stroke-width="2.5"/>
-          <path d="M14 24 C8 12 20 8 24 18" stroke="#f8fafc" stroke-width="4" stroke-linecap="round"/>
-          <path d="M50 24 C56 12 44 8 40 18" stroke="#f8fafc" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="25" cy="32" r="3.5" fill="#facc15"/><circle cx="39" cy="32" r="3.5" fill="#facc15"/>
-          <path d="M24 42 Q32 48 40 42" stroke="#f8fafc" stroke-width="3" fill="none" stroke-linecap="round"/>
-        </svg>`,
-        diag: 'Teşhis: Nehirde Yampiri Yengeç Hızıyla Dev Kar Topu (W) Drift Uzmanı.',
-        metric1: ['Kar Topu Boyutu', 'MAKSİMUM DEVASA'],
-        metric2: ['Çalıda R (Mutlak Sıfır)', '3000 Kalkan + Patlama'],
-        missionDesc: 'Sihirdar <strong>EFE</strong>, nehirde hızla büyüyerek gelen <strong>Nunu ve Willump Kar Topu (W)</strong> tespit edildi. Çarpmadan önce kar topunu durdur!',
-        step1Toast: '⛄ Yuvarlanan Kar Topuna (W) dokun ve durdur!',
-        step1Btn: 'Büyüyen Kar Topu (W)',
-        step2Toast: '❄️ <span class="text-sky-300">Yampiri Hızı Aldı!</span> Kar topu drift atarak büyüdü ve kaçtı, tekrar dokun!',
-        step2Btn: 'Devasa Kar Topu (W)!',
+        diag: 'Sihirdar Teşhisi: Nehirde Yampiri Hızıyla Büsbüyük Kartopu (W) Drift Uzmanı.',
+        metric1: ['Kartopu Boyutu', 'MAKSİMUM DEVASA'],
+        metric2: ['Mutlak Sıfır (R)', 'Tam Şarj Patlama'],
+        missionDesc: 'Nehirde hızla büyüyerek gelen <strong>Büsbüyük Kartopu (W)</strong> çarpmadan önce durdur.',
+        step1Toast: 'Adım 1: Büsbüyük Kartopuna (W) dokun ve durdur!',
+        step1SpellIdx: 2,
+        step2Toast: 'Kartopu Yağmuru (E)! Willump drift atarak hızlandı, tekrar dokun!',
+        step2SpellIdx: 3,
         step2Log: '> UYARI: Nunu ve Willump W ile drift atıyor! Çarpmasına 1 saniye...',
-        step3Toast: '🌨️ <span class="text-cyan-300">Çalıda Mutlak Sıfır (R)!</span> Hangi çalıda Willump bekliyor? Birine dokun!',
-        step3CloneA: '❄️ Sol Buz Çalısı!',
-        step3CloneB: '⛄ Sağ Kar Çalısı!',
-        ambushTitle: '❄️ MUTLAK SIFIR! (R - FULL ŞARJ PATLADI!)',
-        ambushSub: '"Çalıda görünmez Nunu ultisi vardı Efe! BOOOOM!"',
-        bdayKicker: '⛄ ŞİMDİYE KADARKİ EN BÜYÜK DOĞUM GÜNÜ PARTİSİ! (W + R KOMBO) ⛄',
+        step3Toast: 'Mutlak Sıfır (R)! Hangi çalıda Willump ulti şarjlıyor? Birine dokun!',
+        step3CloneA: 'SOL BUZ ÇALISI',
+        step3CloneB: 'SAĞ KAR ÇALISI',
+        ambushTitle: 'MUTLAK SIFIR (R) — TAM ŞARJ PATLADI!',
+        ambushSub: '"Çalıda görünmez Nunu ve Willump ultisi vardı Efe! İyi ki doğdun!"',
+        bdayKicker: 'BÜSBÜYÜK KARTOPU (W) + MUTLAK SIFIR (R) KOMBO KUTLAMA',
         bdayQuote: '"Willump diyor ki: \'Grrr-rawr!\' (Türkçesi: İyi ki doğdun Efe, pastayı tek ısırıkta Tüket (Q) yapmaya geldik!)"',
-        blowBtnText: '❄️ E - Kar Topu Yaylım Ateşi (Mumları Söndür!)',
+        blowBtnText: 'E — KARTOPU YAĞMURU (MUMLARI SÖNDÜR)',
         patches: [
-          ['En Büyük Kar Topu (W):', 'Yeni yaşında mutluluğun yuvarlanan kar topu gibi katlanarak büyüyecek!'],
-          ['Tüket (Q) Güncellemesi:', 'Doğum günü pastasına karşı +999 Gerçek Lezzet Hasarı eklendi.'],
-          ['Freljord Çağrısı (Pasif):', 'Dostlarınla girdiğin her ortamda +%50 Neşe ve Hareket Hızı kazanacaksın!']
+          ['Freljord\'un Çağrısı (Pasif):', 'Dostlarınla girdiğin her ortamda +%50 Neşe ve Hareket Hızı kazanacaksın!'],
+          ['Büsbüyük Kartopu (W):', 'Yeni yaşında mutluluğun yuvarlanan kartopu gibi katlanarak büyüyecek!'],
+          ['Mutlak Sıfır (R):', 'Etrafındaki tüm stresi dondurup devasa bir zafer kalkanı kazanacaksın!']
         ],
-        skills: [
-          { key: 'P', icon: '🎺', name: 'Freljord Çağrısı', color: 'text-sky-300', msg: '"Pasif: Freljord Çağrısı! Nunu flütünü çaldı, Willump dans ediyor! İyi ki doğdun Efe!"' },
-          { key: 'Q', icon: '🍖', name: 'Tüket', color: 'text-amber-300', msg: '"Tüket (Q): HAM! Willump pastadan gizlice bir dilim ısırdı ama mumları yeniledi!"' },
-          { key: 'W', icon: '⛄', name: 'Dev Kar Topu', color: 'text-cyan-300', msg: '"Şimdiye Kadarki En Büyük Kar Topu (W)! Sahneye kar konfetileriyle daldı!"' },
-          { key: 'E', icon: '❄️', name: 'Kar Yaylımı', color: 'text-blue-300', msg: '"Kar Topu Yaylım Ateşi (E): Pıt-pıt-pıt! 3 kar topuyla tüm mumlar tam isabet söndü Efe!"' },
-          { key: 'R', icon: '🌨️', name: 'Mutlak Sıfır', color: 'text-indigo-300', msg: '"ULTİ: MUTLAK SIFIR (R)! 3 saniye şarjlandı ve MİLYONLARCA KONFETİ PATLADI!"' }
+        spells: [
+          { key: 'P', name: 'Freljord\'un Çağrısı', img: `${DDRAGON_BASE}/img/passive/NunuPassive.png`, msg: '"Freljord\'un Çağrısı (Pasif): Nunu flütünü çaldı, Willump dans ediyor! İyi ki doğdun Efe!"' },
+          { key: 'Q', name: 'Tüket', img: `${DDRAGON_BASE}/img/spell/NunuQ.png`, msg: '"Tüket (Q): HAM! Willump pastadan gizlice bir dilim ısırdı ama mumları yeniledi!"' },
+          { key: 'W', name: 'Büsbüyük Kartopu', img: `${DDRAGON_BASE}/img/spell/NunuW.png`, msg: '"Büsbüyük Kartopu (W): Sahneye devasa kar konfetileriyle daldı!"' },
+          { key: 'E', name: 'Kartopu Yağmuru', img: `${DDRAGON_BASE}/img/spell/NunuE.png`, msg: '"Kartopu Yağmuru (E): 3 kartopuyla tüm mumlar tam isabet söndü Efe!"' },
+          { key: 'R', name: 'Mutlak Sıfır', img: `${DDRAGON_BASE}/img/spell/NunuR.png`, msg: '"Mutlak Sıfır (R): 3 saniye şarjlandı ve MİLYONLARCA KONFETİ PATLADI!"' }
         ]
       },
 
       seraphine: {
         id: 'seraphine',
+        ddragonId: 'Seraphine',
         name: 'Seraphine',
-        title: 'Yıldızların Şarkıcısı',
-        role: 'Büyücü / Destek',
-        color: '#ec4899',
+        title: 'Yükselen Yıldız',
+        role: 'Büyücü // Destek',
         smokeScheme: 'pink',
-        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
-          <path d="M16 36 C12 16 52 16 48 36" fill="#db2777" stroke="#fbcfe8" stroke-width="2"/>
-          <circle cx="32" cy="34" r="12" fill="#fce7f3" stroke="#f472b6" stroke-width="2"/>
-          <polygon points="32,10 35,17 42,17 36,21 38,28 32,24 26,28 28,21 22,17 29,17" fill="#facc15"/>
-          <circle cx="28" cy="34" r="2" fill="#831843"/><circle cx="36" cy="34" r="2" fill="#831843"/>
-          <path d="M28 40 Q32 44 36 40" stroke="#db2777" stroke-width="2" fill="none"/>
-        </svg>`,
-        diag: 'Teşhis: 5 Kişilik Bis (R - Encore) Ultisiyle Takım Savaşı Taşıma Uzmanı.',
-        metric1: ['Sahne Tozu (Pasif)', 'Maksimum Nota'],
+        diag: 'Sihirdar Teşhisi: 5 Kişilik Bis (R) Ultisiyle Takım Savaşı Taşıma Uzmanı.',
+        metric1: ['Sahne Tozu (Pasif)', 'Çifte Yankı Aktif'],
         metric2: ['Bis (R) Menzili', '5 Kişilik İsabet'],
-        missionDesc: 'Sihirdar <strong>EFE</strong>, Piltover sahnesinde <em>Yankı (Pasif)</em> yükü biriktiren <strong>Seraphine</strong> ses dalgası tespit edildi. Raporu açmak için sahne mikrofonunu yakala!',
-        step1Toast: '🎤 Hextech Sahne Mikrofonuna dokun ve ses kontrolünü başlat!',
-        step1Btn: 'Hextech Mikrofonu (P)',
-        step2Toast: '🎶 <span class="text-pink-400">Çevrelenmiş Ses (W)!</span> Çifte nota kalkanı açıldı ve sahne kaydı, tekrar dokun!',
-        step2Btn: 'Yüksek Nota (Q)!',
-        step2Log: '> UYARI: Seraphine Pasif Yankı yükünü doldurdu! Büyük final geliyor...',
-        step3Toast: '🎵 <span class="text-fuchsia-300">Sıkı Ritim (E)!</span> Hangi sahne spotu gerçek? Birine dokun!',
-        step3CloneA: '🎤 Sol Sahne Işığı!',
-        step3CloneB: '✨ Sağ VIP Sahnesi!',
-        ambushTitle: '🎤 BİS! (R - 5 KİŞİLİK ENCORE TUTTU!)',
+        missionDesc: 'Piltover sahnesinde <strong>Sahne Tozu (Pasif)</strong> yankısı biriktiren ses dalgasını yakala.',
+        step1Toast: 'Adım 1: Yüksek Perde (Q) ses dalgasına dokun!',
+        step1SpellIdx: 1,
+        step2Toast: 'Saran Ses (W)! Çifte nota kalkanı açıldı ve sahne kaydı, tekrar dokun!',
+        step2SpellIdx: 2,
+        step2Log: '> UYARI: Seraphine Pasif Yankı yükünü doldurdu! Bis (R) geliyor...',
+        step3Toast: 'Bis (R)! Hangi sahne spotu gerçek konseri başlatıyor? Birine dokun!',
+        step3CloneA: 'ANA SAHNE IŞIĞI',
+        step3CloneB: 'VIP KONSER ALANI',
+        ambushTitle: 'BİS (R) — 5 KİŞİLİK ULTİ TUTTU!',
         ambushSub: '"Herkes büyülenerek sahneye yürüyor... Çünkü bugün Efe\'nin doğum günü!"',
-        bdayKicker: '✨ BİS (R) 5 KİŞİYE TUTTU: SAHNE SENİN, İYİ Kİ DOĞDUN EFE! ✨',
+        bdayKicker: 'BİS (R) 5 KİŞİYE İSABET ETTİ // SAHNE SENİN EFE',
         bdayQuote: '"Ses kontrol 1-2-3... Bu doğum günü şarkısı sadece senin için Efe! Yeni yaşında kendi ritmini çalmaya devam et!"',
-        blowBtnText: '🎵 E - Sıkı Ritim Ses Dalgası (Mumları Söndür!)',
+        blowBtnText: 'E — SERT RİTİM SES DALGASI (MUMLARI SÖNDÜR)',
         patches: [
           ['Sahne Tozu (Pasif):', 'Yeni yaşında girdiğin her ortamda tüm spot ışıkları senin üzerinde olacak!'],
-          ['Çevrelenmiş Ses (W):', 'Sen ve tüm sevdiklerin yıl boyunca maksimum neşe kalkanı ve hız kazanacak.'],
-          ['Bis / Encore (R):', 'Mutluluk menzilin her dostuna değdiğinde uzayarak sonsuza kadar sürecek!']
+          ['Saran Ses (W):', 'Sen ve tüm sevdiklerin yıl boyunca maksimum neşe kalkanı ve hız kazanacak.'],
+          ['Bis (R):', 'Mutluluk menzilin her dostuna değdiğinde uzayarak sonsuza kadar sürecek!']
         ],
-        skills: [
-          { key: 'P', icon: '🎶', name: 'Sahne Tozu', color: 'text-pink-300', msg: '"Pasif: Sahne Tozu! Çifte yetenek yankısı aktif, her yer müzik notalarıyla doldu Efe!"' },
-          { key: 'Q', icon: '🎵', name: 'Yüksek Nota', color: 'text-fuchsia-400', msg: '"Yüksek Nota (Q): Akustik dalga yayıldı ve pastadaki mumları tekrar parlattı!"' },
-          { key: 'W', icon: '💖', name: 'Çevrelenmiş Ses', color: 'text-rose-300', msg: '"Çevrelenmiş Ses (W): Herkese kalkan ve tam can! Parti enerjisi tavan yaptı!"' },
-          { key: 'E', icon: '🔊', name: 'Sıkı Ritim', color: 'text-purple-300', msg: '"Sıkı Ritim (E): Bass dalgası tüm mumları tek seferde üfleyip söndürdü! İyi ki doğdun Efe!"' },
-          { key: 'R', icon: '🎤', name: 'Bis (Encore)', color: 'text-amber-300', msg: '"ULTİ: BİS (R)! Aaa-aaa-aa! 5 kişilik konser konfetisi patladı, sahne senin Efe!"' }
+        spells: [
+          { key: 'P', name: 'Sahne Tozu', img: `${DDRAGON_BASE}/img/passive/Seraphine_Passive.png`, msg: '"Sahne Tozu (Pasif): Çifte yetenek yankısı aktif, her yer müzik notalarıyla doldu Efe!"' },
+          { key: 'Q', name: 'Yüksek Perde', img: `${DDRAGON_BASE}/img/spell/SeraphineQ.png`, msg: '"Yüksek Perde (Q): Akustik dalga yayıldı ve pastadaki mumları tekrar parlattı!"' },
+          { key: 'W', name: 'Saran Ses', img: `${DDRAGON_BASE}/img/spell/SeraphineW.png`, msg: '"Saran Ses (W): Herkese kalkan ve tam can! Parti enerjisi tavan yaptı!"' },
+          { key: 'E', name: 'Sert Ritim', img: `${DDRAGON_BASE}/img/spell/SeraphineE.png`, msg: '"Sert Ritim (E): Ses dalgası tüm mumları tek seferde üfleyip söndürdü! İyi ki doğdun Efe!"' },
+          { key: 'R', name: 'Bis', img: `${DDRAGON_BASE}/img/spell/SeraphineR.png`, msg: '"Bis (R): 5 kişilik konser konfetisi patladı, sahne senin Efe!"' }
         ]
       },
 
       morgana: {
         id: 'morgana',
+        ddragonId: 'Morgana',
         name: 'Morgana',
-        title: 'Düşmüş Melek',
-        role: 'Büyücü / Destek',
-        color: '#9333ea',
+        title: 'Istırabın Kanatları',
+        role: 'Büyücü // Destek',
         smokeScheme: 'purple',
-        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
-          <path d="M8 22 Q18 10 26 28" stroke="#7e22ce" stroke-width="5" stroke-linecap="round"/>
-          <path d="M56 22 Q46 10 38 28" stroke="#7e22ce" stroke-width="5" stroke-linecap="round"/>
-          <circle cx="32" cy="34" r="12" fill="#3b0764" stroke="#d8b4fe" stroke-width="2"/>
-          <polygon points="24,32 30,34 25,37" fill="#facc15"/><polygon points="40,32 34,34 39,37" fill="#facc15"/>
-          <path d="M24 20 L32 14 L40 20" stroke="#facc15" stroke-width="2.5" fill="none"/>
-        </svg>`,
-        diag: 'Teşhis: Tek Q (Karanlık Esaret) ile Rakibi 3 Yıl Yerine Mıhlayıp AFK Bırakma.',
-        metric1: ['Q Mıhlama Süresi', '3 Yıl (AFK Uyarı Garantili)'],
-        metric2: ['Kara Kalkan (E)', '%100 Kitle Kontrol İptali'],
-        missionDesc: 'Sihirdar <strong>EFE</strong>, koridorda <em>Zulüm Gölgesi (W)</em> ve <em>Kara Kalkan (E)</em> açmış <strong>Morgana</strong> tespit edildi. Raporu açmak için mühre dokun!',
-        step1Toast: '⛓️ Zulüm Gölgesi (W) mührüne dokun ve büyüyü boz!',
-        step1Btn: 'Zulüm Gölgesi (W)',
-        step2Toast: '🛡️ <span class="text-purple-300">Kara Kalkan (E)!</span> "Kitle kontrol engellendi!" Morgana kalkan basıp kaçtı, tekrar dokun!',
-        step2Btn: 'Kara Kalkanı Kır (E)!',
+        diag: 'Sihirdar Teşhisi: Tek Karanlık Esaret (Q) ile Rakibi 3 Yıl Yerine Mıhlama Uzmanı.',
+        metric1: ['Karanlık Esaret (Q)', '3 Yıl Mıhlama'],
+        metric2: ['Kara Kalkan (E)', '%100 KK Engelleme'],
+        missionDesc: 'Koridorda <strong>Zulüm Gölgesi (W)</strong> ve <strong>Kara Kalkan (E)</strong> açmış mührü boz.',
+        step1Toast: 'Adım 1: Zulüm Gölgesi (W) mührüne dokun!',
+        step1SpellIdx: 2,
+        step2Toast: 'Kara Kalkan (E)! "Kitle kontrol engellendi!" Kalkanı kırmak için tekrar dokun!',
+        step2SpellIdx: 3,
         step2Log: '> UYARI: Morgana E (Kara Kalkan) bastı! Şimdi Q hazırlıyor, dikkat et Efe...',
-        step3Toast: '⛓️ <span class="text-fuchsia-400">Ruh Prangası (R)!</span> Hangi pranga zincirini kıracaksın? Birine dokun!',
-        step3CloneA: '⛓️ Sol Ruh Zinciri!',
-        step3CloneB: '🪽 Sağ Melek Mührü!',
-        ambushTitle: '⛓️ KARANLIK ESARET (Q) TUTTU!',
-        ambushSub: '"3 YIL YERİNE MIHLANDIN EFE! Çünkü doğum günü pastanın başından kalkamazsın!"',
-        bdayKicker: '⛓️ KARANLIK ESARET (Q) TAM İSABET: DOĞUM GÜNÜ EĞLENCESİNE MIHLANDIN! ⛓️',
+        step3Toast: 'Ruh Prangası (R)! Hangi pranga zincirini çözeceksin? Birine dokun!',
+        step3CloneA: 'SOL RUH ZİNCİRİ',
+        step3CloneB: 'SAĞ PRANGA MÜHRÜ',
+        ambushTitle: 'KARANLIK ESARET (Q) İSABET ETTİ!',
+        ambushSub: '"3 YIL YERİNE MIHLANDIN EFE! Doğum günü pastanın başından kalkamazsın!"',
+        bdayKicker: 'KARANLIK ESARET (Q) TAM İSABET // EĞLENCEYE MIHLANDIN',
         bdayQuote: '"Kanatlarım bağlı olabilir ama senin yeni yaşın özgürce uçsun Efe! Kara Kalkanım (E) bütün yıl seni tüm dertlerden koruyacak!"',
-        blowBtnText: '⛓️ Q - Karanlık Esaret Fırlat (Mumları Mıhla & Söndür!)',
+        blowBtnText: 'E — KARA KALKAN PATLAT (MUMLARI SÖNDÜR)',
         patches: [
           ['Karanlık Esaret (Q):', 'Yeni yaşında tüm şans ve başarılar sana 3 yıl boyunca mıhlanacak!'],
-          ['Kara Kalkan (E) Güncellemesi:', 'Bütün yıl boyunca stres, sınav/iş yorgunluğu ve negatifliğe karşı %100 dokunulmazlık!'],
+          ['Kara Kalkan (E):', 'Bütün yıl boyunca stres ve negatifliğe karşı %100 dokunulmazlık!'],
           ['Ruh Prangası (R):', 'En sevdiğin dostlarınla bağların kırılmaz altın zincirlerle güçlendirildi!']
         ],
-        skills: [
-          { key: 'P', icon: '🟣', name: 'Ruh Sömürüsü', color: 'text-purple-300', msg: '"Pasif: Ruh Sömürüsü! Pastanın etrafında mor melek tüyleri ve enerji halkası oluştu Efe!"' },
-          { key: 'Q', icon: '⛓️', name: 'Karanlık Esaret', color: 'text-fuchsia-400', msg: '"Karanlık Esaret (Q): 3 saniye (yani 3 yıl) mutluluğa mıhlandın ve mumlar tekrar yandı!"' },
-          { key: 'W', icon: '🔮', name: 'Zulüm Gölgesi', color: 'text-violet-400', msg: '"Zulüm Gölgesi (W): Pastanın altında büyülü kutlama havuzu fokurduyor!"' },
-          { key: 'E', icon: '🛡️', name: 'Kara Kalkan', color: 'text-indigo-300', msg: '"Kara Kalkan (E): Kalkan patladı ve rüzgarıyla tüm mumları tek seferde söndürdü! İyi ki doğdun Efe!"' },
-          { key: 'R', icon: '🪽', name: 'Ruh Prangası', color: 'text-amber-300', msg: '"ULTİ: RUH PRANGASI (R)! Kanatlar açıldı ve her yerde mor-altın konfetiler patladı!"' }
+        spells: [
+          { key: 'P', name: 'Ruh Sömürüsü', img: `${DDRAGON_BASE}/img/passive/FallenAngel_Empathize.png`, msg: '"Ruh Sömürüsü (Pasif): Pastanın etrafında mor melek tüyleri ve enerji halkası oluştu Efe!"' },
+          { key: 'Q', name: 'Karanlık Esaret', img: `${DDRAGON_BASE}/img/spell/MorganaQ.png`, msg: '"Karanlık Esaret (Q): 3 saniye mutluluğa mıhlandın ve mumlar tekrar yandı!"' },
+          { key: 'W', name: 'Zulüm Gölgesi', img: `${DDRAGON_BASE}/img/spell/MorganaW.png`, msg: '"Zulüm Gölgesi (W): Pastanın altında büyülü kutlama havuzu fokurduyor!"' },
+          { key: 'E', name: 'Kara Kalkan', img: `${DDRAGON_BASE}/img/spell/MorganaE.png`, msg: '"Kara Kalkan (E): Kalkan patladı ve rüzgarıyla tüm mumları tek seferde söndürdü! İyi ki doğdun Efe!"' },
+          { key: 'R', name: 'Ruh Prangası', img: `${DDRAGON_BASE}/img/spell/MorganaR.png`, msg: '"Ruh Prangası (R): Kanatlar açıldı ve her yerde mor-altın konfetiler patladı!"' }
         ]
       }
     };
 
     const CHAMP_ORDER = ['shaco', 'twitch', 'lillia', 'nocturne', 'nunu', 'seraphine', 'morgana'];
     let currentChampId = 'shaco';
+    let bannedChampId = null;
+    let draftPhase = 'BAN'; // 'BAN' or 'PICK'
     let disguiseStep = 1;
     let candlesLit = [true, true, true];
+    let timerInterval = null;
+    let timerSeconds = 28;
 
     // =====================================================
-    // WEB AUDIO SYNTHESIZER
+    // MOBILE-FIRST HTML5 AUDIO ENGINE (iOS & Android Safe)
     // =====================================================
-    let audioCtx = null;
     let soundEnabled = true;
+    const sfxPlayer = document.getElementById('sfx-player');
+    const voPlayer = document.getElementById('vo-player');
+    const bgmPlayer = document.getElementById('bgm-player');
 
-    function initAudio() {
-      if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (AudioContext) audioCtx = new AudioContext();
-      }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+    function enableMobileAudioSession() {
+      try {
+        if (navigator.audioSession) {
+          navigator.audioSession.type = 'playback';
+        }
+      } catch (e) {}
+    }
+
+    function playSfx(file) {
+      if (!soundEnabled) return;
+      enableMobileAudioSession();
+      try {
+        sfxPlayer.pause();
+        sfxPlayer.src = `audio/${file}`;
+        sfxPlayer.volume = 0.85;
+        const p = sfxPlayer.play();
+        if (p && p.catch) p.catch(() => {});
+      } catch (e) {}
+    }
+
+    function playVoice(champId, type = 'choose') {
+      if (!soundEnabled) return;
+      enableMobileAudioSession();
+      try {
+        voPlayer.pause();
+        voPlayer.src = `audio/${champId}_${type}.mp3`;
+        voPlayer.volume = 1.0;
+        const p = voPlayer.play();
+        if (p && p.catch) p.catch(() => {});
+      } catch (e) {}
+    }
+
+    function playBgm(file) {
+      if (!soundEnabled) return;
+      enableMobileAudioSession();
+      try {
+        bgmPlayer.pause();
+        bgmPlayer.src = `audio/${file}`;
+        bgmPlayer.volume = 0.75;
+        const p = bgmPlayer.play();
+        if (p && p.catch) p.catch(() => {});
+      } catch (e) {}
+    }
+
+    function playCurrentVoice(type = 'choose') {
+      playVoice(currentChampId, type);
     }
 
     function toggleAudio() {
       soundEnabled = !soundEnabled;
       document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
-      document.getElementById('sound-label').textContent = soundEnabled ? 'Ses: Açık' : 'Ses: Kapalı';
+      document.getElementById('sound-label').textContent = soundEnabled ? 'SES AÇIK' : 'SES KAPALI';
+      if (!soundEnabled) {
+        sfxPlayer.pause();
+        voPlayer.pause();
+        bgmPlayer.pause();
+      } else {
+        playSfx('sfx_click.mp3');
+      }
     }
 
-    function playSelectSound() {
-      if (!soundEnabled) return;
-      initAudio();
-      if (!audioCtx) return;
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(440, now);
-      osc.frequency.exponentialRampToValueAtTime(660, now + 0.14);
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.16);
+    // =====================================================
+    // READY CHECK ACCEPT -> UNLOCKS ALL MOBILE AUDIO PLAYERS
+    // =====================================================
+    function acceptMatch() {
+      enableMobileAudioSession();
+      // Unlock all 3 HTML5 audio elements synchronously inside user tap gesture
+      playSfx('sfx_intro.mp3');
+      voPlayer.src = 'audio/sfx_yourban.mp3';
+      voPlayer.volume = 0.9;
+      voPlayer.play().catch(() => {});
+      bgmPlayer.src = 'audio/sfx_click.mp3';
+      bgmPlayer.volume = 0.01;
+      bgmPlayer.play().catch(() => {});
+
+      document.getElementById('ready-check-modal').classList.add('hidden');
+      startDraftTimer();
     }
 
-    function playDeceiveSound() {
-      if (!soundEnabled) return;
-      initAudio();
-      if (!audioCtx) return;
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(520, now);
-      osc.frequency.exponentialRampToValueAtTime(160, now + 0.26);
-      gain.gain.setValueAtTime(0.2, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.28);
-    }
-
-    function playAmbushSound() {
-      if (!soundEnabled) return;
-      initAudio();
-      if (!audioCtx) return;
-      const now = audioCtx.currentTime;
-      const notes = [587.33, 659.25, 622.25, 698.46, 783.99, 932.33, 1046.50];
-      notes.forEach((freq, idx) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = idx < 4 ? 'sawtooth' : 'triangle';
-        osc.frequency.setValueAtTime(freq, now + idx * 0.1);
-        gain.gain.setValueAtTime(0.15, now + idx * 0.1);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.16);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now + idx * 0.1);
-        osc.stop(now + idx * 0.1 + 0.18);
-      });
-    }
-
-    function playBirthdayMelody() {
-      if (!soundEnabled) return;
-      initAudio();
-      if (!audioCtx) return;
-      const now = audioCtx.currentTime;
-      const melody = [
-        { f: 392, d: 0.18, t: 0.0 },
-        { f: 392, d: 0.18, t: 0.22 },
-        { f: 440, d: 0.32, t: 0.44 },
-        { f: 392, d: 0.32, t: 0.80 },
-        { f: 523.25, d: 0.32, t: 1.16 },
-        { f: 493.88, d: 0.55, t: 1.52 }
-      ];
-      melody.forEach(n => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(n.f, now + n.t);
-        gain.gain.setValueAtTime(0.2, now + n.t);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + n.t + n.d);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now + n.t);
-        osc.stop(now + n.t + n.d + 0.02);
-      });
+    function startDraftTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerSeconds = 28;
+      const el = document.getElementById('draft-timer');
+      if (el) el.textContent = timerSeconds;
+      timerInterval = setInterval(() => {
+        timerSeconds = timerSeconds > 1 ? timerSeconds - 1 : 28;
+        if (el) el.textContent = timerSeconds;
+      }, 1000);
     }
 
     // =====================================================
@@ -821,8 +1102,8 @@
       pink: ['#ec4899', '#f472b6', '#fbcfe8', '#c084fc'],
       dark: ['#ef4444', '#7f1d1d', '#64748b', '#991b1b'],
       ice: ['#38bdf8', '#7dd3fc', '#e0f2fe', '#0284c7'],
-      purple: ['#a855f7', '#c084fc', '#facc15', '#7e22ce'],
-      confetti: ['#a855f7', '#ef4444', '#facc15', '#0ac8b9', '#ec4899', '#4ade80']
+      purple: ['#a855f7', '#c084fc', '#c8aa6e', '#7e22ce'],
+      confetti: ['#c8aa6e', '#0ac8b9', '#f0e6d2', '#e84057', '#a855f7', '#22c55e']
     };
 
     function spawnSmokePuff(x, y, scheme = 'orange') {
@@ -837,7 +1118,7 @@
           y,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed - (scheme === 'confetti' ? 1.4 : 0.4),
-          size: Math.random() * 8 + 4,
+          size: Math.random() * 7 + 3,
           color: colors[Math.floor(Math.random() * colors.length)],
           alpha: 1,
           decay: Math.random() * 0.02 + 0.015,
@@ -892,93 +1173,203 @@
     }
 
     // =====================================================
-    // STAGE 0: RENDER CHAMPION SELECT LOBBY
+    // STAGE 0: BAN PHASE & PICK PHASE LOBBY
     // =====================================================
-    function renderChampSelectGrid() {
+    function updateSplashBg(champId) {
+      const c = CHAMPIONS[champId];
+      document.getElementById('client-splash-bg').style.backgroundImage =
+        `url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${c.ddragonId}_0.jpg')`;
+    }
+
+    function renderDraftLobby() {
+      const c = CHAMPIONS[currentChampId];
+      updateSplashBg(currentChampId);
+
+      // Update Phase Headers & Action Button
+      const subEl = document.getElementById('draft-phase-subtitle');
+      const titleEl = document.getElementById('draft-phase-title');
+      const actionBtn = document.getElementById('draft-action-btn');
+      const skipBtn = document.getElementById('skip-ban-btn');
+      const slotAction = document.getElementById('efe-slot-action');
+      const poolHint = document.getElementById('pool-hint');
+
+      if (draftPhase === 'BAN') {
+        subEl.textContent = 'EVRE 1 // YASAKLAMA SIRASI SENDE';
+        subEl.className = 'text-xs uppercase tracking-[0.2em] text-[#e84057] font-bold';
+        titleEl.textContent = 'BİR ŞAMPİYON YASAKLA!';
+        actionBtn.textContent = `${c.name.toUpperCase()} YASAKLA`;
+        actionBtn.className = 'hex-btn-red flex-1 sm:flex-initial px-7 py-2.5 text-xs sm:text-sm cursor-pointer';
+        skipBtn.classList.remove('hidden');
+        slotAction.textContent = 'YASAKLIYOR...';
+        slotAction.className = 'text-xs font-bold uppercase tracking-wider text-[#e84057]';
+        poolHint.textContent = 'Yasaklamak istediğin şampiyona dokun';
+      } else {
+        subEl.textContent = 'EVRE 2 // SEÇİM SIRASI SENDE';
+        subEl.className = 'text-xs uppercase tracking-[0.2em] text-[#0ac8b9] font-bold';
+        titleEl.textContent = 'ŞAMPİYONUNU SEÇ VE KİLİTLE!';
+        actionBtn.textContent = `${c.name.toUpperCase()} KİLİTLE`;
+        actionBtn.className = 'hex-btn-cyan flex-1 sm:flex-initial px-7 py-2.5 text-xs sm:text-sm cursor-pointer';
+        skipBtn.classList.add('hidden');
+        slotAction.textContent = 'ŞAMPİYON SEÇİYOR...';
+        slotAction.className = 'text-xs font-bold uppercase tracking-wider text-[#0ac8b9]';
+        poolHint.textContent = 'Oynamak istediğin şampiyonu seç ve KİLİTLE';
+      }
+
+      // Update Summoner Slot Portrait & Name
+      document.getElementById('efe-slot-portrait').src = `${DDRAGON_BASE}/img/champion/${c.ddragonId}.png`;
+      document.getElementById('efe-slot-champ').textContent = `${c.name} — ${c.title}`;
+
+      // Update Left Preview Box (Official Spells)
+      document.getElementById('preview-champ-name').textContent = `${c.name.toUpperCase()} — ${c.title}`;
+      document.getElementById('preview-champ-role').textContent = c.role;
+      document.getElementById('preview-champ-desc').textContent = c.diag;
+
+      document.getElementById('lobby-spells-row').innerHTML = c.spells.map((s, idx) => `
+        <button onclick="previewLobbySpell(${idx})" class="spell-slot w-11 h-11 sm:w-12 sm:h-12 cursor-pointer overflow-hidden">
+          <img src="${s.img}" alt="${s.name}" class="w-full h-full object-cover" />
+          <span class="spell-key-badge">${s.key}</span>
+        </button>
+      `).join('');
+      document.getElementById('lobby-spell-name').textContent = `${c.spells[0].key} — ${c.spells[0].name}`;
+
+      // Render 7 Official Portraits Grid
       const grid = document.getElementById('champ-grid');
       grid.innerHTML = CHAMP_ORDER.map(id => {
-        const c = CHAMPIONS[id];
-        const active = id === currentChampId;
+        const ch = CHAMPIONS[id];
+        const isSelected = id === currentChampId;
+        const isBanned = id === bannedChampId;
+        const selClass = isSelected ? (draftPhase === 'BAN' ? 'selected-ban' : 'selected-pick') : '';
         return `
-          <button onclick="selectChampion('${id}')" class="flex flex-col items-center p-2.5 rounded-xl border transition-all cursor-pointer ${
-            active
-              ? 'bg-[#1a2742] border-[#facc15] shadow-[0_0_15px_rgba(250,204,21,0.45)] scale-[1.03]'
-              : 'bg-[#0e1626]/90 border-[#c89b3c]/30 hover:border-[#c89b3c]'
-          }">
-            <div class="w-12 h-12 rounded-full bg-[#09101a] border border-[#c89b3c]/60 flex items-center justify-center mb-1.5">
-              ${c.icon}
+          <button onclick="selectChampionInLobby('${id}')" class="champ-portrait-card ${selClass} ${isBanned ? 'is-banned' : ''} flex flex-col items-center p-1.5 cursor-pointer group">
+            <div class="relative w-16 h-16 sm:w-20 sm:h-20 overflow-hidden border border-[#463714] group-hover:border-[#c8aa6e]">
+              <img src="${DDRAGON_BASE}/img/champion/${ch.ddragonId}.png" alt="${ch.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" />
+              ${isBanned ? '<div class="ban-slash"></div>' : ''}
             </div>
-            <span class="text-xs font-black text-[#f0e6d2] truncate w-full text-center">${c.name}</span>
-            <span class="text-xs text-[#a09b8c] truncate w-full text-center">${c.role}</span>
+            <span class="font-beaufort text-xs font-bold text-[#f0e6d2] mt-1.5 truncate w-full text-center">${ch.name}</span>
+            <span class="text-[10px] ${isBanned ? 'text-[#e84057] font-bold' : 'text-[#a09b8c]'} truncate w-full text-center">
+              ${isBanned ? 'YASAKLANDI' : ch.title}
+            </span>
           </button>
         `;
       }).join('');
-
-      const c = CHAMPIONS[currentChampId];
-      document.getElementById('selected-champ-name').textContent = c.name;
-      document.getElementById('preview-avatar').innerHTML = c.icon;
-      document.getElementById('preview-title').textContent = c.name.toUpperCase();
-      document.getElementById('preview-sub').textContent = c.title;
-      document.getElementById('preview-diag').textContent = c.diag;
     }
 
-    function selectChampion(id) {
+    function previewLobbySpell(idx) {
+      playSfx('sfx_click.mp3');
+      const c = CHAMPIONS[currentChampId];
+      const s = c.spells[idx];
+      document.getElementById('lobby-spell-name').textContent = `${s.key} — ${s.name}`;
+    }
+
+    function selectChampionInLobby(id) {
+      if (draftPhase === 'PICK' && id === bannedChampId) {
+        // Allow Efe to unban if he wants to play the champion he banned
+        bannedChampId = null;
+        document.getElementById('ban-slot-img').classList.add('hidden');
+        document.getElementById('ban-slot-slash').classList.add('hidden');
+        document.getElementById('ban-slot-empty').classList.remove('hidden');
+        document.getElementById('ban-champ-name').textContent = 'İptal Edildi';
+        document.getElementById('ban-override-msg').innerHTML = '<span class="text-[#0ac8b9]">Sihirdar EFE yetkisiyle yasak kaldırıldı, bu şampiyonu seçebilirsin!</span>';
+      }
       currentChampId = id;
-      playSelectSound();
-      renderChampSelectGrid();
+      playSfx('sfx_click.mp3');
+      renderDraftLobby();
+    }
+
+    function skipBanPhase() {
+      playSfx('sfx_yourpick.mp3');
+      draftPhase = 'PICK';
+      startDraftTimer();
+      document.getElementById('ban-override-msg').textContent = 'Yasaklama geçildi. Şimdi şampiyonunu seç ve KİLİTLE!';
+      renderDraftLobby();
+    }
+
+    function handleDraftAction() {
+      const c = CHAMPIONS[currentChampId];
+      if (draftPhase === 'BAN') {
+        // Execute Ban!
+        bannedChampId = currentChampId;
+        playSfx('sfx_ban.mp3');
+        playVoice(currentChampId, 'ban');
+
+        const banImg = document.getElementById('ban-slot-img');
+        banImg.src = `${DDRAGON_BASE}/img/champion/${c.ddragonId}.png`;
+        banImg.classList.remove('hidden');
+        document.getElementById('ban-slot-slash').classList.remove('hidden');
+        document.getElementById('ban-slot-empty').classList.add('hidden');
+        document.getElementById('ban-champ-name').textContent = c.name;
+
+        // Auto-select the next available champion for Pick Phase
+        const nextChamp = CHAMP_ORDER.find(id => id !== bannedChampId) || 'shaco';
+        currentChampId = nextChamp;
+        draftPhase = 'PICK';
+        startDraftTimer();
+        document.getElementById('ban-override-msg').innerHTML = `<strong class="text-[#e84057]">${c.name}</strong> yasaklandı! Şimdi oynayacağın şampiyonu kilitle.`;
+        renderDraftLobby();
+      } else {
+        // Execute Lock-In!
+        lockInChampion();
+      }
     }
 
     function lockInChampion() {
-      playAmbushSound();
+      if (timerInterval) clearInterval(timerInterval);
+      playSfx('sfx_lockin.mp3');
+      playVoice(currentChampId, 'choose');
+
       setupDisguiseStage(currentChampId);
       document.getElementById('stage-select').classList.add('hidden');
       document.getElementById('stage-birthday').classList.add('hidden');
       document.getElementById('stage-disguise').classList.remove('hidden');
       document.getElementById('change-champ-top-btn').classList.remove('hidden');
+      document.getElementById('header-title').textContent = `SİHİRDAR VADİSİ // ${CHAMPIONS[currentChampId].name.toUpperCase()} KİLİTLENDİ`;
     }
 
     // =====================================================
-    // STAGE 1: SETUP & RUN CHAMPION DISGUISE TRAP
+    // STAGE 1: 3-STEP DISGUISE TRAP
     // =====================================================
     function setupDisguiseStage(id) {
       const c = CHAMPIONS[id];
       disguiseStep = 1;
+      updateSplashBg(id);
 
-      document.getElementById('disguise-avatar').innerHTML = c.icon;
-      document.getElementById('disguise-champ-tag').textContent = `${c.name.toUpperCase()} // ${c.title}`;
-      document.getElementById('disguise- syndrome').innerHTML = c.diag;
+      document.getElementById('disguise-champ-img').src = `${DDRAGON_BASE}/img/champion/${c.ddragonId}.png`;
+      document.getElementById('disguise-champ-tag').textContent = `${c.name.toUpperCase()} — ${c.title}`;
+      document.getElementById('disguise-syndrome').textContent = c.diag;
       document.getElementById('metric-1-label').textContent = c.metric1[0];
       document.getElementById('metric-1-val').textContent = c.metric1[1];
       document.getElementById('metric-2-label').textContent = c.metric2[0];
       document.getElementById('metric-2-val').textContent = c.metric2[1];
 
-      document.getElementById('step-counter').textContent = 'Adım 1 / 3';
+      document.getElementById('step-counter').textContent = 'ADIM 1 / 3';
       document.getElementById('mission-desc').innerHTML = c.missionDesc;
-      document.getElementById('arena-toast').innerHTML = c.step1Toast;
+      document.getElementById('arena-toast').textContent = c.step1Toast;
 
+      const s1 = c.spells[c.step1SpellIdx];
       const btn = document.getElementById('trap-target-btn');
       btn.style.transform = 'translate(0, 0)';
       btn.classList.remove('hidden');
       document.getElementById('trap-hp').style.width = '100%';
-      document.getElementById('trap-icon-box').innerHTML = c.icon;
-      document.getElementById('trap-btn-label').textContent = c.step1Btn;
+      document.getElementById('trap-icon-img').src = s1.img;
+      document.getElementById('trap-key-badge').textContent = s1.key;
+      document.getElementById('trap-btn-label').textContent = `${s1.key} — ${s1.name}`;
 
       const clones = document.getElementById('clones-container');
       clones.classList.add('hidden');
       clones.classList.remove('flex');
-      document.getElementById('clone-a-icon').innerHTML = c.icon;
-      document.getElementById('clone-b-icon').innerHTML = c.icon;
+      document.getElementById('clone-a-img').src = `${DDRAGON_BASE}/img/champion/${c.ddragonId}.png`;
+      document.getElementById('clone-b-img').src = c.spells[4].img;
       document.getElementById('clone-a-label').textContent = c.step3CloneA;
       document.getElementById('clone-b-label').textContent = c.step3CloneB;
 
-      document.getElementById('telemetry-log').textContent = `> Sistem hazır. ${c.name} mekanik doğrulaması bekleniyor...`;
+      document.getElementById('telemetry-log').textContent = `> ${c.name} mekanik doğrulaması başlatıldı...`;
     }
 
     function handleTrapClick(e) {
       const c = CHAMPIONS[currentChampId];
       const coords = getEventCoords(e);
       spawnSmokePuff(coords.x, coords.y, c.smokeScheme);
-      playDeceiveSound();
+      playSfx('sfx_click.mp3');
 
       const btn = document.getElementById('trap-target-btn');
       const toast = document.getElementById('arena-toast');
@@ -988,38 +1379,48 @@
 
       if (disguiseStep === 1) {
         disguiseStep = 2;
-        stepCounter.textContent = 'Adım 2 / 3';
+        const s2 = c.spells[c.step2SpellIdx];
+        stepCounter.textContent = 'ADIM 2 / 3';
         hpBar.style.width = '45%';
         const arenaRect = document.getElementById('arena').getBoundingClientRect();
-        const offsetX = Math.min(75, Math.floor(arenaRect.width * 0.22));
-        const offsetY = Math.min(28, Math.floor(arenaRect.height * 0.12));
+        const offsetX = Math.min(72, Math.floor(arenaRect.width * 0.22));
+        const offsetY = Math.min(26, Math.floor(arenaRect.height * 0.12));
         btn.style.transform = `translate(${offsetX}px, -${offsetY}px)`;
-        document.getElementById('trap-btn-label').textContent = c.step2Btn;
-        toast.innerHTML = c.step2Toast;
+        document.getElementById('trap-icon-img').src = s2.img;
+        document.getElementById('trap-key-badge').textContent = s2.key;
+        document.getElementById('trap-btn-label').textContent = `${s2.key} — ${s2.name}`;
+        toast.textContent = c.step2Toast;
         log.textContent = c.step2Log;
       } else if (disguiseStep === 2) {
         disguiseStep = 3;
-        stepCounter.textContent = 'Adım 3 / 3 (SON)';
+        playSfx('sfx_yourban.mp3');
+        stepCounter.textContent = 'ADIM 3 / 3 (ULTİ)';
         btn.classList.add('hidden');
         const clones = document.getElementById('clones-container');
         clones.classList.remove('hidden');
         clones.classList.add('flex');
-        toast.innerHTML = c.step3Toast;
-        log.textContent = `> KRİTİK: ${c.name} son aşamayı açtı! Doğru hedefi seç Efe...`;
+        toast.textContent = c.step3Toast;
+        log.textContent = `> KRİTİK: ${c.name} R (${c.spells[4].name}) aktifleşti! Hedefi seç Efe...`;
       }
     }
 
     // =====================================================
-    // TRIGGER AMBUSH OVERLAY & OPEN STAGE 2 BIRTHDAY
+    // TRIGGER ULTIMATE CINEMATIC & OPEN BIRTHDAY HUD
     // =====================================================
     function triggerFinalAmbush(e) {
       const c = CHAMPIONS[currentChampId];
       const coords = getEventCoords(e);
       spawnSmokePuff(coords.x, coords.y, 'confetti');
-      playAmbushSound();
+
+      // Play audio synchronously inside tap event so mobile browsers never block it!
+      playSfx('sfx_lockin.mp3');
+      playVoice(currentChampId, 'choose');
+      playBgm('sfx_birthday.mp3');
 
       const overlay = document.getElementById('ambush-overlay');
-      document.getElementById('ambush-icon').innerHTML = c.icon;
+      document.getElementById('ambush-bg').style.backgroundImage =
+        `url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${c.ddragonId}_0.jpg')`;
+      document.getElementById('ambush-spell-img').src = c.spells[4].img;
       document.getElementById('ambush-title').textContent = c.ambushTitle;
       document.getElementById('ambush-subtitle').textContent = c.ambushSub;
 
@@ -1035,79 +1436,80 @@
         document.getElementById('stage-birthday').classList.remove('hidden');
         document.getElementById('change-champ-top-btn').classList.remove('hidden');
 
-        document.getElementById('app-frame').classList.remove('hextech-border');
-        document.getElementById('app-frame').classList.add('party-border');
-        document.getElementById('header-title').textContent = `🎂 İYİ Kİ DOĞDUN EFE! // ${c.name.toUpperCase()} SÜRPRİZİ`;
-        document.title = `🎂 İyi ki Doğdun EFE! // ${c.name} Özel Sürprizi`;
+        document.getElementById('header-title').textContent = `ZAFER // İYİ Kİ DOĞDUN EFE (${c.name.toUpperCase()})`;
+        document.title = `İyi ki Doğdun EFE! // ${c.name} — League of Legends`;
 
         renderBirthdayStage(currentChampId);
         resizeCanvas();
         spawnSmokePuff(canvas.width * 0.25, canvas.height * 0.3, 'confetti');
         spawnSmokePuff(canvas.width * 0.75, canvas.height * 0.3, 'confetti');
-        setTimeout(() => playBirthdayMelody(), 250);
-      }, 1400);
+      }, 1550);
     }
 
     // =====================================================
-    // STAGE 2: RENDER CHAMPION-SPECIFIC BIRTHDAY CONTENT
+    // STAGE 2: RENDER BIRTHDAY STAGE & REAL LOL HUD
     // =====================================================
     function renderBirthdayStage(id) {
       const c = CHAMPIONS[id];
+      updateSplashBg(id);
+
       document.getElementById('bday-kicker').textContent = c.bdayKicker;
       document.getElementById('bday-quote').textContent = c.bdayQuote;
-      document.getElementById('cake-title').textContent = `🎪 ${c.name.toUpperCase()} SÜRPRİZ PASTASI`;
-      document.getElementById('cake-champ-badge').innerHTML = c.icon;
+      document.getElementById('cake-title').textContent = `${c.name.toUpperCase()} — DOĞUM GÜNÜ PASTASI`;
+      document.getElementById('cake-champ-img').src = `${DDRAGON_BASE}/img/champion/${c.ddragonId}.png`;
       document.getElementById('blow-btn').textContent = c.blowBtnText;
-      document.getElementById('patch-title').textContent = `📜 YAMA NOTLARI: EFE x ${c.name.toUpperCase()}`;
+      document.getElementById('patch-title').textContent = `YAMA NOTLARI // EFE x ${c.name.toUpperCase()}`;
 
-      // Reset candles when switching champion
+      document.getElementById('hud-champ-img').src = `${DDRAGON_BASE}/img/champion/${c.ddragonId}.png`;
+      document.getElementById('hud-champ-name').textContent = `${c.name} — ${c.title}`;
+
       candlesLit = [true, true, true];
       [0, 1, 2].forEach(i => {
         const f = document.getElementById(`flame-${i}`);
         if (f) f.style.display = 'block';
       });
       const status = document.getElementById('candle-status');
-      status.textContent = '🔥 3 Mum Yanıyor';
-      status.className = 'text-xs font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/40';
-      document.getElementById('cake-action-text').innerHTML = `Mumlara tek tek dokun ya da aşağıdaki <strong>${c.name}</strong> yeteneğiyle tek seferde söndür!`;
+      status.textContent = '3 MUM AKTİF';
+      status.className = 'text-xs font-bold px-2.5 py-0.5 border border-[#c8aa6e] bg-[#010a13] text-[#c8aa6e]';
+      document.getElementById('cake-action-text').innerHTML = `Mumlara dokun ya da aşağıdaki <strong>${c.spells[3].name} (E)</strong> butonuyla tek seferde söndür!`;
 
       // Render Patch Notes
       document.getElementById('patch-list').innerHTML = c.patches.map(p => `
         <li class="flex items-start gap-2">
-          <span class="text-amber-400 font-bold">▲</span>
+          <span class="text-[#c8aa6e] font-bold">◆</span>
           <div>
-            <strong class="text-[#f0e6d2]">${p[0]}</strong>
-            <p class="text-xs text-[#a09b8c]">${p[1]}</p>
+            <strong class="text-[#f0e6d2] font-beaufort">${p[0]}</strong>
+            <p class="text-xs text-[#a09b8c] mt-0.5">${p[1]}</p>
           </div>
         </li>
       `).join('');
 
-      // Render Skill Bar
-      document.getElementById('skillbar-title').textContent = `🎮 ${c.name.toUpperCase()} YETENEK ÇUBUĞU (DOKUN VE KULLAN!)`;
-      document.getElementById('skill-buttons-grid').innerHTML = c.skills.map(s => `
-        <button onclick="castSkill('${s.key}')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-amber-400 hover:bg-[#1a253a] active:scale-95 transition cursor-pointer">
-          <span class="text-lg sm:text-xl">${s.icon}</span>
-          <span class="text-xs font-black ${s.color} mt-1">${s.key === 'P' ? 'PASİF' : (s.key === 'R' ? 'R (ULTİ)' : s.key)}</span>
-          <span class="text-xs text-[#a09b8c] truncate w-full text-center">${s.name}</span>
+      // Render Official 5 LoL Spell Icons in HUD
+      document.getElementById('skill-buttons-grid').innerHTML = c.spells.map(s => `
+        <button onclick="castSkill('${s.key}')" class="flex flex-col items-center group cursor-pointer">
+          <div class="spell-slot w-12 h-12 sm:w-14 sm:h-14 overflow-hidden">
+            <img src="${s.img}" alt="${s.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+            <span class="spell-key-badge">${s.key}</span>
+          </div>
+          <span class="text-[10px] text-[#a09b8c] group-hover:text-[#f0e6d2] mt-1 truncate max-w-[60px] text-center">${s.name}</span>
         </button>
       `).join('');
 
-      // Render Quick Champion Switcher Bar inside Birthday Screen
+      // Render Top 7-Champion Switcher Bar with Official Portraits
       document.getElementById('bday-champ-bar').innerHTML = CHAMP_ORDER.map(cid => {
         const ch = CHAMPIONS[cid];
         const isCurrent = cid === currentChampId;
         return `
-          <button onclick="switchBirthdayChampion('${cid}')" class="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg border text-xs font-bold transition cursor-pointer ${
+          <button onclick="switchBirthdayChampion('${cid}')" class="flex flex-col items-center p-1 border transition cursor-pointer ${
             isCurrent
-              ? 'bg-amber-500/25 border-amber-400 text-amber-200 shadow-[0_0_12px_rgba(250,204,21,0.35)]'
-              : 'bg-[#111927] border-[#c89b3c]/30 text-[#a09b8c] hover:text-white hover:border-[#c89b3c]'
+              ? 'border-[#0ac8b9] bg-[#005a82]/30 shadow-[0_0_12px_rgba(10,200,185,0.45)]'
+              : 'border-[#463714] bg-[#010a13] hover:border-[#c8aa6e]'
           }">
-            <span>${ch.name}</span>
+            <img src="${DDRAGON_BASE}/img/champion/${ch.ddragonId}.png" alt="${ch.name}" class="w-8 h-8 sm:w-10 sm:h-10 object-cover" />
+            <span class="text-[10px] font-bold ${isCurrent ? 'text-[#0ac8b9]' : 'text-[#a09b8c]'} truncate w-full text-center mt-0.5">${ch.name}</span>
           </button>
         `;
       }).join('');
-
-      document.getElementById('footer-champ-tag').textContent = `🏆 ${c.name} (${c.title}) Özel Doğum Günü Sürümü // Sihirdar: EFE`;
     }
 
     function switchBirthdayChampion(id) {
@@ -1125,23 +1527,23 @@
       const status = document.getElementById('candle-status');
       const actionText = document.getElementById('cake-action-text');
 
-      playDeceiveSound();
+      playSfx('sfx_click.mp3');
       resizeCanvas();
       spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.45, 'confetti');
 
       if (remaining === 0) {
-        status.textContent = '🎉 Dilek Kabul Edildi!';
-        status.className = 'text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/40';
-        actionText.innerHTML = '✨ <strong>BÜTÜN MUMLAR SÖNDÜ!</strong> Yeni yaşında tüm dileklerin gerçek olsun <strong>Efe</strong>!';
-        playBirthdayMelody();
+        status.textContent = 'DİLEK KABUL EDİLDİ!';
+        status.className = 'text-xs font-bold px-2.5 py-0.5 border border-[#0ac8b9] bg-[#005a82]/40 text-[#cdfafa]';
+        actionText.innerHTML = '<strong>TÜM MUMLAR SÖNDÜ!</strong> Yeni yaşında tüm dileklerin gerçek olsun <strong>Efe</strong>!';
+        playBgm('sfx_birthday.mp3');
       } else {
-        status.textContent = `🔥 ${remaining} Mum Kaldı`;
+        status.textContent = `${remaining} MUM KALDI`;
       }
     }
 
     function castSkill(key) {
       const c = CHAMPIONS[currentChampId];
-      const skillObj = c.skills.find(s => s.key === key) || c.skills[0];
+      const skillObj = c.spells.find(s => s.key === key) || c.spells[0];
       resizeCanvas();
 
       const quoteEl = document.getElementById('bday-quote');
@@ -1149,24 +1551,24 @@
       const cakeStage = document.getElementById('cake-stage');
 
       quoteEl.textContent = skillObj.msg;
-      feedbackEl.textContent = `${skillObj.icon} ${skillObj.name} kullanıldı!`;
+      feedbackEl.textContent = `${skillObj.key} — ${skillObj.name} aktif!`;
 
       if (key === 'Q') {
-        playDeceiveSound();
+        playSfx('sfx_click.mp3');
         spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.5, c.smokeScheme);
         cakeStage.style.opacity = '0.2';
-        cakeStage.style.transform = 'scale(0.88)';
+        cakeStage.style.transform = 'scale(0.9)';
         setTimeout(() => {
           candlesLit = [true, true, true];
           [0, 1, 2].forEach(i => {
             const f = document.getElementById(`flame-${i}`);
             if (f) f.style.display = 'block';
           });
-          document.getElementById('candle-status').textContent = '🔥 3 Mum Yanıyor';
+          document.getElementById('candle-status').textContent = '3 MUM AKTİF';
           cakeStage.style.opacity = '1';
           cakeStage.style.transform = 'scale(1)';
           spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.5, c.smokeScheme);
-        }, 650);
+        }, 600);
       } else if (key === 'E') {
         [0, 1, 2].forEach(i => {
           candlesLit[i] = false;
@@ -1174,46 +1576,37 @@
           if (f) f.style.display = 'none';
         });
         const status = document.getElementById('candle-status');
-        status.textContent = '🎉 Dilek Kabul Edildi!';
-        status.className = 'text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/40';
-        document.getElementById('cake-action-text').innerHTML = `✨ <strong>TAM İSABET!</strong> ${c.name} yeteneğiyle tüm mumları tek seferde söndürdün <strong>Efe</strong>!`;
+        status.textContent = 'DİLEK KABUL EDİLDİ!';
+        status.className = 'text-xs font-bold px-2.5 py-0.5 border border-[#0ac8b9] bg-[#005a82]/40 text-[#cdfafa]';
+        document.getElementById('cake-action-text').innerHTML = `<strong>TAM İSABET!</strong> ${skillObj.name} ile tüm mumları tek seferde söndürdün <strong>Efe</strong>!`;
         spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.45, 'confetti');
-        playBirthdayMelody();
+        playBgm('sfx_birthday.mp3');
       } else if (key === 'R') {
-        playBirthdayMelody();
+        playVoice(currentChampId, 'choose');
+        playBgm('sfx_birthday.mp3');
         spawnSmokePuff(canvas.width * 0.25, canvas.height * 0.3, 'confetti');
         spawnSmokePuff(canvas.width * 0.75, canvas.height * 0.3, 'confetti');
         spawnSmokePuff(canvas.width * 0.5, canvas.height * 0.65, c.smokeScheme);
       } else {
-        playAmbushSound();
+        playSfx('sfx_lockin.mp3');
         spawnSmokePuff(canvas.width * 0.5, canvas.height * 0.4, 'confetti');
       }
     }
 
-    function replayCurrentChampTrap() {
-      setupDisguiseStage(currentChampId);
-      document.getElementById('stage-birthday').classList.add('hidden');
-      document.getElementById('stage-select').classList.add('hidden');
-      document.getElementById('stage-disguise').classList.remove('hidden');
-      document.getElementById('app-frame').classList.add('hextech-border');
-      document.getElementById('app-frame').classList.remove('party-border');
-      document.getElementById('header-title').textContent = 'HEXTECH TELEMETRİ // MEKANİK DOĞRULAMA';
-    }
-
     function goToChampSelect() {
-      renderChampSelectGrid();
+      draftPhase = bannedChampId ? 'PICK' : 'BAN';
+      startDraftTimer();
+      renderDraftLobby();
       document.getElementById('stage-birthday').classList.add('hidden');
       document.getElementById('stage-disguise').classList.add('hidden');
       document.getElementById('stage-select').classList.remove('hidden');
       document.getElementById('change-champ-top-btn').classList.add('hidden');
-      document.getElementById('app-frame').classList.add('hextech-border');
-      document.getElementById('app-frame').classList.remove('party-border');
-      document.getElementById('header-title').textContent = 'HEXTECH LOBİSİ // SİHİRDAR: EFE';
-      document.title = 'Hextech İstemcisi // Şampiyon Seçimi: EFE';
+      document.getElementById('header-title').textContent = 'SİHİRDAR VADİSİ // DERECELİ SEÇİM LOBİSİ';
+      document.title = 'League of Legends // Hextech İstemcisi — EFE';
     }
 
-    // Initialize Champion Select on load
-    renderChampSelectGrid();
+    // Initial render
+    renderDraftLobby();
   </script>
 </body>
 </html>
