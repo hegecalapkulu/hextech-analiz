@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hextech Analiz // Sihirdar: EFE</title>
-  <meta property="og:title" content="Hextech Telemetri // Sihirdar Doğrulama: EFE" />
-  <meta property="og:description" content="TR1 Sihirdar Kaydı #SHC-902 — Shaco Klon & Kandırmaca (Q) Refleks Doğrulama Sistemi." />
+  <title>Hextech İstemcisi // Şampiyon Seçimi: EFE</title>
+  <meta property="og:title" content="Hextech Telemetri // Şampiyon Seçimi & Doğrulama: EFE" />
+  <meta property="og:description" content="TR1 Sihirdar Kaydı #EFE-902 — Şampiyon Mekanik & Refleks Doğrulama Lobisi." />
   <meta property="og:type" content="website" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @keyframes floatSlow {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-6px) rotate(1.5deg); }
+      50% { transform: translateY(-5px) rotate(1.5deg); }
     }
     @keyframes pulseGlow {
       0%, 100% { filter: drop-shadow(0 0 8px rgba(200, 155, 60, 0.5)); }
@@ -19,16 +19,15 @@
     }
     @keyframes shacoJitter {
       0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      20% { transform: translate(-2px, 1px) rotate(-2deg); }
-      40% { transform: translate(2px, -2px) rotate(2deg); }
-      60% { transform: translate(-3px, -1px) rotate(-1deg); }
-      80% { transform: translate(2px, 2px) rotate(1.5deg); }
+      25% { transform: translate(-2px, 1px) rotate(-2deg); }
+      50% { transform: translate(2px, -2px) rotate(2deg); }
+      75% { transform: translate(-2px, -1px) rotate(-1deg); }
     }
     @keyframes fearSpin {
-      0% { transform: scale(0.3) rotate(-180deg); opacity: 0; }
-      40% { transform: scale(1.15) rotate(10deg); opacity: 1; }
-      80% { transform: scale(0.95) rotate(-5deg); opacity: 1; }
-      100% { transform: scale(1.3) rotate(25deg); opacity: 0; }
+      0% { transform: scale(0.3) rotate(-140deg); opacity: 0; }
+      35% { transform: scale(1.1) rotate(8deg); opacity: 1; }
+      80% { transform: scale(0.98) rotate(-3deg); opacity: 1; }
+      100% { transform: scale(1.25) rotate(15deg); opacity: 0; }
     }
     @keyframes candleFlicker {
       0%, 100% { transform: scaleY(1) rotate(-2deg); opacity: 1; }
@@ -38,9 +37,9 @@
       border: 1px solid rgba(200, 155, 60, 0.45);
       box-shadow: inset 0 0 25px rgba(10, 20, 40, 0.85), 0 0 25px rgba(0, 0, 0, 0.75);
     }
-    .shaco-border {
-      border: 1px solid rgba(168, 85, 247, 0.55);
-      box-shadow: inset 0 0 30px rgba(88, 28, 135, 0.4), 0 0 30px rgba(220, 38, 38, 0.3);
+    .party-border {
+      border: 1px solid rgba(250, 204, 21, 0.65);
+      box-shadow: inset 0 0 30px rgba(88, 28, 135, 0.4), 0 0 30px rgba(200, 155, 60, 0.3);
     }
     .float-anim { animation: floatSlow 3.2s ease-in-out infinite; }
     .glow-anim { animation: pulseGlow 2.4s ease-in-out infinite; }
@@ -52,33 +51,17 @@
 <body class="bg-[#040811] text-[#f0e6d2] antialiased min-h-screen flex flex-col items-center justify-center p-2 sm:p-6 select-none overflow-x-hidden">
 
   <!-- Outer Hextech Client Frame -->
-  <div id="app-frame" class="relative w-full max-w-3xl rounded-xl overflow-hidden hextech-border bg-[#09101a] text-[#f0e6d2] transition-all duration-700 shadow-2xl">
+  <div id="app-frame" class="relative w-full max-w-4xl rounded-xl overflow-hidden hextech-border bg-[#09101a] text-[#f0e6d2] transition-all duration-700 shadow-2xl">
     
     <!-- Particle & Effects Canvas -->
     <canvas id="fx-canvas" class="pointer-events-none absolute inset-0 w-full h-full z-30"></canvas>
 
-    <!-- Fear Jumpscare Overlay (Hidden until triggered) -->
-    <div id="fear-overlay" class="pointer-events-none fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm">
-      <div class="flex flex-col items-center text-center p-6" style="animation: fearSpin 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
-        <!-- Shaco Fear Mask SVG -->
-        <svg class="w-32 h-32 sm:w-40 sm:h-40 mb-4 drop-shadow-[0_0_30px_rgba(168,85,247,0.95)]" viewBox="0 0 120 120" fill="none">
-          <circle cx="60" cy="60" r="54" stroke="#a855f7" stroke-width="3" stroke-dasharray="8 6" />
-          <path d="M25 45 C10 15, 40 5, 55 30" stroke="#dc2626" stroke-width="6" stroke-linecap="round" fill="#7f1d1d"/>
-          <path d="M95 45 C110 15, 80 5, 65 30" stroke="#a855f7" stroke-width="6" stroke-linecap="round" fill="#581c87"/>
-          <circle cx="20" cy="22" r="6" fill="#facc15" />
-          <circle cx="100" cy="22" r="6" fill="#facc15" />
-          <path d="M30 40 Q60 25 90 40 L82 92 Q60 108 38 92 Z" fill="#1e1b4b" stroke="#c084fc" stroke-width="2.5"/>
-          <polygon points="40,52 55,57 42,63" fill="#facc15" />
-          <polygon points="80,52 65,57 78,63" fill="#facc15" />
-          <path d="M38 72 Q60 98 82 72" stroke="#ef4444" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <path d="M45 77 L47 83 M54 81 L55 87 M65 81 L64 87 M74 77 L72 83" stroke="#f8fafc" stroke-width="2.5"/>
-        </svg>
-        <div class="text-xl sm:text-4xl font-black tracking-widest text-purple-400 uppercase drop-shadow-[0_0_12px_rgba(220,38,38,0.9)]">
-          KORKUTULDUN! (FEARED)
-        </div>
-        <div class="text-sm sm:text-lg text-amber-300 font-semibold mt-2 italic">
-          "Neden bu kadar ciddisin Efe?!"
-        </div>
+    <!-- Dynamic Champion Ambush / Ult Overlay (Hidden until Step 3 clicked) -->
+    <div id="ambush-overlay" class="pointer-events-none fixed inset-0 z-50 hidden items-center justify-center bg-black/90 backdrop-blur-md">
+      <div id="ambush-card" class="flex flex-col items-center text-center p-6 max-w-md" style="animation: fearSpin 1.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+        <div id="ambush-icon" class="w-28 h-28 sm:w-36 sm:h-36 mb-4 flex items-center justify-center rounded-full border-4 border-amber-400 bg-[#161f33] shadow-[0_0_40px_rgba(250,204,21,0.8)]"></div>
+        <div id="ambush-title" class="text-xl sm:text-3xl font-black tracking-widest text-amber-300 uppercase drop-shadow-[0_0_14px_rgba(220,38,38,0.95)]"></div>
+        <div id="ambush-subtitle" class="text-sm sm:text-lg text-white font-semibold mt-2 italic"></div>
       </div>
     </div>
 
@@ -87,10 +70,13 @@
       <div class="flex items-center gap-2 min-w-0">
         <div id="status-dot" class="w-2.5 h-2.5 rounded-full bg-[#0ac8b9] shadow-[0_0_8px_#0ac8b9] shrink-0"></div>
         <span id="header-title" class="text-xs sm:text-sm font-bold tracking-wider sm:tracking-widest uppercase text-[#c89b3c] truncate">
-          HEXTECH TELEMETRİ // SİHİRDAR DOĞRULAMA
+          HEXTECH LOBİSİ // SİHİRDAR: EFE
         </span>
       </div>
-      <div class="flex items-center shrink-0">
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="change-champ-top-btn" onclick="goToChampSelect()" class="hidden text-xs px-2.5 py-1 rounded border border-[#0ac8b9]/50 bg-[#0ac8b9]/15 text-[#0ac8b9] hover:bg-[#0ac8b9]/25 transition font-bold cursor-pointer">
+          🔄 Şampiyon Değiştir
+        </button>
         <button id="sound-btn" onclick="toggleAudio()" class="text-xs px-2.5 py-1 rounded border border-[#c89b3c]/40 bg-[#111927] text-[#f0e6d2] hover:border-[#c89b3c] transition flex items-center gap-1 cursor-pointer">
           <span id="sound-icon">🔊</span>
           <span id="sound-label">Ses: Açık</span>
@@ -98,52 +84,90 @@
       </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- STAGE 1: THE DISGUISE (NO BIRTHDAY CLUES!) -->
-    <!-- ========================================== -->
-    <div id="stage-disguise" class="relative z-20 p-3.5 sm:p-7 space-y-4 sm:space-y-6">
+    <!-- ===================================================== -->
+    <!-- STAGE 0: CHAMPION SELECT LOBBY (NO BIRTHDAY CLUES!)   -->
+    <!-- ===================================================== -->
+    <div id="stage-select" class="relative z-20 p-3.5 sm:p-6 space-y-4 sm:space-y-5">
       
-      <!-- Summoner Profile Banner -->
+      <!-- Lobby Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3.5 rounded-lg bg-[#0d1624]/90 border border-[#c89b3c]/30">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-[#0ac8b9]/15 text-[#0ac8b9] border border-[#0ac8b9]/40 font-semibold">
+              DERECELİ DOĞRULAMA LOBİSİ
+            </span>
+            <span class="text-xs text-[#a09b8c]">Sihirdar: <strong class="text-[#f0e6d2]">EFE</strong></span>
+          </div>
+          <h1 class="text-lg sm:text-xl font-black tracking-wide text-[#f0e6d2] mt-1">
+            ŞAMPİYONUNU SEÇ VE KİLİTLE
+          </h1>
+          <p class="text-xs text-[#a09b8c]">
+            Refleks ve mekanik doğrulama simülasyonunu başlatmak için havuzundaki bir şampiyonu seç.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 self-end sm:self-center">
+          <div class="text-right">
+            <div class="text-xs text-[#a09b8c]">Seçilen Şampiyon</div>
+            <div id="selected-champ-name" class="text-sm font-black text-[#c89b3c]">Shaco</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7-Champion Grid -->
+      <div id="champ-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5">
+        <!-- Populated dynamically by JS -->
+      </div>
+
+      <!-- Selected Champion Preview & Lock In Bar -->
+      <div id="champ-preview-box" class="p-4 rounded-xl bg-gradient-to-r from-[#0d1624] via-[#131f33] to-[#0d1624] border border-[#c89b3c]/45 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3.5">
+          <div id="preview-avatar" class="w-14 h-14 rounded-full border-2 border-[#c89b3c] bg-[#161f33] flex items-center justify-center shrink-0 glow-anim"></div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="preview-title" class="text-base sm:text-lg font-black text-[#f0e6d2]">SHACO</span>
+              <span id="preview-sub" class="text-xs px-2 py-0.5 rounded bg-[#c89b3c]/20 text-[#c89b3c] font-bold">İblis Soytarı</span>
+            </div>
+            <p id="preview-diag" class="text-xs text-[#cdbe91] mt-1"></p>
+          </div>
+        </div>
+
+        <button onclick="lockInChampion()" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-gradient-to-r from-[#c89b3c] via-[#e6b84d] to-[#c89b3c] hover:brightness-110 active:scale-95 text-[#09101a] font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(200,155,60,0.5)] transition cursor-pointer shrink-0">
+          🔒 ŞAMPİYONU KİLİTLE (LOCK IN)
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- STAGE 1: CHAMPION-SPECIFIC 3-STEP DISGUISE TRAP       -->
+    <!-- ===================================================== -->
+    <div id="stage-disguise" class="hidden relative z-20 p-3.5 sm:p-7 space-y-4 sm:space-y-6">
+      
+      <!-- Summoner & Locked Champion Profile Banner -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-lg bg-[#0d1624]/90 border border-[#c89b3c]/30">
         <div class="flex items-center gap-3.5 sm:gap-4">
-          <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#c89b3c] bg-[#161f33] flex items-center justify-center shrink-0 glow-anim">
-            <svg class="w-9 h-9 sm:w-10 sm:h-10" viewBox="0 0 64 64" fill="none">
-              <path d="M12 26 C6 10, 24 6, 30 20" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
-              <path d="M52 26 C58 10, 40 6, 34 20" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
-              <circle cx="10" cy="14" r="3.5" fill="#eab308"/>
-              <circle cx="54" cy="14" r="3.5" fill="#eab308"/>
-              <polygon points="18,30 28,33 20,37" fill="#eab308"/>
-              <polygon points="46,30 36,33 44,37" fill="#eab308"/>
-              <path d="M20 44 Q32 56 44 44" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"/>
-            </svg>
-            <span class="absolute -bottom-1.5 bg-[#09101a] border border-[#c89b3c] text-[#c89b3c] text-xs font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
-              USTALIK 99+
-            </span>
-          </div>
+          <div id="disguise-avatar" class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#c89b3c] bg-[#161f33] flex items-center justify-center shrink-0 glow-anim"></div>
           <div>
             <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
               <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-[#0ac8b9]/15 text-[#0ac8b9] border border-[#0ac8b9]/40 font-semibold">
-                TR1 // SİHİRDAR KAYDI
+                TR1 // MEKANİK TESTİ
               </span>
-              <span class="text-xs text-[#a09b8c]">Dosya #SHC-902</span>
+              <span id="disguise-champ-tag" class="text-xs text-[#c89b3c] font-bold"></span>
             </div>
             <h1 class="text-lg sm:text-2xl font-black tracking-wide text-[#f0e6d2] mt-1">
               SİHİRDAR: <span class="text-[#c89b3c]">EFE</span>
             </h1>
-            <p class="text-xs sm:text-sm text-[#a09b8c]">
-              Teşhis: <span class="text-red-400 font-semibold">İblis Soytarı (Shaco) Sendromu</span>
-            </p>
+            <p id="disguise- syndrome" class="text-xs sm:text-sm text-[#a09b8c]"></p>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-2 w-full sm:w-auto text-left sm:text-right border-t sm:border-t-0 pt-2.5 sm:pt-0 border-[#c89b3c]/20">
           <div class="bg-[#09101a]/80 px-2.5 py-1.5 rounded border border-[#c89b3c]/20">
-            <div class="text-xs text-[#a09b8c]">Rakip Tilt Oranı</div>
-            <div class="text-xs sm:text-sm font-bold text-[#ef4444]">%99.4 (KRİTİK)</div>
+            <div id="metric-1-label" class="text-xs text-[#a09b8c]">Rakip Tilt Oranı</div>
+            <div id="metric-1-val" class="text-xs sm:text-sm font-bold text-[#ef4444]">%99.4 (KRİTİK)</div>
           </div>
           <div class="bg-[#09101a]/80 px-2.5 py-1.5 rounded border border-[#c89b3c]/20">
-            <div class="text-xs text-[#a09b8c]">Q Görünmezlik</div>
-            <div class="text-xs sm:text-sm font-bold text-[#0ac8b9]">0.12 sn Refleks</div>
+            <div id="metric-2-label" class="text-xs text-[#a09b8c]">Refleks Süresi</div>
+            <div id="metric-2-val" class="text-xs sm:text-sm font-bold text-[#0ac8b9]">0.12 sn</div>
           </div>
         </div>
       </div>
@@ -151,88 +175,50 @@
       <!-- Vanguard / Hextech Notice -->
       <div class="p-3.5 sm:p-4 rounded-lg bg-[#141c2b]/80 border-l-4 border-[#c89b3c] space-y-1.5">
         <div class="flex items-center justify-between gap-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
-            ⚠️ SİSTEM UYARISI: AKIL OYUNU TESPİT EDİLDİ
+          <span id="mission-header" class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
+            ⚠️ SİSTEM UYARISI: MEKANİK DOĞRULAMA GEREKLİ
           </span>
           <span id="step-counter" class="text-xs font-bold px-2 py-0.5 rounded bg-[#c89b3c]/20 text-[#f0e6d2] shrink-0">
             Adım 1 / 3
           </span>
         </div>
-        <p id="mission-desc" class="text-xs sm:text-sm text-[#cdbe91] leading-relaxed">
-          Sihirdar <strong>EFE</strong>, son maçlarında aşırı dozda <em>Kandırmaca (Q)</em> ve çalıya <em>Soytarı Kutusu (W)</em> kurma davranışı tespit edildi. Profil raporunu açmak için aşağıdaki <strong>Gerçek Shaco Kutusunu</strong> yakala ve etkisiz hale getir.
-        </p>
+        <p id="mission-desc" class="text-xs sm:text-sm text-[#cdbe91] leading-relaxed"></p>
       </div>
 
-      <!-- Interactive Arena (Deceive & Clone Trap) -->
+      <!-- Interactive Arena -->
       <div id="arena" class="relative h-64 sm:h-72 rounded-xl bg-gradient-to-b from-[#070c14] via-[#0c1626] to-[#08101c] border border-[#c89b3c]/35 overflow-hidden flex flex-col items-center justify-center p-3 sm:p-4">
         <div class="pointer-events-none absolute inset-0 opacity-15" style="background-image: radial-gradient(#c89b3c 1px, transparent 1px); background-size: 24px 24px;"></div>
 
-        <div id="arena-toast" class="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 w-[92%] sm:w-auto max-w-full px-3 py-1 rounded-lg sm:rounded-full bg-[#09101a]/95 border border-[#c89b3c]/40 text-xs font-semibold text-[#f0e6d2] text-center leading-snug transition-all">
-          🎯 Kutunun üzerine dokun ve kilidi aç!
-        </div>
+        <div id="arena-toast" class="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 w-[92%] sm:w-auto max-w-full px-3 py-1 rounded-lg sm:rounded-full bg-[#09101a]/95 border border-[#c89b3c]/40 text-xs font-semibold text-[#f0e6d2] text-center leading-snug transition-all"></div>
 
         <div id="targets-wrapper" class="relative w-full h-full flex items-center justify-center pt-6">
-          <!-- Single Target (Steps 1 & 2: Deceive Q Teleports) -->
-          <button id="shaco-box-btn" onclick="handleBoxClick(event)" class="group relative flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-xl transition-all duration-200 cursor-pointer jitter-anim focus:outline-none">
+          <!-- Step 1 & 2 Target Button -->
+          <button id="trap-target-btn" onclick="handleTrapClick(event)" class="group relative flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-xl transition-all duration-200 cursor-pointer jitter-anim focus:outline-none">
             <div class="w-24 h-2.5 bg-black/80 border border-[#c89b3c] rounded-sm mb-1.5 overflow-hidden flex">
-              <div id="box-hp" class="w-full h-full bg-gradient-to-r from-red-600 to-red-500 transition-all duration-300"></div>
+              <div id="trap-hp" class="w-full h-full bg-gradient-to-r from-red-600 to-amber-500 transition-all duration-300"></div>
             </div>
-            <div class="relative w-18 h-18 sm:w-20 sm:h-20 flex items-center justify-center rounded-lg bg-[#161f33]/90 border-2 border-[#c89b3c] group-hover:border-red-500 group-hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] transition p-2">
-              <svg class="w-12 h-12 sm:w-14 sm:h-14" viewBox="0 0 80 80" fill="none">
-                <path d="M32 56 L48 50 L32 44 L48 38" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
-                <rect x="20" y="52" width="40" height="22" rx="3" fill="#7f1d1d" stroke="#facc15" stroke-width="2.5"/>
-                <path d="M20 62 H60 M40 52 V74" stroke="#facc15" stroke-width="2"/>
-                <circle cx="40" cy="28" r="13" fill="#1e1b4b" stroke="#c084fc" stroke-width="2"/>
-                <path d="M30 20 C20 8, 34 4, 38 15" stroke="#ef4444" stroke-width="3" fill="none"/>
-                <path d="M50 20 C60 8, 46 4, 42 15" stroke="#a855f7" stroke-width="3" fill="none"/>
-                <circle cx="35" cy="26" r="2.5" fill="#facc15"/>
-                <circle cx="45" cy="26" r="2.5" fill="#facc15"/>
-                <path d="M33 33 Q40 40 47 33" stroke="#ef4444" stroke-width="2.5" fill="none"/>
-              </svg>
-            </div>
-            <span id="box-label" class="mt-1.5 text-xs font-bold tracking-wider uppercase px-2.5 py-0.5 rounded bg-[#09101a]/90 border border-[#c89b3c]/50 text-[#f0e6d2] group-hover:text-amber-300">
-              Soytarı Kutusu (W)
-            </span>
+            <div id="trap-icon-box" class="relative w-18 h-18 sm:w-20 sm:h-20 flex items-center justify-center rounded-xl bg-[#161f33]/90 border-2 border-[#c89b3c] group-hover:border-amber-400 group-hover:shadow-[0_0_20px_rgba(250,204,21,0.5)] transition p-2"></div>
+            <span id="trap-btn-label" class="mt-1.5 text-xs font-bold tracking-wider uppercase px-2.5 py-0.5 rounded bg-[#09101a]/90 border border-[#c89b3c]/50 text-[#f0e6d2] group-hover:text-amber-300"></span>
           </button>
 
-          <!-- Step 3: Hallucination (R) Dual Clones -->
+          <!-- Step 3 Dual Choice Container -->
           <div id="clones-container" class="hidden w-full h-full items-center justify-around px-1 sm:px-10 gap-2 sm:gap-4">
             <button onclick="triggerFinalAmbush(event)" class="group flex flex-col items-center p-2 sm:p-3 rounded-xl hover:scale-105 active:scale-95 transition cursor-pointer jitter-anim">
-              <div class="text-xs text-[#0ac8b9] font-bold mb-1">EFE_SHACO</div>
+              <div class="text-xs text-[#0ac8b9] font-bold mb-1">EFE (Seviye 18)</div>
               <div class="w-20 sm:w-24 h-2.5 bg-black/80 border border-[#c89b3c] rounded-sm mb-1.5 overflow-hidden">
                 <div class="w-4/5 h-full bg-emerald-500"></div>
               </div>
-              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#1a1433] border-2 border-purple-500 group-hover:border-amber-400 shadow-[0_0_20px_rgba(168,85,247,0.5)] flex items-center justify-center">
-                <svg class="w-12 h-12 sm:w-14 sm:h-14" viewBox="0 0 64 64" fill="none">
-                  <path d="M12 26 C6 10, 24 6, 30 20" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
-                  <path d="M52 26 C58 10, 40 6, 34 20" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
-                  <polygon points="18,30 28,33 20,37" fill="#eab308"/>
-                  <polygon points="46,30 36,33 44,37" fill="#eab308"/>
-                  <path d="M20 44 Q32 56 44 44" stroke="#ef4444" stroke-width="3" fill="none"/>
-                </svg>
-              </div>
-              <span class="mt-1.5 text-xs font-bold px-2 sm:px-3 py-1 rounded bg-purple-950/90 border border-purple-400 text-purple-200 text-center">
-                🎯 Gerçek Shaco!
-              </span>
+              <div id="clone-a-icon" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#1a1433] border-2 border-purple-500 group-hover:border-amber-400 shadow-[0_0_20px_rgba(168,85,247,0.5)] flex items-center justify-center"></div>
+              <span id="clone-a-label" class="mt-1.5 text-xs font-bold px-2 sm:px-3 py-1 rounded bg-purple-950/90 border border-purple-400 text-purple-200 text-center"></span>
             </button>
 
             <button onclick="triggerFinalAmbush(event)" class="group flex flex-col items-center p-2 sm:p-3 rounded-xl hover:scale-105 active:scale-95 transition cursor-pointer jitter-anim">
-              <div class="text-xs text-[#0ac8b9] font-bold mb-1">EFE_SHACO</div>
+              <div class="text-xs text-[#0ac8b9] font-bold mb-1">EFE (Seviye 18)</div>
               <div class="w-20 sm:w-24 h-2.5 bg-black/80 border border-[#c89b3c] rounded-sm mb-1.5 overflow-hidden">
                 <div class="w-4/5 h-full bg-emerald-500"></div>
               </div>
-              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#1a1433] border-2 border-red-500 group-hover:border-amber-400 shadow-[0_0_20px_rgba(239,68,68,0.5)] flex items-center justify-center">
-                <svg class="w-12 h-12 sm:w-14 sm:h-14" viewBox="0 0 64 64" fill="none">
-                  <path d="M12 26 C6 10, 24 6, 30 20" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
-                  <path d="M52 26 C58 10, 40 6, 34 20" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
-                  <polygon points="18,30 28,33 20,37" fill="#eab308"/>
-                  <polygon points="46,30 36,33 44,37" fill="#eab308"/>
-                  <path d="M20 44 Q32 56 44 44" stroke="#ef4444" stroke-width="3" fill="none"/>
-                </svg>
-              </div>
-              <span class="mt-1.5 text-xs font-bold px-2 sm:px-3 py-1 rounded bg-red-950/90 border border-red-400 text-red-200 text-center">
-                🗡️ Hayır, Bu!
-              </span>
+              <div id="clone-b-icon" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#1a1433] border-2 border-red-500 group-hover:border-amber-400 shadow-[0_0_20px_rgba(239,68,68,0.5)] flex items-center justify-center"></div>
+              <span id="clone-b-label" class="mt-1.5 text-xs font-bold px-2 sm:px-3 py-1 rounded bg-red-950/90 border border-red-400 text-red-200 text-center"></span>
             </button>
           </div>
         </div>
@@ -247,83 +233,94 @@
     <!-- ========================================================== -->
     <!-- STAGE 2: THE SURPRISE BIRTHDAY AMBUSH! (HIDDEN INITIALLY)  -->
     <!-- ========================================================== -->
-    <div id="stage-birthday" class="hidden relative z-20 p-5 sm:p-7 space-y-6">
+    <div id="stage-birthday" class="hidden relative z-20 p-3.5 sm:p-7 space-y-5">
       
-      <div class="relative rounded-xl p-5 bg-gradient-to-r from-[#2e1065] via-[#4c0519] to-[#2e1065] border-2 border-[#facc15] text-center shadow-[0_0_35px_rgba(168,85,247,0.5)] overflow-hidden">
-        <div class="text-xs font-black tracking-[0.25em] uppercase text-amber-300 mb-1">
-          🗡️ ARKADAN VURUŞ (PASİF) %100 KRİTİK VURDU! 🗡️
-        </div>
+      <!-- Top Level Up / Ult Announcement Banner -->
+      <div id="bday-banner" class="relative rounded-xl p-4 sm:p-5 bg-gradient-to-r from-[#2e1065] via-[#4c0519] to-[#2e1065] border-2 border-[#facc15] text-center shadow-[0_0_35px_rgba(168,85,247,0.5)] overflow-hidden">
+        <div id="bday-kicker" class="text-xs font-black tracking-[0.2em] uppercase text-amber-300 mb-1"></div>
         <h1 class="text-2xl sm:text-4xl font-black tracking-wide text-white uppercase drop-shadow-[0_2px_10px_rgba(250,204,21,0.8)]">
-          İYİ Kİ DOĞDUN <span class="text-[#facc15]">EFE!</span> 🎂🃏
+          İYİ Kİ DOĞDUN <span class="text-[#facc15]">EFE!</span> 🎂
         </h1>
-        <p id="shaco-quote" class="mt-2 text-sm sm:text-base text-purple-200 italic font-medium">
-          "Bir sonraki numaramda... doğum günü pastanı yok edeceğim! Şaka şaka, yeni yaşın kutlu olsun kanka!"
-        </p>
+        <p id="bday-quote" class="mt-2 text-xs sm:text-base text-amber-100 italic font-medium"></p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+      <!-- Quick Champion Switcher Bar inside Birthday Mode -->
+      <div class="rounded-xl bg-[#0b1220] border border-[#c89b3c]/40 p-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-[#0ac8b9]">
+            🎭 DİĞER ŞAMPİYONLARIN DOĞUM GÜNÜ SÜRPRİZLERİNİ DENE:
+          </span>
+          <span class="text-xs text-[#a09b8c]">
+            Bir şampiyona dokunarak onun ulti sürprizini veya tuzağını aç!
+          </span>
+        </div>
+        <div id="bday-champ-bar" class="grid grid-cols-4 sm:grid-cols-7 gap-1.5">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- Interactive Centerpiece: Cake & Patch Notes Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 items-stretch">
+        
+        <!-- Left Column: Interactive Birthday Cake (7 cols) -->
         <div class="md:col-span-7 rounded-xl bg-[#0e1525]/95 border border-purple-500/40 p-4 flex flex-col items-center justify-between relative overflow-hidden">
           <div class="w-full flex items-center justify-between border-b border-purple-500/20 pb-2 mb-2">
-            <span class="text-xs font-bold uppercase tracking-wider text-purple-300">
-              🎪 SOYTARI SÜRPRİZ PASTASI
+            <span id="cake-title" class="text-xs font-bold uppercase tracking-wider text-purple-300">
+              🎪 SÜRPRİZ DOĞUM GÜNÜ PASTASI
             </span>
             <span id="candle-status" class="text-xs font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/40">
               🔥 3 Mum Yanıyor
             </span>
           </div>
 
-          <div id="cake-stage" class="relative my-2 flex flex-col items-center justify-center py-2 transition-all duration-500">
-            <svg class="w-48 h-44 overflow-visible" viewBox="0 0 200 180" fill="none">
-              <path d="M65 55 C25 15, 65 -5, 95 35" stroke="#ef4444" stroke-width="8" stroke-linecap="round" fill="none"/>
-              <path d="M135 55 C175 15, 135 -5, 105 35" stroke="#a855f7" stroke-width="8" stroke-linecap="round" fill="none"/>
-              <circle cx="42" cy="22" r="6" fill="#facc15"/>
-              <circle cx="158" cy="22" r="6" fill="#facc15"/>
-              <polygon points="75,42 92,47 78,52" fill="#facc15"/>
-              <polygon points="125,42 108,47 122,52" fill="#facc15"/>
-              
+          <div id="cake-stage" class="relative my-1 flex flex-col items-center justify-center py-1 transition-all duration-500">
+            <!-- Champion Mascot Badge Above Cake -->
+            <div id="cake-champ-badge" class="w-14 h-14 rounded-full border-2 border-amber-400 bg-[#161f33] flex items-center justify-center -mb-3 z-10 shadow-[0_0_20px_rgba(250,204,21,0.5)]"></div>
+            <svg class="w-48 h-36 overflow-visible" viewBox="0 0 200 145" fill="none">
+              <!-- 3 Birthday Candles -->
               <g onclick="blowCandle(0)" class="cursor-pointer">
-                <rect x="66" y="68" width="8" height="24" rx="2" fill="#ec4899" stroke="#fbcfe8" stroke-width="1.5"/>
+                <rect x="66" y="33" width="8" height="24" rx="2" fill="#ec4899" stroke="#fbcfe8" stroke-width="1.5"/>
                 <g id="flame-0" class="candle-flame">
-                  <path d="M70 50 C64 60, 66 67, 70 67 C74 67, 76 60, 70 50 Z" fill="#facc15"/>
-                  <circle cx="70" cy="62" r="2.5" fill="#ef4444"/>
+                  <path d="M70 15 C64 25, 66 32, 70 32 C74 32, 76 25, 70 15 Z" fill="#facc15"/>
+                  <circle cx="70" cy="27" r="2.5" fill="#ef4444"/>
                 </g>
               </g>
               <g onclick="blowCandle(1)" class="cursor-pointer">
-                <rect x="96" y="64" width="8" height="28" rx="2" fill="#a855f7" stroke="#e9d5ff" stroke-width="1.5"/>
+                <rect x="96" y="29" width="8" height="28" rx="2" fill="#a855f7" stroke="#e9d5ff" stroke-width="1.5"/>
                 <g id="flame-1" class="candle-flame">
-                  <path d="M100 46 C94 56, 96 63, 100 63 C104 63, 106 56, 100 46 Z" fill="#facc15"/>
-                  <circle cx="100" cy="58" r="2.5" fill="#ef4444"/>
+                  <path d="M100 11 C94 21, 96 28, 100 28 C104 28, 106 21, 100 11 Z" fill="#facc15"/>
+                  <circle cx="100" cy="23" r="2.5" fill="#ef4444"/>
                 </g>
               </g>
               <g onclick="blowCandle(2)" class="cursor-pointer">
-                <rect x="126" y="68" width="8" height="24" rx="2" fill="#0ac8b9" stroke="#99f6e4" stroke-width="1.5"/>
+                <rect x="126" y="33" width="8" height="24" rx="2" fill="#0ac8b9" stroke="#99f6e4" stroke-width="1.5"/>
                 <g id="flame-2" class="candle-flame">
-                  <path d="M130 50 C124 60, 126 67, 130 67 C134 67, 136 60, 130 50 Z" fill="#facc15"/>
-                  <circle cx="130" cy="62" r="2.5" fill="#ef4444"/>
+                  <path d="M130 15 C124 25, 126 32, 130 32 C134 32, 136 25, 130 15 Z" fill="#facc15"/>
+                  <circle cx="130" cy="27" r="2.5" fill="#ef4444"/>
                 </g>
               </g>
 
-              <rect x="52" y="90" width="96" height="32" rx="6" fill="#3b0764" stroke="#c084fc" stroke-width="2.5"/>
-              <path d="M52 100 Q64 112 76 100 T100 100 T124 100 T148 100" stroke="#f43f5e" stroke-width="4" fill="none"/>
-              <rect x="36" y="122" width="128" height="40" rx="8" fill="#4c0519" stroke="#facc15" stroke-width="2.5"/>
-              <text x="100" y="147" text-anchor="middle" fill="#facc15" font-size="15" font-weight="900" letter-spacing="2">EFE OP GG</text>
-              <ellipse cx="100" cy="164" rx="76" ry="7" fill="#c89b3c"/>
+              <!-- Cake Tiers -->
+              <rect x="52" y="55" width="96" height="32" rx="6" fill="#3b0764" stroke="#c084fc" stroke-width="2.5"/>
+              <path d="M52 65 Q64 77 76 65 T100 65 T124 65 T148 65" stroke="#f43f5e" stroke-width="4" fill="none"/>
+              <rect x="36" y="87" width="128" height="40" rx="8" fill="#4c0519" stroke="#facc15" stroke-width="2.5"/>
+              <text x="100" y="112" text-anchor="middle" fill="#facc15" font-size="15" font-weight="900" letter-spacing="2">EFE OP GG</text>
+              <ellipse cx="100" cy="129" rx="76" ry="7" fill="#c89b3c"/>
             </svg>
           </div>
 
           <p id="cake-action-text" class="text-xs text-center text-[#cdbe91] mb-3">
-            Mumlara tek tek tıkla ya da aşağıdaki <strong>E - Çift Zehirli Bıçak</strong> yeteneğiyle tek seferde söndür!
+            Mumlara tek tek dokun ya da aşağıdaki özel şampiyon yeteneğiyle tek seferde söndür!
           </p>
 
-          <button onclick="castSkill('E')" class="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-red-600 via-purple-600 to-red-600 hover:from-red-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg border border-amber-400/60 transition cursor-pointer">
-            🗡️ E - Çift Zehirli Bıçak Fırlat (Mumları Söndür & Dilek Tut!)
-          </button>
+          <button id="blow-btn" onclick="castSkill('E')" class="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-red-600 via-purple-600 to-red-600 hover:from-red-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg border border-amber-400/60 transition cursor-pointer"></button>
         </div>
 
+        <!-- Right Column: Efe's Champion-Specific Birthday Patch Notes (5 cols) -->
         <div class="md:col-span-5 rounded-xl bg-[#0e1525]/95 border border-[#c89b3c]/40 p-4 flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between border-b border-[#c89b3c]/30 pb-2">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
+              <span id="patch-title" class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
                 📜 YAMA NOTLARI: EFE (YENİ YAŞ)
               </span>
               <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
@@ -331,88 +328,376 @@
               </span>
             </div>
 
-            <ul class="mt-3 space-y-2.5 text-xs sm:text-sm">
-              <li class="flex items-start gap-2">
-                <span class="text-amber-400 font-bold">▲</span>
-                <div>
-                  <strong class="text-[#f0e6d2]">Seviye Atlama (Level Up):</strong>
-                  <p class="text-xs text-[#a09b8c]">Taban Karizma, Şans ve Mutluluk nitelikleri <strong>+%100</strong> artırıldı.</p>
-                </div>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-purple-400 font-bold">▲</span>
-                <div>
-                  <strong class="text-[#f0e6d2]">Kandırmaca (Q) Güncellemesi:</strong>
-                  <p class="text-xs text-[#a09b8c]">Hayattaki tüm stres ve dertlere karşı <strong>Kalıcı Görünmezlik</strong> eklendi.</p>
-                </div>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-emerald-400 font-bold">▲</span>
-                <div>
-                  <strong class="text-[#f0e6d2]">Ganimet Bereketi:</strong>
-                  <p class="text-xs text-[#a09b8c]">Yeni yaşında açtığın her kutudan <strong>Ebedi Kılıç</strong> tadında başarılar çıkacak.</p>
-                </div>
-              </li>
-            </ul>
+            <ul id="patch-list" class="mt-3 space-y-2.5 text-xs sm:text-sm"></ul>
           </div>
 
           <div class="p-3 rounded-lg bg-[#161f33]/90 border border-purple-500/30 text-xs text-[#f0e6d2] leading-relaxed">
             <div class="font-bold text-amber-300 mb-1">💌 Dostundan Mesaj:</div>
-            "İyi ki doğdun <strong>Efe</strong>! Hayatta her zaman rakiplerini şaşırtmaya, yüzündeki o efsane gülümsemeyle her maçı taşımaya devam et. Yeni yaşın sana bol LP, bol kahkaha ve efsane anılar getirsin kanka!"
+            "İyi ki doğdun <strong>Efe</strong>! Hangi şampiyonu seçersen seç her maçı taşımaya, etrafına neşe saçmaya devam et. Yeni yaşın sana bol LP, bol kahkaha ve efsane anılar getirsin kanka!"
           </div>
         </div>
       </div>
 
+      <!-- Interactive LoL HUD Skill Bar (P, Q, W, E, R) -->
       <div class="rounded-xl bg-[#070b12] border border-[#c89b3c]/50 p-3 sm:p-4">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
-            🎮 SHACO YETENEK ÇUBUĞU (ETKİLEŞİMLİ - TIKLA VE KULLAN!)
-          </span>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2.5">
+          <span id="skillbar-title" class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]"></span>
           <span id="skill-feedback" class="text-xs text-purple-300 font-medium">
-            Bir yeteneğe tıklayarak kutlamayı ateşle!
+            Bir yeteneğe dokunarak özel doğum günü efektini ateşle!
           </span>
         </div>
 
-        <div class="grid grid-cols-5 gap-2 sm:gap-3">
-          <button onclick="castSkill('P')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-amber-400 hover:bg-[#1a253a] transition cursor-pointer">
-            <span class="text-lg sm:text-xl">🗡️</span>
-            <span class="text-xs font-black text-amber-300 mt-1">PASİF</span>
-            <span class="text-xs text-[#a09b8c] hidden sm:inline">Arkadan Vuruş</span>
-          </button>
-          <button onclick="castSkill('Q')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-orange-400 hover:bg-[#1a253a] transition cursor-pointer">
-            <span class="text-lg sm:text-xl">💨</span>
-            <span class="text-xs font-black text-orange-400 mt-1">Q</span>
-            <span class="text-xs text-[#a09b8c] hidden sm:inline">Kandırmaca</span>
-          </button>
-          <button onclick="castSkill('W')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-purple-400 hover:bg-[#1a253a] transition cursor-pointer">
-            <span class="text-lg sm:text-xl">🤡</span>
-            <span class="text-xs font-black text-purple-400 mt-1">W</span>
-            <span class="text-xs text-[#a09b8c] hidden sm:inline">Soytarı Kutusu</span>
-          </button>
-          <button onclick="castSkill('E')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-red-400 hover:bg-[#1a253a] transition cursor-pointer">
-            <span class="text-lg sm:text-xl">🔪</span>
-            <span class="text-xs font-black text-red-400 mt-1">E</span>
-            <span class="text-xs text-[#a09b8c] hidden sm:inline">Zehirli Bıçak</span>
-          </button>
-          <button onclick="castSkill('R')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-emerald-400 hover:bg-[#1a253a] transition cursor-pointer">
-            <span class="text-lg sm:text-xl">👯</span>
-            <span class="text-xs font-black text-emerald-400 mt-1">R (ULTİ)</span>
-            <span class="text-xs text-[#a09b8c] hidden sm:inline">Halüsinasyon</span>
-          </button>
+        <div id="skill-buttons-grid" class="grid grid-cols-5 gap-2 sm:gap-3">
+          <!-- Populated dynamically by JS -->
         </div>
       </div>
 
-      <div class="flex items-center justify-between text-xs text-[#a09b8c] pt-1">
-        <span>🃏 Shaco Main Özel Sürümü // Sihirdar: EFE</span>
-        <button onclick="resetToDisguise()" class="text-xs underline hover:text-amber-300 cursor-pointer">
-          🔄 Baştaki Tuzak Ekranına Dön
-        </button>
+      <!-- Footer Replay Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-[#a09b8c] pt-1">
+        <span id="footer-champ-tag">🃏 Özel Doğum Günü Sürümü // Sihirdar: EFE</span>
+        <div class="flex items-center gap-3">
+          <button onclick="replayCurrentChampTrap()" class="text-xs underline hover:text-amber-300 cursor-pointer">
+            🎯 Bu Şampiyonun Tuzağını Tekrar Oyna
+          </button>
+          <button onclick="goToChampSelect()" class="text-xs font-bold text-[#0ac8b9] underline hover:text-amber-300 cursor-pointer">
+            🔄 Şampiyon Seçim Ekranına Dön
+          </button>
+        </div>
       </div>
 
     </div>
   </div>
 
   <script>
+    // =====================================================
+    // 7 CHAMPIONS DATA (SHACO, TWITCH, LILLIA, NOCTURNE, NUNU, SERAPHINE, MORGANA)
+    // =====================================================
+    const CHAMPIONS = {
+      shaco: {
+        id: 'shaco',
+        name: 'Shaco',
+        title: 'İblis Soytarı',
+        role: 'Suikastçı',
+        color: '#a855f7',
+        smokeScheme: 'orange',
+        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
+          <path d="M12 26 C6 10, 24 6, 30 20" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+          <path d="M52 26 C58 10, 40 6, 34 20" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="10" cy="14" r="3.5" fill="#eab308"/><circle cx="54" cy="14" r="3.5" fill="#eab308"/>
+          <polygon points="18,30 28,33 20,37" fill="#eab308"/><polygon points="46,30 36,33 44,37" fill="#eab308"/>
+          <path d="M20 44 Q32 56 44 44" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>`,
+        diag: 'Teşhis: %99.4 Rakip Ormancı Tilt Etme & Çalıya Kutu Kurma Bağımlılığı.',
+        metric1: ['Rakip Tilt Oranı', '%99.4 (KRİTİK)'],
+        metric2: ['Q Görünmezlik', '0.12 sn Refleks'],
+        missionDesc: 'Sihirdar <strong>EFE</strong>, son maçlarda aşırı dozda <em>Kandırmaca (Q)</em> ve çalıya <em>Soytarı Kutusu (W)</em> kurma tespit edildi. Raporu açmak için aşağıdaki <strong>Soytarı Kutusunu</strong> yakala!',
+        step1Toast: '🎯 Soytarı Kutusunun (W) üzerine dokun ve etkisiz hale getir!',
+        step1Btn: 'Soytarı Kutusu (W)',
+        step2Toast: '💨 <span class="text-orange-400">Kandırmaca (Q)!</span> Kutu turuncu dumanla görünmez olup kaçtı, tekrar dokun!',
+        step2Btn: 'Kandırmaca (Q)! Yakala!',
+        step2Log: '> UYARI: Hedef Q (Kandırmaca) kullandı! Arkana bak Efe...',
+        step3Toast: '👯 <span class="text-purple-400">ULTİ: Halüsinasyon (R)!</span> Hangisi gerçek Shaco? Birine dokun!',
+        step3CloneA: '🎯 Gerçek Shaco!',
+        step3CloneB: '🗡️ Hayır, Gerçek Bu!',
+        ambushTitle: '😱 KORKUTULDUN! (FEARED)',
+        ambushSub: '"Neden bu kadar ciddisin Efe?!"',
+        bdayKicker: '🗡️ ARKADAN VURUŞ (PASİF) %100 KRİTİK VURDU! 🗡️',
+        bdayQuote: '"Bir sonraki numaramda... doğum günü pastanı yok edeceğim! Şaka şaka, yeni yaşın kutlu olsun Efe!"',
+        blowBtnText: '🗡️ E - Çift Zehirli Bıçak Fırlat (Mumları Söndür!)',
+        patches: [
+          ['Seviye Atlama (Level Up):', 'Taban Karizma, Akıl Oyunları ve Mutluluk nitelikleri +%100 artırıldı.'],
+          ['Kandırmaca (Q) Güncellemesi:', 'Hayattaki tüm stres ve dertlere karşı Kalıcı Görünmezlik eklendi.'],
+          ['Halüsinasyon (R) Bereketi:', 'Yeni yaşında eğlence ve başarıların klonlanarak ikiye katlanacak!']
+        ],
+        skills: [
+          { key: 'P', icon: '🗡️', name: 'Arkadan Vuruş', color: 'text-amber-300', msg: '"Pasif: Arkadan Vuruş! Doğum günü kutlamasını hiç beklemediğin anda arkadan kritik vuruşla aldın Efe!"' },
+          { key: 'Q', icon: '💨', name: 'Kandırmaca', color: 'text-orange-400', msg: '"Kandırmaca (Q)! Pasta turuncu dumanla görünmez oldu ve mumları yenilenmiş olarak geri döndü!"' },
+          { key: 'W', icon: '🤡', name: 'Soytarı Kutusu', color: 'text-purple-400', msg: '"Soytarı Kutusu (W) kuruldu! Kutu patladı ve etrafa konfetiler saçıldı! Neden bu kadar ciddisin Efe?!"' },
+          { key: 'E', icon: '🔪', name: 'Zehirli Bıçak', color: 'text-red-400', msg: '"Çift Zehirli Bıçak (E) tam on ikiden vurdu! Tüm mumlar söndü, dileğin kabul edildi Efe!"' },
+          { key: 'R', icon: '👯', name: 'Halüsinasyon', color: 'text-emerald-400', msg: '"ULTİ: HALÜSİNASYON (R)! İki kat eğlence, iki kat şans, iki kat mutluluk! İyi ki doğdun Efe!"' }
+        ]
+      },
+
+      twitch: {
+        id: 'twitch',
+        name: 'Twitch',
+        title: 'Veba Getiren',
+        titleShort: 'Veba Getiren',
+        role: 'Nişancı',
+        color: '#22c55e',
+        smokeScheme: 'green',
+        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
+          <circle cx="18" cy="18" r="8" fill="#14532d" stroke="#4ade80" stroke-width="2.5"/>
+          <circle cx="46" cy="18" r="8" fill="#14532d" stroke="#4ade80" stroke-width="2.5"/>
+          <path d="M18 32 Q32 18 46 32 L40 50 Q32 56 24 50 Z" fill="#166534" stroke="#86efac" stroke-width="2"/>
+          <circle cx="26" cy="34" r="4" fill="#ef4444"/><circle cx="38" cy="34" r="4" fill="#ef4444"/>
+          <circle cx="32" cy="46" r="3" fill="#facc15"/>
+        </svg>`,
+        diag: 'Teşhis: 1. Seviyede Görünmez Gank Atma & Küflü Peynir Koleksiyonculuğu.',
+        metric1: ['Pusu (Q) Süresi', '60 sn Kamuflaj'],
+        metric2: ['R Menzili', '850 Birim (TAM İSABET)'],
+        missionDesc: 'Sihirdar <strong>EFE</strong>, nehir çalısında kamuflajda bekleyen <strong>Twitch</strong> tespit edildi. Raporu açmak için peynir tuzağını ve Twitch\'i yakala!',
+        step1Toast: '🧀 Peynir Tuzağına dokun ve Twitch\'i saklandığı yerden çıkar!',
+        step1Btn: 'Şüpheli Peynir (Q)',
+        step2Toast: '🧪 <span class="text-emerald-400">Pusu (Q)!</span> "Saklanıyordum!" Twitch kamuflaja girip kaçtı, tekrar dokun!',
+        step2Btn: 'Kamuflajdaki Twitch!',
+        step2Log: '> UYARI: Twitch Q (Pusu) açtı! Kokuyu takip et Efe...',
+        step3Toast: '🛢️ <span class="text-lime-400">Zehir Şişesi (W)!</span> Hangi fıçının arkasında gerçek Twitch var?',
+        step3CloneA: '🐀 Bu Fıçıda!',
+        step3CloneB: '🧀 Hayır, Peynir Burada!',
+        ambushTitle: '🐀 CE-EEE! BEN GELDİM! (PUSU AÇILDI)',
+        ambushSub: '"Saklanıyordum Efe! Hahaha! Kokmuş peynir değil, doğum günü pastasıymış!"',
+        bdayKicker: '🏹 ZEHİR OKU (R) AÇILDI: 850 MENZİLDEN DOĞUM GÜNÜ KUTLAMASI! 🏹',
+        bdayQuote: '"Kokmuş peynir mi o?! Hayır, Efe\'nin doğum günü pastasıymış! Bana da bir dilim ayır, iyi ki doğdun!"',
+        blowBtnText: '🧪 E - Bulaştır (6 Yükte Tüm Mumları Patlatarak Söndür!)',
+        patches: [
+          ['Ölümcül Zehir (Pasif):', 'Yeni yaşında her saniye 6 yük Neşe ve Başarı biriktireceksin.'],
+          ['Pusu (Q) Güncellemesi:', 'Sıkıcı ortamlardan %70 hareket hızıyla görünmez sıvışma yeteneği eklendi.'],
+          ['Zehir Oku (R) Buffı:', 'Hedeflediğin tüm hayaller 850 menzilden delici vuruşla gerçekleşecek!']
+        ],
+        skills: [
+          { key: 'P', icon: '☠️', name: 'Ölümcül Zehir', color: 'text-lime-400', msg: '"Pasif: 6 Yük Doğum Günü Neşesi birikti! Efe şu an durdurulamaz!"' },
+          { key: 'Q', icon: '🐀', name: 'Pusu', color: 'text-emerald-400', msg: '"Pusu (Q): Saklanıyordum Efe! Hahaha! Pasta kamuflajdan taze mumlarla çıktı!"' },
+          { key: 'W', icon: '🧪', name: 'Zehir Şişesi', color: 'text-green-400', msg: '"Zehir Şişesi (W): Yeşil konfeti bulutu patladı! Kimse eğlenceden kaçamaz!"' },
+          { key: 'E', icon: '💥', name: 'Bulaştır', color: 'text-amber-400', msg: '"Bulaştır (E): 6 yük patladı ve pastadaki tüm mumlar tek seferde söndü! İyi ki doğdun Efe!"' },
+          { key: 'R', icon: '🏹', name: 'Zehir Oku', color: 'text-red-400', msg: '"ULTİ: ZEHİR OKU (R)! Ta-ta-ta-ta! Her yere delici doğum günü konfetileri yağdı!"' }
+        ]
+      },
+
+      lillia: {
+        id: 'lillia',
+        name: 'Lillia',
+        title: 'Çekingen Çiçek',
+        role: 'Ormancı',
+        color: '#f472b6',
+        smokeScheme: 'pink',
+        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
+          <path d="M20 20 Q12 8 24 10" stroke="#f472b6" stroke-width="3" fill="none"/>
+          <path d="M44 20 Q52 8 40 10" stroke="#f472b6" stroke-width="3" fill="none"/>
+          <circle cx="32" cy="14" r="6" fill="#ec4899" stroke="#fbcfe8" stroke-width="2"/>
+          <circle cx="32" cy="34" r="14" fill="#581c87" stroke="#f9a8d4" stroke-width="2"/>
+          <circle cx="26" cy="32" r="3" fill="#38bdf8"/><circle cx="38" cy="32" r="3" fill="#38bdf8"/>
+          <path d="M28 40 Q32 44 36 40" stroke="#fbcfe8" stroke-width="2" fill="none"/>
+        </svg>`,
+        diag: 'Teşhis: 4 Yük Şahlanan Hızla (Q) Haritada 700 Hızla Sekerek Koşma.',
+        metric1: ['Şahlanan Hız', '4/4 Yük (MAKSİMUM)'],
+        metric2: ['Ninni (R) Uyku', '%100 Tatlı Rüya'],
+        missionDesc: 'Sihirdar <strong>EFE</strong>, ormanda 4 yük hızla sekerek kaçan <strong>Lillia</strong> tespit edildi. Raporu açmak için Düş Dalı küresini yakala!',
+        step1Toast: '🌸 Çiçek açan Düş Dalı küresine dokun!',
+        step1Btn: 'Düş Dalı Küresi (Q)',
+        step2Toast: '🦌 <span class="text-pink-400">İiiik! Çok hızlı!</span> Lillia Şahlanan Hız (Q) ile sekerek kaçtı, tekrar dokun!',
+        step2Btn: 'Sekerek Kaçan Lillia!',
+        step2Log: '> UYARI: Lillia 650 hareket hızına ulaştı! Yakala Efe...',
+        step3Toast: '🌰 <span class="text-purple-300">Dönertohum (E)!</span> Hangi rüya tohumu gerçek? Birine dokun!',
+        step3CloneA: '🌸 Pembe Rüya Tohumu!',
+        step3CloneB: '🦌 Parlayan Düş Dalı!',
+        ambushTitle: '💤 UYUŞUK... VE UYUDUN! (NİNNİ - R)',
+        ambushSub: '"İiiik! Korkma Efe, bu gördüğün en güzel doğum günü rüyası!"',
+        bdayKicker: '🌸 SAKİNLEŞTİRİCİ NİNNİ (R): RÜYA GİBİ BİR YENİ YAŞ OLSUN! 🌸',
+        bdayQuote: '"İiiik! Ayaklarıma dolanıp pastayı düşürecektim az kalsın! İyi ki doğdun Efe, tüm hayallerin çiçek açsın!"',
+        blowBtnText: '🌰 E - Dönertohum Yuvarla (Mumları Söndür & Dilek Tut!)',
+        patches: [
+          ['Şahlanan Hız (Q):', 'Yeni yaşında hedeflerine 4 yük maksimum hızla koşacaksın!'],
+          ['Düş Dalı (Pasif):', 'Kurduğun tüm hayaller gerçeğe dönüşmek üzere güçlendirildi.'],
+          ['Sakinleştirici Ninni (R):', 'Uykusuzluk ve yorgunluk kaldırıldı, her gün enerjik uyanacaksın!']
+        ],
+        skills: [
+          { key: 'P', icon: '🌿', name: 'Düş Dalı', color: 'text-pink-300', msg: '"Pasif: Düş Dalı! Pastanın etrafına büyülü rüya tozları saçıldı Efe!"' },
+          { key: 'Q', icon: '🌸', name: 'Çiçek Darbesi', color: 'text-pink-400', msg: '"Çiçek Açan Darbeler (Q): Hop! Sekerek döndü ve pastadaki mumları tekrar yaktı!"' },
+          { key: 'W', icon: '🦌', name: 'Dikkat Et! İik!', color: 'text-fuchsia-400', msg: '"Dikkat Et! İik! (W): Tam pastanın ortasına dev eğlence darbesi indi!"' },
+          { key: 'E', icon: '🌰', name: 'Dönertohum', color: 'text-purple-300', msg: '"Dönertohum (E): Bowling gibi yuvarlandı ve tüm mumları tek seferde söndürdü! İyi ki doğdun Efe!"' },
+          { key: 'R', icon: '💤', name: 'Ninni (Ulti)', color: 'text-sky-300', msg: '"ULTİ: SAKİNLEŞTİRİCİ NİNNİ (R)! Her yer pembe-mavi rüya konfetileriyle doldu!"' }
+        ]
+      },
+
+      nocturne: {
+        id: 'nocturne',
+        name: 'Nocturne',
+        title: 'Ebedi Kâbus',
+        role: 'Suikastçı',
+        color: '#ef4444',
+        smokeScheme: 'dark',
+        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
+          <path d="M12 18 L32 8 L52 18 L46 48 L32 56 L18 48 Z" fill="#0f172a" stroke="#ef4444" stroke-width="2.5"/>
+          <polygon points="18,28 29,32 20,36" fill="#ef4444"/>
+          <polygon points="46,28 35,32 44,36" fill="#ef4444"/>
+          <path d="M10 42 Q32 28 54 42" stroke="#7f1d1d" stroke-width="3" fill="none"/>
+        </svg>`,
+        diag: 'Teşhis: 6. Seviye Olur Olmaz Işıkları Kapatıp Haritayı Karartma.',
+        metric1: ['Paranoya (R)', 'Küresel Karartma'],
+        metric2: ['Büyü Kalkanı (W)', 'Refleks Tam Blok'],
+        missionDesc: 'Sihirdar <strong>EFE</strong>, haritada <em>Alacakaranlık İzi (Q)</em> bırakan <strong>Nocturne</strong> gölgesi tespit edildi. Raporu açmak için gölge çekirdeğini yakala!',
+        step1Toast: '🌑 Alacakaranlık Gölgesine dokun ve karanlığı dağıt!',
+        step1Btn: 'Alacakaranlık İzi (Q)',
+        step2Toast: '🛡️ <span class="text-sky-400">Karanlık Örtüsü (W)!</span> Nocturne dokunuşunu büyü kalkanıyla blokladı ve kaçtı! Tekrar dokun!',
+        step2Btn: 'Kalkanı Kır (W)!',
+        step2Log: '> UYARI: Nocturne W (Karanlık Örtüsü) ile tıklamanı blokladı!',
+        step3Toast: '🌑 <span class="text-red-500">Paranoya Gölgesi!</span> Hangi gölge gerçek Nocturne? Birine dokun!',
+        step3CloneA: '🌑 Sol Gölge!',
+        step3CloneB: '🩸 Sağ Kâbus!',
+        ambushTitle: '🌑 KARANLIKLAR... (PARANOYA - R)',
+        ambushSub: '"Işıklar söndü Efe... Çünkü doğum günü pastanın mumları parlasın diye!"',
+        bdayKicker: '🌑 PARANOYA (R): TÜM HARİTA KARARDI, SADECE PASTADAKİ MUMLAR PARLIYOR! 🌑',
+        bdayQuote: '"Karanlıktan korkma Efe... Çünkü karanlıkta doğum günü pastasının mumları çok daha havalı görünüyor! İyi ki doğdun!"',
+        blowBtnText: '🌑 Q - Alacakaranlıkgetiren Fırlat (Mumları Söndür!)',
+        patches: [
+          ['Paranoya (R) Güncellemesi:', 'Yeni yaşında istediğin her hedefe küresel menzilden tek tıkla uçacaksın!'],
+          ['Karanlık Örtüsü (W):', 'Hayattaki tüm negatif enerjileri bloklayan kalıcı Büyü Kalkanı eklendi.'],
+          ['Umbra Bıçakları (Pasif):', 'Pastayı tek darbede bütün arkadaşlarına eşit dilimleme özelliği aktif!']
+        ],
+        skills: [
+          { key: 'P', icon: '⚔️', name: 'Umbra Bıçakları', color: 'text-red-400', msg: '"Pasif: Umbra Bıçakları! Dairesel darbeyle doğum günü pastası kusursuz dilimlendi Efe!"' },
+          { key: 'Q', icon: '🌑', name: 'Alacakaranlık', color: 'text-purple-400', msg: '"Alacakaranlıkgetiren (Q): Karanlık izinden yürüdün ve mumlar tekrar alevlendi!"' },
+          { key: 'W', icon: '🛡️', name: 'Karanlık Örtüsü', color: 'text-sky-400', msg: '"Karanlık Örtüsü (W): Büyü kalkanı aktif! Yeni yaşında hiçbir dert sana işlemez Efe!"' },
+          { key: 'E', icon: '⛓️', name: 'Korku Zinciri', color: 'text-amber-400', msg: '"Tarif Edilemez Korku (E): Mumlar korkudan kendi kendine söndü! Dileğin kabul edildi Efe!"' },
+          { key: 'R', icon: '👁️', name: 'Paranoya (Ulti)', color: 'text-rose-500', msg: '"ULTİ: KARANLIKLAR! Işıklar kapandı ve gökyüzünde doğum günü havai fişekleri patladı!"' }
+        ]
+      },
+
+      nunu: {
+        id: 'nunu',
+        name: 'Nunu ve Willump',
+        title: 'Çocuk ve Yeti',
+        role: 'Ormancı',
+        color: '#38bdf8',
+        smokeScheme: 'ice',
+        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="34" r="18" fill="#0284c7" stroke="#bae6fd" stroke-width="2.5"/>
+          <path d="M14 24 C8 12 20 8 24 18" stroke="#f8fafc" stroke-width="4" stroke-linecap="round"/>
+          <path d="M50 24 C56 12 44 8 40 18" stroke="#f8fafc" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="25" cy="32" r="3.5" fill="#facc15"/><circle cx="39" cy="32" r="3.5" fill="#facc15"/>
+          <path d="M24 42 Q32 48 40 42" stroke="#f8fafc" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>`,
+        diag: 'Teşhis: Nehirde Yampiri Yengeç Hızıyla Dev Kar Topu (W) Drift Uzmanı.',
+        metric1: ['Kar Topu Boyutu', 'MAKSİMUM DEVASA'],
+        metric2: ['Çalıda R (Mutlak Sıfır)', '3000 Kalkan + Patlama'],
+        missionDesc: 'Sihirdar <strong>EFE</strong>, nehirde hızla büyüyerek gelen <strong>Nunu ve Willump Kar Topu (W)</strong> tespit edildi. Çarpmadan önce kar topunu durdur!',
+        step1Toast: '⛄ Yuvarlanan Kar Topuna (W) dokun ve durdur!',
+        step1Btn: 'Büyüyen Kar Topu (W)',
+        step2Toast: '❄️ <span class="text-sky-300">Yampiri Hızı Aldı!</span> Kar topu drift atarak büyüdü ve kaçtı, tekrar dokun!',
+        step2Btn: 'Devasa Kar Topu (W)!',
+        step2Log: '> UYARI: Nunu ve Willump W ile drift atıyor! Çarpmasına 1 saniye...',
+        step3Toast: '🌨️ <span class="text-cyan-300">Çalıda Mutlak Sıfır (R)!</span> Hangi çalıda Willump bekliyor? Birine dokun!',
+        step3CloneA: '❄️ Sol Buz Çalısı!',
+        step3CloneB: '⛄ Sağ Kar Çalısı!',
+        ambushTitle: '❄️ MUTLAK SIFIR! (R - FULL ŞARJ PATLADI!)',
+        ambushSub: '"Çalıda görünmez Nunu ultisi vardı Efe! BOOOOM!"',
+        bdayKicker: '⛄ ŞİMDİYE KADARKİ EN BÜYÜK DOĞUM GÜNÜ PARTİSİ! (W + R KOMBO) ⛄',
+        bdayQuote: '"Willump diyor ki: \'Grrr-rawr!\' (Türkçesi: İyi ki doğdun Efe, pastayı tek ısırıkta Tüket (Q) yapmaya geldik!)"',
+        blowBtnText: '❄️ E - Kar Topu Yaylım Ateşi (Mumları Söndür!)',
+        patches: [
+          ['En Büyük Kar Topu (W):', 'Yeni yaşında mutluluğun yuvarlanan kar topu gibi katlanarak büyüyecek!'],
+          ['Tüket (Q) Güncellemesi:', 'Doğum günü pastasına karşı +999 Gerçek Lezzet Hasarı eklendi.'],
+          ['Freljord Çağrısı (Pasif):', 'Dostlarınla girdiğin her ortamda +%50 Neşe ve Hareket Hızı kazanacaksın!']
+        ],
+        skills: [
+          { key: 'P', icon: '🎺', name: 'Freljord Çağrısı', color: 'text-sky-300', msg: '"Pasif: Freljord Çağrısı! Nunu flütünü çaldı, Willump dans ediyor! İyi ki doğdun Efe!"' },
+          { key: 'Q', icon: '🍖', name: 'Tüket', color: 'text-amber-300', msg: '"Tüket (Q): HAM! Willump pastadan gizlice bir dilim ısırdı ama mumları yeniledi!"' },
+          { key: 'W', icon: '⛄', name: 'Dev Kar Topu', color: 'text-cyan-300', msg: '"Şimdiye Kadarki En Büyük Kar Topu (W)! Sahneye kar konfetileriyle daldı!"' },
+          { key: 'E', icon: '❄️', name: 'Kar Yaylımı', color: 'text-blue-300', msg: '"Kar Topu Yaylım Ateşi (E): Pıt-pıt-pıt! 3 kar topuyla tüm mumlar tam isabet söndü Efe!"' },
+          { key: 'R', icon: '🌨️', name: 'Mutlak Sıfır', color: 'text-indigo-300', msg: '"ULTİ: MUTLAK SIFIR (R)! 3 saniye şarjlandı ve MİLYONLARCA KONFETİ PATLADI!"' }
+        ]
+      },
+
+      seraphine: {
+        id: 'seraphine',
+        name: 'Seraphine',
+        title: 'Yıldızların Şarkıcısı',
+        role: 'Büyücü / Destek',
+        color: '#ec4899',
+        smokeScheme: 'pink',
+        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
+          <path d="M16 36 C12 16 52 16 48 36" fill="#db2777" stroke="#fbcfe8" stroke-width="2"/>
+          <circle cx="32" cy="34" r="12" fill="#fce7f3" stroke="#f472b6" stroke-width="2"/>
+          <polygon points="32,10 35,17 42,17 36,21 38,28 32,24 26,28 28,21 22,17 29,17" fill="#facc15"/>
+          <circle cx="28" cy="34" r="2" fill="#831843"/><circle cx="36" cy="34" r="2" fill="#831843"/>
+          <path d="M28 40 Q32 44 36 40" stroke="#db2777" stroke-width="2" fill="none"/>
+        </svg>`,
+        diag: 'Teşhis: 5 Kişilik Bis (R - Encore) Ultisiyle Takım Savaşı Taşıma Uzmanı.',
+        metric1: ['Sahne Tozu (Pasif)', 'Maksimum Nota'],
+        metric2: ['Bis (R) Menzili', '5 Kişilik İsabet'],
+        missionDesc: 'Sihirdar <strong>EFE</strong>, Piltover sahnesinde <em>Yankı (Pasif)</em> yükü biriktiren <strong>Seraphine</strong> ses dalgası tespit edildi. Raporu açmak için sahne mikrofonunu yakala!',
+        step1Toast: '🎤 Hextech Sahne Mikrofonuna dokun ve ses kontrolünü başlat!',
+        step1Btn: 'Hextech Mikrofonu (P)',
+        step2Toast: '🎶 <span class="text-pink-400">Çevrelenmiş Ses (W)!</span> Çifte nota kalkanı açıldı ve sahne kaydı, tekrar dokun!',
+        step2Btn: 'Yüksek Nota (Q)!',
+        step2Log: '> UYARI: Seraphine Pasif Yankı yükünü doldurdu! Büyük final geliyor...',
+        step3Toast: '🎵 <span class="text-fuchsia-300">Sıkı Ritim (E)!</span> Hangi sahne spotu gerçek? Birine dokun!',
+        step3CloneA: '🎤 Sol Sahne Işığı!',
+        step3CloneB: '✨ Sağ VIP Sahnesi!',
+        ambushTitle: '🎤 BİS! (R - 5 KİŞİLİK ENCORE TUTTU!)',
+        ambushSub: '"Herkes büyülenerek sahneye yürüyor... Çünkü bugün Efe\'nin doğum günü!"',
+        bdayKicker: '✨ BİS (R) 5 KİŞİYE TUTTU: SAHNE SENİN, İYİ Kİ DOĞDUN EFE! ✨',
+        bdayQuote: '"Ses kontrol 1-2-3... Bu doğum günü şarkısı sadece senin için Efe! Yeni yaşında kendi ritmini çalmaya devam et!"',
+        blowBtnText: '🎵 E - Sıkı Ritim Ses Dalgası (Mumları Söndür!)',
+        patches: [
+          ['Sahne Tozu (Pasif):', 'Yeni yaşında girdiğin her ortamda tüm spot ışıkları senin üzerinde olacak!'],
+          ['Çevrelenmiş Ses (W):', 'Sen ve tüm sevdiklerin yıl boyunca maksimum neşe kalkanı ve hız kazanacak.'],
+          ['Bis / Encore (R):', 'Mutluluk menzilin her dostuna değdiğinde uzayarak sonsuza kadar sürecek!']
+        ],
+        skills: [
+          { key: 'P', icon: '🎶', name: 'Sahne Tozu', color: 'text-pink-300', msg: '"Pasif: Sahne Tozu! Çifte yetenek yankısı aktif, her yer müzik notalarıyla doldu Efe!"' },
+          { key: 'Q', icon: '🎵', name: 'Yüksek Nota', color: 'text-fuchsia-400', msg: '"Yüksek Nota (Q): Akustik dalga yayıldı ve pastadaki mumları tekrar parlattı!"' },
+          { key: 'W', icon: '💖', name: 'Çevrelenmiş Ses', color: 'text-rose-300', msg: '"Çevrelenmiş Ses (W): Herkese kalkan ve tam can! Parti enerjisi tavan yaptı!"' },
+          { key: 'E', icon: '🔊', name: 'Sıkı Ritim', color: 'text-purple-300', msg: '"Sıkı Ritim (E): Bass dalgası tüm mumları tek seferde üfleyip söndürdü! İyi ki doğdun Efe!"' },
+          { key: 'R', icon: '🎤', name: 'Bis (Encore)', color: 'text-amber-300', msg: '"ULTİ: BİS (R)! Aaa-aaa-aa! 5 kişilik konser konfetisi patladı, sahne senin Efe!"' }
+        ]
+      },
+
+      morgana: {
+        id: 'morgana',
+        name: 'Morgana',
+        title: 'Düşmüş Melek',
+        role: 'Büyücü / Destek',
+        color: '#9333ea',
+        smokeScheme: 'purple',
+        icon: `<svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
+          <path d="M8 22 Q18 10 26 28" stroke="#7e22ce" stroke-width="5" stroke-linecap="round"/>
+          <path d="M56 22 Q46 10 38 28" stroke="#7e22ce" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="32" cy="34" r="12" fill="#3b0764" stroke="#d8b4fe" stroke-width="2"/>
+          <polygon points="24,32 30,34 25,37" fill="#facc15"/><polygon points="40,32 34,34 39,37" fill="#facc15"/>
+          <path d="M24 20 L32 14 L40 20" stroke="#facc15" stroke-width="2.5" fill="none"/>
+        </svg>`,
+        diag: 'Teşhis: Tek Q (Karanlık Esaret) ile Rakibi 3 Yıl Yerine Mıhlayıp AFK Bırakma.',
+        metric1: ['Q Mıhlama Süresi', '3 Yıl (AFK Uyarı Garantili)'],
+        metric2: ['Kara Kalkan (E)', '%100 Kitle Kontrol İptali'],
+        missionDesc: 'Sihirdar <strong>EFE</strong>, koridorda <em>Zulüm Gölgesi (W)</em> ve <em>Kara Kalkan (E)</em> açmış <strong>Morgana</strong> tespit edildi. Raporu açmak için mühre dokun!',
+        step1Toast: '⛓️ Zulüm Gölgesi (W) mührüne dokun ve büyüyü boz!',
+        step1Btn: 'Zulüm Gölgesi (W)',
+        step2Toast: '🛡️ <span class="text-purple-300">Kara Kalkan (E)!</span> "Kitle kontrol engellendi!" Morgana kalkan basıp kaçtı, tekrar dokun!',
+        step2Btn: 'Kara Kalkanı Kır (E)!',
+        step2Log: '> UYARI: Morgana E (Kara Kalkan) bastı! Şimdi Q hazırlıyor, dikkat et Efe...',
+        step3Toast: '⛓️ <span class="text-fuchsia-400">Ruh Prangası (R)!</span> Hangi pranga zincirini kıracaksın? Birine dokun!',
+        step3CloneA: '⛓️ Sol Ruh Zinciri!',
+        step3CloneB: '🪽 Sağ Melek Mührü!',
+        ambushTitle: '⛓️ KARANLIK ESARET (Q) TUTTU!',
+        ambushSub: '"3 YIL YERİNE MIHLANDIN EFE! Çünkü doğum günü pastanın başından kalkamazsın!"',
+        bdayKicker: '⛓️ KARANLIK ESARET (Q) TAM İSABET: DOĞUM GÜNÜ EĞLENCESİNE MIHLANDIN! ⛓️',
+        bdayQuote: '"Kanatlarım bağlı olabilir ama senin yeni yaşın özgürce uçsun Efe! Kara Kalkanım (E) bütün yıl seni tüm dertlerden koruyacak!"',
+        blowBtnText: '⛓️ Q - Karanlık Esaret Fırlat (Mumları Mıhla & Söndür!)',
+        patches: [
+          ['Karanlık Esaret (Q):', 'Yeni yaşında tüm şans ve başarılar sana 3 yıl boyunca mıhlanacak!'],
+          ['Kara Kalkan (E) Güncellemesi:', 'Bütün yıl boyunca stres, sınav/iş yorgunluğu ve negatifliğe karşı %100 dokunulmazlık!'],
+          ['Ruh Prangası (R):', 'En sevdiğin dostlarınla bağların kırılmaz altın zincirlerle güçlendirildi!']
+        ],
+        skills: [
+          { key: 'P', icon: '🟣', name: 'Ruh Sömürüsü', color: 'text-purple-300', msg: '"Pasif: Ruh Sömürüsü! Pastanın etrafında mor melek tüyleri ve enerji halkası oluştu Efe!"' },
+          { key: 'Q', icon: '⛓️', name: 'Karanlık Esaret', color: 'text-fuchsia-400', msg: '"Karanlık Esaret (Q): 3 saniye (yani 3 yıl) mutluluğa mıhlandın ve mumlar tekrar yandı!"' },
+          { key: 'W', icon: '🔮', name: 'Zulüm Gölgesi', color: 'text-violet-400', msg: '"Zulüm Gölgesi (W): Pastanın altında büyülü kutlama havuzu fokurduyor!"' },
+          { key: 'E', icon: '🛡️', name: 'Kara Kalkan', color: 'text-indigo-300', msg: '"Kara Kalkan (E): Kalkan patladı ve rüzgarıyla tüm mumları tek seferde söndürdü! İyi ki doğdun Efe!"' },
+          { key: 'R', icon: '🪽', name: 'Ruh Prangası', color: 'text-amber-300', msg: '"ULTİ: RUH PRANGASI (R)! Kanatlar açıldı ve her yerde mor-altın konfetiler patladı!"' }
+        ]
+      }
+    };
+
+    const CHAMP_ORDER = ['shaco', 'twitch', 'lillia', 'nocturne', 'nunu', 'seraphine', 'morgana'];
+    let currentChampId = 'shaco';
+    let disguiseStep = 1;
+    let candlesLit = [true, true, true];
+
+    // =====================================================
+    // WEB AUDIO SYNTHESIZER
+    // =====================================================
     let audioCtx = null;
     let soundEnabled = true;
 
@@ -432,43 +717,59 @@
       document.getElementById('sound-label').textContent = soundEnabled ? 'Ses: Açık' : 'Ses: Kapalı';
     }
 
+    function playSelectSound() {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.exponentialRampToValueAtTime(660, now + 0.14);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.16);
+    }
+
     function playDeceiveSound() {
       if (!soundEnabled) return;
       initAudio();
       if (!audioCtx) return;
-
       const now = audioCtx.currentTime;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(520, now);
-      osc.frequency.exponentialRampToValueAtTime(140, now + 0.28);
-      gain.gain.setValueAtTime(0.22, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+      osc.frequency.exponentialRampToValueAtTime(160, now + 0.26);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start(now);
-      osc.stop(now + 0.3);
+      osc.stop(now + 0.28);
     }
 
     function playAmbushSound() {
       if (!soundEnabled) return;
       initAudio();
       if (!audioCtx) return;
-
       const now = audioCtx.currentTime;
       const notes = [587.33, 659.25, 622.25, 698.46, 783.99, 932.33, 1046.50];
       notes.forEach((freq, idx) => {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = idx < 4 ? 'sawtooth' : 'triangle';
-        osc.frequency.setValueAtTime(freq, now + idx * 0.11);
-        gain.gain.setValueAtTime(0.16, now + idx * 0.11);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.11 + 0.18);
+        osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+        gain.gain.setValueAtTime(0.15, now + idx * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.16);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-        osc.start(now + idx * 0.11);
-        osc.stop(now + idx * 0.11 + 0.2);
+        osc.start(now + idx * 0.1);
+        osc.stop(now + idx * 0.1 + 0.18);
       });
     }
 
@@ -476,7 +777,6 @@
       if (!soundEnabled) return;
       initAudio();
       if (!audioCtx) return;
-
       const now = audioCtx.currentTime;
       const melody = [
         { f: 392, d: 0.18, t: 0.0 },
@@ -500,6 +800,9 @@
       });
     }
 
+    // =====================================================
+    // PARTICLE ENGINE
+    // =====================================================
     const canvas = document.getElementById('fx-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -512,26 +815,33 @@
     window.addEventListener('resize', resizeCanvas);
     setTimeout(resizeCanvas, 50);
 
-    function spawnSmokePuff(x, y, colorScheme = 'orange') {
-      resizeCanvas();
-      const colors = colorScheme === 'orange'
-        ? ['#f97316', '#fb923c', '#fdba74', '#ea580c']
-        : ['#a855f7', '#ef4444', '#facc15', '#0ac8b9', '#ec4899'];
+    const PALETTES = {
+      orange: ['#f97316', '#fb923c', '#fdba74', '#ea580c'],
+      green: ['#22c55e', '#4ade80', '#a3e635', '#16a34a'],
+      pink: ['#ec4899', '#f472b6', '#fbcfe8', '#c084fc'],
+      dark: ['#ef4444', '#7f1d1d', '#64748b', '#991b1b'],
+      ice: ['#38bdf8', '#7dd3fc', '#e0f2fe', '#0284c7'],
+      purple: ['#a855f7', '#c084fc', '#facc15', '#7e22ce'],
+      confetti: ['#a855f7', '#ef4444', '#facc15', '#0ac8b9', '#ec4899', '#4ade80']
+    };
 
-      const count = colorScheme === 'orange' ? 28 : 65;
+    function spawnSmokePuff(x, y, scheme = 'orange') {
+      resizeCanvas();
+      const colors = PALETTES[scheme] || PALETTES.confetti;
+      const count = scheme === 'confetti' ? 65 : 32;
       for (let i = 0; i < count; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = (Math.random() * 5 + 1.5) * (colorScheme === 'orange' ? 1 : 1.5);
+        const speed = (Math.random() * 5 + 1.5) * (scheme === 'confetti' ? 1.4 : 1);
         particles.push({
           x,
           y,
           vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - (colorScheme === 'orange' ? 0.5 : 1.5),
-          size: Math.random() * 9 + 4,
+          vy: Math.sin(angle) * speed - (scheme === 'confetti' ? 1.4 : 0.4),
+          size: Math.random() * 8 + 4,
           color: colors[Math.floor(Math.random() * colors.length)],
           alpha: 1,
           decay: Math.random() * 0.02 + 0.015,
-          shape: colorScheme === 'orange' ? 'circle' : (Math.random() > 0.5 ? 'rect' : 'circle')
+          shape: scheme === 'confetti' && Math.random() > 0.4 ? 'rect' : 'circle'
         });
       }
     }
@@ -544,12 +854,10 @@
         p.y += p.vy;
         p.vy += 0.06;
         p.alpha -= p.decay;
-
         if (p.alpha <= 0) {
           particles.splice(i, 1);
           continue;
         }
-
         ctx.save();
         ctx.globalAlpha = Math.max(0, p.alpha);
         ctx.fillStyle = p.color;
@@ -568,8 +876,6 @@
     }
     animateParticles();
 
-    let disguiseStep = 1;
-
     function getEventCoords(e) {
       const frameRect = document.getElementById('app-frame').getBoundingClientRect();
       if (e && e.clientX && e.clientY) {
@@ -585,16 +891,99 @@
       return { x: frameRect.width / 2, y: frameRect.height / 2 };
     }
 
-    function handleBoxClick(e) {
-      const coords = getEventCoords(e);
+    // =====================================================
+    // STAGE 0: RENDER CHAMPION SELECT LOBBY
+    // =====================================================
+    function renderChampSelectGrid() {
+      const grid = document.getElementById('champ-grid');
+      grid.innerHTML = CHAMP_ORDER.map(id => {
+        const c = CHAMPIONS[id];
+        const active = id === currentChampId;
+        return `
+          <button onclick="selectChampion('${id}')" class="flex flex-col items-center p-2.5 rounded-xl border transition-all cursor-pointer ${
+            active
+              ? 'bg-[#1a2742] border-[#facc15] shadow-[0_0_15px_rgba(250,204,21,0.45)] scale-[1.03]'
+              : 'bg-[#0e1626]/90 border-[#c89b3c]/30 hover:border-[#c89b3c]'
+          }">
+            <div class="w-12 h-12 rounded-full bg-[#09101a] border border-[#c89b3c]/60 flex items-center justify-center mb-1.5">
+              ${c.icon}
+            </div>
+            <span class="text-xs font-black text-[#f0e6d2] truncate w-full text-center">${c.name}</span>
+            <span class="text-xs text-[#a09b8c] truncate w-full text-center">${c.role}</span>
+          </button>
+        `;
+      }).join('');
 
-      spawnSmokePuff(coords.x, coords.y, 'orange');
+      const c = CHAMPIONS[currentChampId];
+      document.getElementById('selected-champ-name').textContent = c.name;
+      document.getElementById('preview-avatar').innerHTML = c.icon;
+      document.getElementById('preview-title').textContent = c.name.toUpperCase();
+      document.getElementById('preview-sub').textContent = c.title;
+      document.getElementById('preview-diag').textContent = c.diag;
+    }
+
+    function selectChampion(id) {
+      currentChampId = id;
+      playSelectSound();
+      renderChampSelectGrid();
+    }
+
+    function lockInChampion() {
+      playAmbushSound();
+      setupDisguiseStage(currentChampId);
+      document.getElementById('stage-select').classList.add('hidden');
+      document.getElementById('stage-birthday').classList.add('hidden');
+      document.getElementById('stage-disguise').classList.remove('hidden');
+      document.getElementById('change-champ-top-btn').classList.remove('hidden');
+    }
+
+    // =====================================================
+    // STAGE 1: SETUP & RUN CHAMPION DISGUISE TRAP
+    // =====================================================
+    function setupDisguiseStage(id) {
+      const c = CHAMPIONS[id];
+      disguiseStep = 1;
+
+      document.getElementById('disguise-avatar').innerHTML = c.icon;
+      document.getElementById('disguise-champ-tag').textContent = `${c.name.toUpperCase()} // ${c.title}`;
+      document.getElementById('disguise- syndrome').innerHTML = c.diag;
+      document.getElementById('metric-1-label').textContent = c.metric1[0];
+      document.getElementById('metric-1-val').textContent = c.metric1[1];
+      document.getElementById('metric-2-label').textContent = c.metric2[0];
+      document.getElementById('metric-2-val').textContent = c.metric2[1];
+
+      document.getElementById('step-counter').textContent = 'Adım 1 / 3';
+      document.getElementById('mission-desc').innerHTML = c.missionDesc;
+      document.getElementById('arena-toast').innerHTML = c.step1Toast;
+
+      const btn = document.getElementById('trap-target-btn');
+      btn.style.transform = 'translate(0, 0)';
+      btn.classList.remove('hidden');
+      document.getElementById('trap-hp').style.width = '100%';
+      document.getElementById('trap-icon-box').innerHTML = c.icon;
+      document.getElementById('trap-btn-label').textContent = c.step1Btn;
+
+      const clones = document.getElementById('clones-container');
+      clones.classList.add('hidden');
+      clones.classList.remove('flex');
+      document.getElementById('clone-a-icon').innerHTML = c.icon;
+      document.getElementById('clone-b-icon').innerHTML = c.icon;
+      document.getElementById('clone-a-label').textContent = c.step3CloneA;
+      document.getElementById('clone-b-label').textContent = c.step3CloneB;
+
+      document.getElementById('telemetry-log').textContent = `> Sistem hazır. ${c.name} mekanik doğrulaması bekleniyor...`;
+    }
+
+    function handleTrapClick(e) {
+      const c = CHAMPIONS[currentChampId];
+      const coords = getEventCoords(e);
+      spawnSmokePuff(coords.x, coords.y, c.smokeScheme);
       playDeceiveSound();
 
-      const btn = document.getElementById('shaco-box-btn');
+      const btn = document.getElementById('trap-target-btn');
       const toast = document.getElementById('arena-toast');
       const stepCounter = document.getElementById('step-counter');
-      const hpBar = document.getElementById('box-hp');
+      const hpBar = document.getElementById('trap-hp');
       const log = document.getElementById('telemetry-log');
 
       if (disguiseStep === 1) {
@@ -605,9 +994,9 @@
         const offsetX = Math.min(75, Math.floor(arenaRect.width * 0.22));
         const offsetY = Math.min(28, Math.floor(arenaRect.height * 0.12));
         btn.style.transform = `translate(${offsetX}px, -${offsetY}px)`;
-        document.getElementById('box-label').textContent = 'Kandırmaca (Q)! Yakala!';
-        toast.innerHTML = '💨 <span class="text-orange-400">Kandırmaca (Q)!</span> Kutu görünmez olup kaçtı, tekrar dokun!';
-        log.textContent = '> UYARI: Hedef Q (Kandırmaca) kullandı! Arkana bak Efe...';
+        document.getElementById('trap-btn-label').textContent = c.step2Btn;
+        toast.innerHTML = c.step2Toast;
+        log.textContent = c.step2Log;
       } else if (disguiseStep === 2) {
         disguiseStep = 3;
         stepCounter.textContent = 'Adım 3 / 3 (SON)';
@@ -615,42 +1004,116 @@
         const clones = document.getElementById('clones-container');
         clones.classList.remove('hidden');
         clones.classList.add('flex');
-        toast.innerHTML = '👯 <span class="text-purple-400">ULTİ: Halüsinasyon (R)!</span> Hangisi gerçek Shaco? Birine dokun!';
-        log.textContent = '> KRİTİK: Shaco klon çıkardı! Doğru hedefi seç Efe...';
+        toast.innerHTML = c.step3Toast;
+        log.textContent = `> KRİTİK: ${c.name} son aşamayı açtı! Doğru hedefi seç Efe...`;
       }
     }
 
+    // =====================================================
+    // TRIGGER AMBUSH OVERLAY & OPEN STAGE 2 BIRTHDAY
+    // =====================================================
     function triggerFinalAmbush(e) {
+      const c = CHAMPIONS[currentChampId];
       const coords = getEventCoords(e);
-
       spawnSmokePuff(coords.x, coords.y, 'confetti');
       playAmbushSound();
 
-      const fearOverlay = document.getElementById('fear-overlay');
-      fearOverlay.classList.remove('hidden');
-      fearOverlay.classList.add('flex');
+      const overlay = document.getElementById('ambush-overlay');
+      document.getElementById('ambush-icon').innerHTML = c.icon;
+      document.getElementById('ambush-title').textContent = c.ambushTitle;
+      document.getElementById('ambush-subtitle').textContent = c.ambushSub;
+
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
 
       setTimeout(() => {
-        fearOverlay.classList.add('hidden');
-        fearOverlay.classList.remove('flex');
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
 
         document.getElementById('stage-disguise').classList.add('hidden');
+        document.getElementById('stage-select').classList.add('hidden');
         document.getElementById('stage-birthday').classList.remove('hidden');
+        document.getElementById('change-champ-top-btn').classList.remove('hidden');
 
         document.getElementById('app-frame').classList.remove('hextech-border');
-        document.getElementById('app-frame').classList.add('shaco-border');
-        document.getElementById('header-title').textContent = '🃏 GANK BAŞARILI // İYİ Kİ DOĞDUN EFE! 🎂';
-        document.getElementById('status-dot').className = 'w-2.5 h-2.5 rounded-full bg-purple-500 shadow-[0_0_10px_#a855f7]';
-        document.title = '🎂 İyi ki Doğdun EFE! // Shaco Özel Sürprizi';
+        document.getElementById('app-frame').classList.add('party-border');
+        document.getElementById('header-title').textContent = `🎂 İYİ Kİ DOĞDUN EFE! // ${c.name.toUpperCase()} SÜRPRİZİ`;
+        document.title = `🎂 İyi ki Doğdun EFE! // ${c.name} Özel Sürprizi`;
 
+        renderBirthdayStage(currentChampId);
         resizeCanvas();
         spawnSmokePuff(canvas.width * 0.25, canvas.height * 0.3, 'confetti');
         spawnSmokePuff(canvas.width * 0.75, canvas.height * 0.3, 'confetti');
         setTimeout(() => playBirthdayMelody(), 250);
-      }, 1250);
+      }, 1400);
     }
 
-    let candlesLit = [true, true, true];
+    // =====================================================
+    // STAGE 2: RENDER CHAMPION-SPECIFIC BIRTHDAY CONTENT
+    // =====================================================
+    function renderBirthdayStage(id) {
+      const c = CHAMPIONS[id];
+      document.getElementById('bday-kicker').textContent = c.bdayKicker;
+      document.getElementById('bday-quote').textContent = c.bdayQuote;
+      document.getElementById('cake-title').textContent = `🎪 ${c.name.toUpperCase()} SÜRPRİZ PASTASI`;
+      document.getElementById('cake-champ-badge').innerHTML = c.icon;
+      document.getElementById('blow-btn').textContent = c.blowBtnText;
+      document.getElementById('patch-title').textContent = `📜 YAMA NOTLARI: EFE x ${c.name.toUpperCase()}`;
+
+      // Reset candles when switching champion
+      candlesLit = [true, true, true];
+      [0, 1, 2].forEach(i => {
+        const f = document.getElementById(`flame-${i}`);
+        if (f) f.style.display = 'block';
+      });
+      const status = document.getElementById('candle-status');
+      status.textContent = '🔥 3 Mum Yanıyor';
+      status.className = 'text-xs font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/40';
+      document.getElementById('cake-action-text').innerHTML = `Mumlara tek tek dokun ya da aşağıdaki <strong>${c.name}</strong> yeteneğiyle tek seferde söndür!`;
+
+      // Render Patch Notes
+      document.getElementById('patch-list').innerHTML = c.patches.map(p => `
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 font-bold">▲</span>
+          <div>
+            <strong class="text-[#f0e6d2]">${p[0]}</strong>
+            <p class="text-xs text-[#a09b8c]">${p[1]}</p>
+          </div>
+        </li>
+      `).join('');
+
+      // Render Skill Bar
+      document.getElementById('skillbar-title').textContent = `🎮 ${c.name.toUpperCase()} YETENEK ÇUBUĞU (DOKUN VE KULLAN!)`;
+      document.getElementById('skill-buttons-grid').innerHTML = c.skills.map(s => `
+        <button onclick="castSkill('${s.key}')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-amber-400 hover:bg-[#1a253a] active:scale-95 transition cursor-pointer">
+          <span class="text-lg sm:text-xl">${s.icon}</span>
+          <span class="text-xs font-black ${s.color} mt-1">${s.key === 'P' ? 'PASİF' : (s.key === 'R' ? 'R (ULTİ)' : s.key)}</span>
+          <span class="text-xs text-[#a09b8c] truncate w-full text-center">${s.name}</span>
+        </button>
+      `).join('');
+
+      // Render Quick Champion Switcher Bar inside Birthday Screen
+      document.getElementById('bday-champ-bar').innerHTML = CHAMP_ORDER.map(cid => {
+        const ch = CHAMPIONS[cid];
+        const isCurrent = cid === currentChampId;
+        return `
+          <button onclick="switchBirthdayChampion('${cid}')" class="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg border text-xs font-bold transition cursor-pointer ${
+            isCurrent
+              ? 'bg-amber-500/25 border-amber-400 text-amber-200 shadow-[0_0_12px_rgba(250,204,21,0.35)]'
+              : 'bg-[#111927] border-[#c89b3c]/30 text-[#a09b8c] hover:text-white hover:border-[#c89b3c]'
+          }">
+            <span>${ch.name}</span>
+          </button>
+        `;
+      }).join('');
+
+      document.getElementById('footer-champ-tag').textContent = `🏆 ${c.name} (${c.title}) Özel Doğum Günü Sürümü // Sihirdar: EFE`;
+    }
+
+    function switchBirthdayChampion(id) {
+      currentChampId = id;
+      triggerFinalAmbush(null);
+    }
 
     function blowCandle(index) {
       if (!candlesLit[index]) return;
@@ -677,23 +1140,22 @@
     }
 
     function castSkill(key) {
+      const c = CHAMPIONS[currentChampId];
+      const skillObj = c.skills.find(s => s.key === key) || c.skills[0];
       resizeCanvas();
-      const quoteEl = document.getElementById('shaco-quote');
+
+      const quoteEl = document.getElementById('bday-quote');
       const feedbackEl = document.getElementById('skill-feedback');
       const cakeStage = document.getElementById('cake-stage');
 
-      if (key === 'P') {
-        playAmbushSound();
-        spawnSmokePuff(canvas.width * 0.5, canvas.height * 0.25, 'confetti');
-        quoteEl.textContent = '"Pasif: Arkadan Vuruş! Doğum günü kutlamasını hiç beklemediğin anda arkadan kritik vuruşla aldın Efe!"';
-        feedbackEl.textContent = '🗡️ Pasif tetiklendi: +%100 Kritik Doğum Günü Hasarı!';
-      } else if (key === 'Q') {
+      quoteEl.textContent = skillObj.msg;
+      feedbackEl.textContent = `${skillObj.icon} ${skillObj.name} kullanıldı!`;
+
+      if (key === 'Q') {
         playDeceiveSound();
-        spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.5, 'orange');
-        cakeStage.style.opacity = '0.15';
-        cakeStage.style.transform = 'scale(0.85)';
-        quoteEl.textContent = '"Kandırmaca (Q)! Pasta 1 saniyeliğine görünmez oldu... ve mumları yenilenmiş olarak geri döndü!"';
-        feedbackEl.textContent = '💨 Q - Kandırmaca: Pasta görünmez oldu ve mumlar yeniden yandı!';
+        spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.5, c.smokeScheme);
+        cakeStage.style.opacity = '0.2';
+        cakeStage.style.transform = 'scale(0.88)';
         setTimeout(() => {
           candlesLit = [true, true, true];
           [0, 1, 2].forEach(i => {
@@ -703,58 +1165,55 @@
           document.getElementById('candle-status').textContent = '🔥 3 Mum Yanıyor';
           cakeStage.style.opacity = '1';
           cakeStage.style.transform = 'scale(1)';
-          spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.5, 'orange');
-        }, 700);
-      } else if (key === 'W') {
-        playAmbushSound();
-        spawnSmokePuff(canvas.width * 0.2, canvas.height * 0.6, 'confetti');
-        spawnSmokePuff(canvas.width * 0.8, canvas.height * 0.6, 'confetti');
-        quoteEl.textContent = '"Soytarı Kutusu (W) kuruldu! Kutu patladı ve etrafa konfetiler saçıldı! Neden bu kadar ciddisin Efe?!"';
-        feedbackEl.textContent = '🤡 W - Soytarı Kutusu: Çifte konfeti tuzağı patladı!';
+          spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.5, c.smokeScheme);
+        }, 650);
       } else if (key === 'E') {
         [0, 1, 2].forEach(i => {
           candlesLit[i] = false;
           const f = document.getElementById(`flame-${i}`);
           if (f) f.style.display = 'none';
         });
-        document.getElementById('candle-status').textContent = '🎉 Dilek Kabul Edildi!';
-        document.getElementById('candle-status').className = 'text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/40';
-        document.getElementById('cake-action-text').innerHTML = '🗡️ <strong>TAM İSABET!</strong> Çift Zehirli Bıçak ile tüm mumları tek seferde söndürdün Efe!';
-        quoteEl.textContent = '"Çift Zehirli Bıçak (E) tam on ikiden vurdu! Mumlar söndü, dileğin kabul edildi Efe!"';
-        feedbackEl.textContent = '🔪 E - Çift Zehirli Bıçak: Tüm mumlar tek atışta söndürüldü!';
+        const status = document.getElementById('candle-status');
+        status.textContent = '🎉 Dilek Kabul Edildi!';
+        status.className = 'text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/40';
+        document.getElementById('cake-action-text').innerHTML = `✨ <strong>TAM İSABET!</strong> ${c.name} yeteneğiyle tüm mumları tek seferde söndürdün <strong>Efe</strong>!`;
         spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.45, 'confetti');
         playBirthdayMelody();
       } else if (key === 'R') {
         playBirthdayMelody();
-        spawnSmokePuff(canvas.width * 0.3, canvas.height * 0.3, 'confetti');
-        spawnSmokePuff(canvas.width * 0.7, canvas.height * 0.3, 'confetti');
-        spawnSmokePuff(canvas.width * 0.5, canvas.height * 0.7, 'orange');
-        quoteEl.textContent = '"ULTİ: HALÜSİNASYON (R)! İki kat eğlence, iki kat şans, iki kat mutluluk! İyi ki doğdun Efe!"';
-        feedbackEl.textContent = '👯 R - Halüsinasyon: Ulti patladı! Her yer Hextech ganimeti oldu!';
+        spawnSmokePuff(canvas.width * 0.25, canvas.height * 0.3, 'confetti');
+        spawnSmokePuff(canvas.width * 0.75, canvas.height * 0.3, 'confetti');
+        spawnSmokePuff(canvas.width * 0.5, canvas.height * 0.65, c.smokeScheme);
+      } else {
+        playAmbushSound();
+        spawnSmokePuff(canvas.width * 0.5, canvas.height * 0.4, 'confetti');
       }
     }
 
-    function resetToDisguise() {
-      disguiseStep = 1;
-      document.getElementById('step-counter').textContent = 'Adım 1 / 3';
-      document.getElementById('box-hp').style.width = '100%';
-      const btn = document.getElementById('shaco-box-btn');
-      btn.style.transform = 'translate(0, 0)';
-      btn.classList.remove('hidden');
-      document.getElementById('box-label').textContent = 'Soytarı Kutusu (W)';
-      const clones = document.getElementById('clones-container');
-      clones.classList.add('hidden');
-      clones.classList.remove('flex');
-      document.getElementById('arena-toast').textContent = '🎯 Kutunun üzerine tıkla ve kilidi aç!';
-      document.getElementById('telemetry-log').textContent = '> Sistem hazır. Sihirdar EFE doğrulaması bekleniyor...';
-
+    function replayCurrentChampTrap() {
+      setupDisguiseStage(currentChampId);
       document.getElementById('stage-birthday').classList.add('hidden');
+      document.getElementById('stage-select').classList.add('hidden');
       document.getElementById('stage-disguise').classList.remove('hidden');
       document.getElementById('app-frame').classList.add('hextech-border');
-      document.getElementById('app-frame').classList.remove('shaco-border');
-      document.getElementById('header-title').textContent = 'HEXTECH TELEMETRİ // SİHİRDAR DOĞRULAMA SİSTEMİ v14.21';
-      document.title = 'Hextech Analiz // Sihirdar: EFE';
+      document.getElementById('app-frame').classList.remove('party-border');
+      document.getElementById('header-title').textContent = 'HEXTECH TELEMETRİ // MEKANİK DOĞRULAMA';
     }
+
+    function goToChampSelect() {
+      renderChampSelectGrid();
+      document.getElementById('stage-birthday').classList.add('hidden');
+      document.getElementById('stage-disguise').classList.add('hidden');
+      document.getElementById('stage-select').classList.remove('hidden');
+      document.getElementById('change-champ-top-btn').classList.add('hidden');
+      document.getElementById('app-frame').classList.add('hextech-border');
+      document.getElementById('app-frame').classList.remove('party-border');
+      document.getElementById('header-title').textContent = 'HEXTECH LOBİSİ // SİHİRDAR: EFE';
+      document.title = 'Hextech İstemcisi // Şampiyon Seçimi: EFE';
+    }
+
+    // Initialize Champion Select on load
+    renderChampSelectGrid();
   </script>
 </body>
 </html>
