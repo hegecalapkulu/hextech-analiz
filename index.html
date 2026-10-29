@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hextech Analiz // Sihirdar: EFE</title>
+  <meta property="og:title" content="Hextech Telemetri // Sihirdar Doğrulama: EFE" />
+  <meta property="og:description" content="TR1 Sihirdar Kaydı #SHC-902 — Shaco Klon & Kandırmaca (Q) Refleks Doğrulama Sistemi." />
+  <meta property="og:type" content="website" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(1.5deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(200, 155, 60, 0.5)); }
+      50% { filter: drop-shadow(0 0 18px rgba(200, 155, 60, 0.95)); }
+    }
+    @keyframes shacoJitter {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-2px, 1px) rotate(-2deg); }
+      40% { transform: translate(2px, -2px) rotate(2deg); }
+      60% { transform: translate(-3px, -1px) rotate(-1deg); }
+      80% { transform: translate(2px, 2px) rotate(1.5deg); }
+    }
+    @keyframes fearSpin {
+      0% { transform: scale(0.3) rotate(-180deg); opacity: 0; }
+      40% { transform: scale(1.15) rotate(10deg); opacity: 1; }
+      80% { transform: scale(0.95) rotate(-5deg); opacity: 1; }
+      100% { transform: scale(1.3) rotate(25deg); opacity: 0; }
+    }
+    @keyframes candleFlicker {
+      0%, 100% { transform: scaleY(1) rotate(-2deg); opacity: 1; }
+      50% { transform: scaleY(1.18) rotate(2deg); opacity: 0.85; }
+    }
+    .hextech-border {
+      border: 1px solid rgba(200, 155, 60, 0.45);
+      box-shadow: inset 0 0 25px rgba(10, 20, 40, 0.85), 0 0 25px rgba(0, 0, 0, 0.75);
+    }
+    .shaco-border {
+      border: 1px solid rgba(168, 85, 247, 0.55);
+      box-shadow: inset 0 0 30px rgba(88, 28, 135, 0.4), 0 0 30px rgba(220, 38, 38, 0.3);
+    }
+    .float-anim { animation: floatSlow 3.2s ease-in-out infinite; }
+    .glow-anim { animation: pulseGlow 2.4s ease-in-out infinite; }
+    .jitter-anim:hover { animation: shacoJitter 0.35s ease-in-out infinite; }
+    .candle-flame { animation: candleFlicker 0.6s ease-in-out infinite; transform-origin: bottom center; }
+    button, g { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  </style>
+</head>
+<body class="bg-[#040811] text-[#f0e6d2] antialiased min-h-screen flex flex-col items-center justify-center p-2 sm:p-6 select-none overflow-x-hidden">
+
+  <!-- Outer Hextech Client Frame -->
+  <div id="app-frame" class="relative w-full max-w-3xl rounded-xl overflow-hidden hextech-border bg-[#09101a] text-[#f0e6d2] transition-all duration-700 shadow-2xl">
+    
+    <!-- Particle & Effects Canvas -->
+    <canvas id="fx-canvas" class="pointer-events-none absolute inset-0 w-full h-full z-30"></canvas>
+
+    <!-- Fear Jumpscare Overlay (Hidden until triggered) -->
+    <div id="fear-overlay" class="pointer-events-none fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm">
+      <div class="flex flex-col items-center text-center p-6" style="animation: fearSpin 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+        <!-- Shaco Fear Mask SVG -->
+        <svg class="w-32 h-32 sm:w-40 sm:h-40 mb-4 drop-shadow-[0_0_30px_rgba(168,85,247,0.95)]" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="54" stroke="#a855f7" stroke-width="3" stroke-dasharray="8 6" />
+          <path d="M25 45 C10 15, 40 5, 55 30" stroke="#dc2626" stroke-width="6" stroke-linecap="round" fill="#7f1d1d"/>
+          <path d="M95 45 C110 15, 80 5, 65 30" stroke="#a855f7" stroke-width="6" stroke-linecap="round" fill="#581c87"/>
+          <circle cx="20" cy="22" r="6" fill="#facc15" />
+          <circle cx="100" cy="22" r="6" fill="#facc15" />
+          <path d="M30 40 Q60 25 90 40 L82 92 Q60 108 38 92 Z" fill="#1e1b4b" stroke="#c084fc" stroke-width="2.5"/>
+          <polygon points="40,52 55,57 42,63" fill="#facc15" />
+          <polygon points="80,52 65,57 78,63" fill="#facc15" />
+          <path d="M38 72 Q60 98 82 72" stroke="#ef4444" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M45 77 L47 83 M54 81 L55 87 M65 81 L64 87 M74 77 L72 83" stroke="#f8fafc" stroke-width="2.5"/>
+        </svg>
+        <div class="text-xl sm:text-4xl font-black tracking-widest text-purple-400 uppercase drop-shadow-[0_0_12px_rgba(220,38,38,0.9)]">
+          KORKUTULDUN! (FEARED)
+        </div>
+        <div class="text-sm sm:text-lg text-amber-300 font-semibold mt-2 italic">
+          "Neden bu kadar ciddisin Efe?!"
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Hextech Header Bar -->
+    <div id="top-bar" class="relative z-20 flex items-center justify-between gap-2 px-3 sm:px-6 py-2.5 sm:py-3 bg-[#050911]/90 border-b border-[#c89b3c]/30">
+      <div class="flex items-center gap-2 min-w-0">
+        <div id="status-dot" class="w-2.5 h-2.5 rounded-full bg-[#0ac8b9] shadow-[0_0_8px_#0ac8b9] shrink-0"></div>
+        <span id="header-title" class="text-xs sm:text-sm font-bold tracking-wider sm:tracking-widest uppercase text-[#c89b3c] truncate">
+          HEXTECH TELEMETRİ // SİHİRDAR DOĞRULAMA
+        </span>
+      </div>
+      <div class="flex items-center shrink-0">
+        <button id="sound-btn" onclick="toggleAudio()" class="text-xs px-2.5 py-1 rounded border border-[#c89b3c]/40 bg-[#111927] text-[#f0e6d2] hover:border-[#c89b3c] transition flex items-center gap-1 cursor-pointer">
+          <span id="sound-icon">🔊</span>
+          <span id="sound-label">Ses: Açık</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- STAGE 1: THE DISGUISE (NO BIRTHDAY CLUES!) -->
+    <!-- ========================================== -->
+    <div id="stage-disguise" class="relative z-20 p-3.5 sm:p-7 space-y-4 sm:space-y-6">
+      
+      <!-- Summoner Profile Banner -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-lg bg-[#0d1624]/90 border border-[#c89b3c]/30">
+        <div class="flex items-center gap-3.5 sm:gap-4">
+          <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#c89b3c] bg-[#161f33] flex items-center justify-center shrink-0 glow-anim">
+            <svg class="w-9 h-9 sm:w-10 sm:h-10" viewBox="0 0 64 64" fill="none">
+              <path d="M12 26 C6 10, 24 6, 30 20" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+              <path d="M52 26 C58 10, 40 6, 34 20" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="10" cy="14" r="3.5" fill="#eab308"/>
+              <circle cx="54" cy="14" r="3.5" fill="#eab308"/>
+              <polygon points="18,30 28,33 20,37" fill="#eab308"/>
+              <polygon points="46,30 36,33 44,37" fill="#eab308"/>
+              <path d="M20 44 Q32 56 44 44" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+            <span class="absolute -bottom-1.5 bg-[#09101a] border border-[#c89b3c] text-[#c89b3c] text-xs font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
+              USTALIK 99+
+            </span>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-[#0ac8b9]/15 text-[#0ac8b9] border border-[#0ac8b9]/40 font-semibold">
+                TR1 // SİHİRDAR KAYDI
+              </span>
+              <span class="text-xs text-[#a09b8c]">Dosya #SHC-902</span>
+            </div>
+            <h1 class="text-lg sm:text-2xl font-black tracking-wide text-[#f0e6d2] mt-1">
+              SİHİRDAR: <span class="text-[#c89b3c]">EFE</span>
+            </h1>
+            <p class="text-xs sm:text-sm text-[#a09b8c]">
+              Teşhis: <span class="text-red-400 font-semibold">İblis Soytarı (Shaco) Sendromu</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 w-full sm:w-auto text-left sm:text-right border-t sm:border-t-0 pt-2.5 sm:pt-0 border-[#c89b3c]/20">
+          <div class="bg-[#09101a]/80 px-2.5 py-1.5 rounded border border-[#c89b3c]/20">
+            <div class="text-xs text-[#a09b8c]">Rakip Tilt Oranı</div>
+            <div class="text-xs sm:text-sm font-bold text-[#ef4444]">%99.4 (KRİTİK)</div>
+          </div>
+          <div class="bg-[#09101a]/80 px-2.5 py-1.5 rounded border border-[#c89b3c]/20">
+            <div class="text-xs text-[#a09b8c]">Q Görünmezlik</div>
+            <div class="text-xs sm:text-sm font-bold text-[#0ac8b9]">0.12 sn Refleks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vanguard / Hextech Notice -->
+      <div class="p-3.5 sm:p-4 rounded-lg bg-[#141c2b]/80 border-l-4 border-[#c89b3c] space-y-1.5">
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
+            ⚠️ SİSTEM UYARISI: AKIL OYUNU TESPİT EDİLDİ
+          </span>
+          <span id="step-counter" class="text-xs font-bold px-2 py-0.5 rounded bg-[#c89b3c]/20 text-[#f0e6d2] shrink-0">
+            Adım 1 / 3
+          </span>
+        </div>
+        <p id="mission-desc" class="text-xs sm:text-sm text-[#cdbe91] leading-relaxed">
+          Sihirdar <strong>EFE</strong>, son maçlarında aşırı dozda <em>Kandırmaca (Q)</em> ve çalıya <em>Soytarı Kutusu (W)</em> kurma davranışı tespit edildi. Profil raporunu açmak için aşağıdaki <strong>Gerçek Shaco Kutusunu</strong> yakala ve etkisiz hale getir.
+        </p>
+      </div>
+
+      <!-- Interactive Arena (Deceive & Clone Trap) -->
+      <div id="arena" class="relative h-64 sm:h-72 rounded-xl bg-gradient-to-b from-[#070c14] via-[#0c1626] to-[#08101c] border border-[#c89b3c]/35 overflow-hidden flex flex-col items-center justify-center p-3 sm:p-4">
+        <div class="pointer-events-none absolute inset-0 opacity-15" style="background-image: radial-gradient(#c89b3c 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+        <div id="arena-toast" class="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 w-[92%] sm:w-auto max-w-full px-3 py-1 rounded-lg sm:rounded-full bg-[#09101a]/95 border border-[#c89b3c]/40 text-xs font-semibold text-[#f0e6d2] text-center leading-snug transition-all">
+          🎯 Kutunun üzerine dokun ve kilidi aç!
+        </div>
+
+        <div id="targets-wrapper" class="relative w-full h-full flex items-center justify-center pt-6">
+          <!-- Single Target (Steps 1 & 2: Deceive Q Teleports) -->
+          <button id="shaco-box-btn" onclick="handleBoxClick(event)" class="group relative flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-xl transition-all duration-200 cursor-pointer jitter-anim focus:outline-none">
+            <div class="w-24 h-2.5 bg-black/80 border border-[#c89b3c] rounded-sm mb-1.5 overflow-hidden flex">
+              <div id="box-hp" class="w-full h-full bg-gradient-to-r from-red-600 to-red-500 transition-all duration-300"></div>
+            </div>
+            <div class="relative w-18 h-18 sm:w-20 sm:h-20 flex items-center justify-center rounded-lg bg-[#161f33]/90 border-2 border-[#c89b3c] group-hover:border-red-500 group-hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] transition p-2">
+              <svg class="w-12 h-12 sm:w-14 sm:h-14" viewBox="0 0 80 80" fill="none">
+                <path d="M32 56 L48 50 L32 44 L48 38" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+                <rect x="20" y="52" width="40" height="22" rx="3" fill="#7f1d1d" stroke="#facc15" stroke-width="2.5"/>
+                <path d="M20 62 H60 M40 52 V74" stroke="#facc15" stroke-width="2"/>
+                <circle cx="40" cy="28" r="13" fill="#1e1b4b" stroke="#c084fc" stroke-width="2"/>
+                <path d="M30 20 C20 8, 34 4, 38 15" stroke="#ef4444" stroke-width="3" fill="none"/>
+                <path d="M50 20 C60 8, 46 4, 42 15" stroke="#a855f7" stroke-width="3" fill="none"/>
+                <circle cx="35" cy="26" r="2.5" fill="#facc15"/>
+                <circle cx="45" cy="26" r="2.5" fill="#facc15"/>
+                <path d="M33 33 Q40 40 47 33" stroke="#ef4444" stroke-width="2.5" fill="none"/>
+              </svg>
+            </div>
+            <span id="box-label" class="mt-1.5 text-xs font-bold tracking-wider uppercase px-2.5 py-0.5 rounded bg-[#09101a]/90 border border-[#c89b3c]/50 text-[#f0e6d2] group-hover:text-amber-300">
+              Soytarı Kutusu (W)
+            </span>
+          </button>
+
+          <!-- Step 3: Hallucination (R) Dual Clones -->
+          <div id="clones-container" class="hidden w-full h-full items-center justify-around px-1 sm:px-10 gap-2 sm:gap-4">
+            <button onclick="triggerFinalAmbush(event)" class="group flex flex-col items-center p-2 sm:p-3 rounded-xl hover:scale-105 active:scale-95 transition cursor-pointer jitter-anim">
+              <div class="text-xs text-[#0ac8b9] font-bold mb-1">EFE_SHACO</div>
+              <div class="w-20 sm:w-24 h-2.5 bg-black/80 border border-[#c89b3c] rounded-sm mb-1.5 overflow-hidden">
+                <div class="w-4/5 h-full bg-emerald-500"></div>
+              </div>
+              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#1a1433] border-2 border-purple-500 group-hover:border-amber-400 shadow-[0_0_20px_rgba(168,85,247,0.5)] flex items-center justify-center">
+                <svg class="w-12 h-12 sm:w-14 sm:h-14" viewBox="0 0 64 64" fill="none">
+                  <path d="M12 26 C6 10, 24 6, 30 20" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M52 26 C58 10, 40 6, 34 20" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+                  <polygon points="18,30 28,33 20,37" fill="#eab308"/>
+                  <polygon points="46,30 36,33 44,37" fill="#eab308"/>
+                  <path d="M20 44 Q32 56 44 44" stroke="#ef4444" stroke-width="3" fill="none"/>
+                </svg>
+              </div>
+              <span class="mt-1.5 text-xs font-bold px-2 sm:px-3 py-1 rounded bg-purple-950/90 border border-purple-400 text-purple-200 text-center">
+                🎯 Gerçek Shaco!
+              </span>
+            </button>
+
+            <button onclick="triggerFinalAmbush(event)" class="group flex flex-col items-center p-2 sm:p-3 rounded-xl hover:scale-105 active:scale-95 transition cursor-pointer jitter-anim">
+              <div class="text-xs text-[#0ac8b9] font-bold mb-1">EFE_SHACO</div>
+              <div class="w-20 sm:w-24 h-2.5 bg-black/80 border border-[#c89b3c] rounded-sm mb-1.5 overflow-hidden">
+                <div class="w-4/5 h-full bg-emerald-500"></div>
+              </div>
+              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#1a1433] border-2 border-red-500 group-hover:border-amber-400 shadow-[0_0_20px_rgba(239,68,68,0.5)] flex items-center justify-center">
+                <svg class="w-12 h-12 sm:w-14 sm:h-14" viewBox="0 0 64 64" fill="none">
+                  <path d="M12 26 C6 10, 24 6, 30 20" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M52 26 C58 10, 40 6, 34 20" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+                  <polygon points="18,30 28,33 20,37" fill="#eab308"/>
+                  <polygon points="46,30 36,33 44,37" fill="#eab308"/>
+                  <path d="M20 44 Q32 56 44 44" stroke="#ef4444" stroke-width="3" fill="none"/>
+                </svg>
+              </div>
+              <span class="mt-1.5 text-xs font-bold px-2 sm:px-3 py-1 rounded bg-red-950/90 border border-red-400 text-red-200 text-center">
+                🗡️ Hayır, Bu!
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-[#a09b8c] px-1">
+        <span id="telemetry-log">> Sistem hazır. Sihirdar EFE doğrulaması bekleniyor...</span>
+        <span class="font-mono text-[#c89b3c]">PING: 9 ms</span>
+      </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- STAGE 2: THE SURPRISE BIRTHDAY AMBUSH! (HIDDEN INITIALLY)  -->
+    <!-- ========================================================== -->
+    <div id="stage-birthday" class="hidden relative z-20 p-5 sm:p-7 space-y-6">
+      
+      <div class="relative rounded-xl p-5 bg-gradient-to-r from-[#2e1065] via-[#4c0519] to-[#2e1065] border-2 border-[#facc15] text-center shadow-[0_0_35px_rgba(168,85,247,0.5)] overflow-hidden">
+        <div class="text-xs font-black tracking-[0.25em] uppercase text-amber-300 mb-1">
+          🗡️ ARKADAN VURUŞ (PASİF) %100 KRİTİK VURDU! 🗡️
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-black tracking-wide text-white uppercase drop-shadow-[0_2px_10px_rgba(250,204,21,0.8)]">
+          İYİ Kİ DOĞDUN <span class="text-[#facc15]">EFE!</span> 🎂🃏
+        </h1>
+        <p id="shaco-quote" class="mt-2 text-sm sm:text-base text-purple-200 italic font-medium">
+          "Bir sonraki numaramda... doğum günü pastanı yok edeceğim! Şaka şaka, yeni yaşın kutlu olsun kanka!"
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+        <div class="md:col-span-7 rounded-xl bg-[#0e1525]/95 border border-purple-500/40 p-4 flex flex-col items-center justify-between relative overflow-hidden">
+          <div class="w-full flex items-center justify-between border-b border-purple-500/20 pb-2 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-purple-300">
+              🎪 SOYTARI SÜRPRİZ PASTASI
+            </span>
+            <span id="candle-status" class="text-xs font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/40">
+              🔥 3 Mum Yanıyor
+            </span>
+          </div>
+
+          <div id="cake-stage" class="relative my-2 flex flex-col items-center justify-center py-2 transition-all duration-500">
+            <svg class="w-48 h-44 overflow-visible" viewBox="0 0 200 180" fill="none">
+              <path d="M65 55 C25 15, 65 -5, 95 35" stroke="#ef4444" stroke-width="8" stroke-linecap="round" fill="none"/>
+              <path d="M135 55 C175 15, 135 -5, 105 35" stroke="#a855f7" stroke-width="8" stroke-linecap="round" fill="none"/>
+              <circle cx="42" cy="22" r="6" fill="#facc15"/>
+              <circle cx="158" cy="22" r="6" fill="#facc15"/>
+              <polygon points="75,42 92,47 78,52" fill="#facc15"/>
+              <polygon points="125,42 108,47 122,52" fill="#facc15"/>
+              
+              <g onclick="blowCandle(0)" class="cursor-pointer">
+                <rect x="66" y="68" width="8" height="24" rx="2" fill="#ec4899" stroke="#fbcfe8" stroke-width="1.5"/>
+                <g id="flame-0" class="candle-flame">
+                  <path d="M70 50 C64 60, 66 67, 70 67 C74 67, 76 60, 70 50 Z" fill="#facc15"/>
+                  <circle cx="70" cy="62" r="2.5" fill="#ef4444"/>
+                </g>
+              </g>
+              <g onclick="blowCandle(1)" class="cursor-pointer">
+                <rect x="96" y="64" width="8" height="28" rx="2" fill="#a855f7" stroke="#e9d5ff" stroke-width="1.5"/>
+                <g id="flame-1" class="candle-flame">
+                  <path d="M100 46 C94 56, 96 63, 100 63 C104 63, 106 56, 100 46 Z" fill="#facc15"/>
+                  <circle cx="100" cy="58" r="2.5" fill="#ef4444"/>
+                </g>
+              </g>
+              <g onclick="blowCandle(2)" class="cursor-pointer">
+                <rect x="126" y="68" width="8" height="24" rx="2" fill="#0ac8b9" stroke="#99f6e4" stroke-width="1.5"/>
+                <g id="flame-2" class="candle-flame">
+                  <path d="M130 50 C124 60, 126 67, 130 67 C134 67, 136 60, 130 50 Z" fill="#facc15"/>
+                  <circle cx="130" cy="62" r="2.5" fill="#ef4444"/>
+                </g>
+              </g>
+
+              <rect x="52" y="90" width="96" height="32" rx="6" fill="#3b0764" stroke="#c084fc" stroke-width="2.5"/>
+              <path d="M52 100 Q64 112 76 100 T100 100 T124 100 T148 100" stroke="#f43f5e" stroke-width="4" fill="none"/>
+              <rect x="36" y="122" width="128" height="40" rx="8" fill="#4c0519" stroke="#facc15" stroke-width="2.5"/>
+              <text x="100" y="147" text-anchor="middle" fill="#facc15" font-size="15" font-weight="900" letter-spacing="2">EFE OP GG</text>
+              <ellipse cx="100" cy="164" rx="76" ry="7" fill="#c89b3c"/>
+            </svg>
+          </div>
+
+          <p id="cake-action-text" class="text-xs text-center text-[#cdbe91] mb-3">
+            Mumlara tek tek tıkla ya da aşağıdaki <strong>E - Çift Zehirli Bıçak</strong> yeteneğiyle tek seferde söndür!
+          </p>
+
+          <button onclick="castSkill('E')" class="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-red-600 via-purple-600 to-red-600 hover:from-red-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg border border-amber-400/60 transition cursor-pointer">
+            🗡️ E - Çift Zehirli Bıçak Fırlat (Mumları Söndür & Dilek Tut!)
+          </button>
+        </div>
+
+        <div class="md:col-span-5 rounded-xl bg-[#0e1525]/95 border border-[#c89b3c]/40 p-4 flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between border-b border-[#c89b3c]/30 pb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
+                📜 YAMA NOTLARI: EFE (YENİ YAŞ)
+              </span>
+              <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
+                BUFFLANDI
+              </span>
+            </div>
+
+            <ul class="mt-3 space-y-2.5 text-xs sm:text-sm">
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 font-bold">▲</span>
+                <div>
+                  <strong class="text-[#f0e6d2]">Seviye Atlama (Level Up):</strong>
+                  <p class="text-xs text-[#a09b8c]">Taban Karizma, Şans ve Mutluluk nitelikleri <strong>+%100</strong> artırıldı.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-purple-400 font-bold">▲</span>
+                <div>
+                  <strong class="text-[#f0e6d2]">Kandırmaca (Q) Güncellemesi:</strong>
+                  <p class="text-xs text-[#a09b8c]">Hayattaki tüm stres ve dertlere karşı <strong>Kalıcı Görünmezlik</strong> eklendi.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">▲</span>
+                <div>
+                  <strong class="text-[#f0e6d2]">Ganimet Bereketi:</strong>
+                  <p class="text-xs text-[#a09b8c]">Yeni yaşında açtığın her kutudan <strong>Ebedi Kılıç</strong> tadında başarılar çıkacak.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-3 rounded-lg bg-[#161f33]/90 border border-purple-500/30 text-xs text-[#f0e6d2] leading-relaxed">
+            <div class="font-bold text-amber-300 mb-1">💌 Dostundan Mesaj:</div>
+            "İyi ki doğdun <strong>Efe</strong>! Hayatta her zaman rakiplerini şaşırtmaya, yüzündeki o efsane gülümsemeyle her maçı taşımaya devam et. Yeni yaşın sana bol LP, bol kahkaha ve efsane anılar getirsin kanka!"
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl bg-[#070b12] border border-[#c89b3c]/50 p-3 sm:p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-[#c89b3c]">
+            🎮 SHACO YETENEK ÇUBUĞU (ETKİLEŞİMLİ - TIKLA VE KULLAN!)
+          </span>
+          <span id="skill-feedback" class="text-xs text-purple-300 font-medium">
+            Bir yeteneğe tıklayarak kutlamayı ateşle!
+          </span>
+        </div>
+
+        <div class="grid grid-cols-5 gap-2 sm:gap-3">
+          <button onclick="castSkill('P')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-amber-400 hover:bg-[#1a253a] transition cursor-pointer">
+            <span class="text-lg sm:text-xl">🗡️</span>
+            <span class="text-xs font-black text-amber-300 mt-1">PASİF</span>
+            <span class="text-xs text-[#a09b8c] hidden sm:inline">Arkadan Vuruş</span>
+          </button>
+          <button onclick="castSkill('Q')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-orange-400 hover:bg-[#1a253a] transition cursor-pointer">
+            <span class="text-lg sm:text-xl">💨</span>
+            <span class="text-xs font-black text-orange-400 mt-1">Q</span>
+            <span class="text-xs text-[#a09b8c] hidden sm:inline">Kandırmaca</span>
+          </button>
+          <button onclick="castSkill('W')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-purple-400 hover:bg-[#1a253a] transition cursor-pointer">
+            <span class="text-lg sm:text-xl">🤡</span>
+            <span class="text-xs font-black text-purple-400 mt-1">W</span>
+            <span class="text-xs text-[#a09b8c] hidden sm:inline">Soytarı Kutusu</span>
+          </button>
+          <button onclick="castSkill('E')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-red-400 hover:bg-[#1a253a] transition cursor-pointer">
+            <span class="text-lg sm:text-xl">🔪</span>
+            <span class="text-xs font-black text-red-400 mt-1">E</span>
+            <span class="text-xs text-[#a09b8c] hidden sm:inline">Zehirli Bıçak</span>
+          </button>
+          <button onclick="castSkill('R')" class="group relative flex flex-col items-center p-2 rounded-lg bg-[#111927] border border-[#c89b3c]/50 hover:border-emerald-400 hover:bg-[#1a253a] transition cursor-pointer">
+            <span class="text-lg sm:text-xl">👯</span>
+            <span class="text-xs font-black text-emerald-400 mt-1">R (ULTİ)</span>
+            <span class="text-xs text-[#a09b8c] hidden sm:inline">Halüsinasyon</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-[#a09b8c] pt-1">
+        <span>🃏 Shaco Main Özel Sürümü // Sihirdar: EFE</span>
+        <button onclick="resetToDisguise()" class="text-xs underline hover:text-amber-300 cursor-pointer">
+          🔄 Baştaki Tuzak Ekranına Dön
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleAudio() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
+      document.getElementById('sound-label').textContent = soundEnabled ? 'Ses: Açık' : 'Ses: Kapalı';
+    }
+
+    function playDeceiveSound() {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(140, now + 0.28);
+      gain.gain.setValueAtTime(0.22, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.3);
+    }
+
+    function playAmbushSound() {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+      const notes = [587.33, 659.25, 622.25, 698.46, 783.99, 932.33, 1046.50];
+      notes.forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = idx < 4 ? 'sawtooth' : 'triangle';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.11);
+        gain.gain.setValueAtTime(0.16, now + idx * 0.11);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.11 + 0.18);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now + idx * 0.11);
+        osc.stop(now + idx * 0.11 + 0.2);
+      });
+    }
+
+    function playBirthdayMelody() {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+      const melody = [
+        { f: 392, d: 0.18, t: 0.0 },
+        { f: 392, d: 0.18, t: 0.22 },
+        { f: 440, d: 0.32, t: 0.44 },
+        { f: 392, d: 0.32, t: 0.80 },
+        { f: 523.25, d: 0.32, t: 1.16 },
+        { f: 493.88, d: 0.55, t: 1.52 }
+      ];
+      melody.forEach(n => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(n.f, now + n.t);
+        gain.gain.setValueAtTime(0.2, now + n.t);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + n.t + n.d);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now + n.t);
+        osc.stop(now + n.t + n.d + 0.02);
+      });
+    }
+
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      const rect = document.getElementById('app-frame').getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    setTimeout(resizeCanvas, 50);
+
+    function spawnSmokePuff(x, y, colorScheme = 'orange') {
+      resizeCanvas();
+      const colors = colorScheme === 'orange'
+        ? ['#f97316', '#fb923c', '#fdba74', '#ea580c']
+        : ['#a855f7', '#ef4444', '#facc15', '#0ac8b9', '#ec4899'];
+
+      const count = colorScheme === 'orange' ? 28 : 65;
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = (Math.random() * 5 + 1.5) * (colorScheme === 'orange' ? 1 : 1.5);
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - (colorScheme === 'orange' ? 0.5 : 1.5),
+          size: Math.random() * 9 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: 1,
+          decay: Math.random() * 0.02 + 0.015,
+          shape: colorScheme === 'orange' ? 'circle' : (Math.random() > 0.5 ? 'rect' : 'circle')
+        });
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.06;
+        p.alpha -= p.decay;
+
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.fillStyle = p.color;
+        if (p.shape === 'rect') {
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.alpha * 6);
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    let disguiseStep = 1;
+
+    function getEventCoords(e) {
+      const frameRect = document.getElementById('app-frame').getBoundingClientRect();
+      if (e && e.clientX && e.clientY) {
+        return { x: e.clientX - frameRect.left, y: e.clientY - frameRect.top };
+      }
+      if (e && e.currentTarget) {
+        const targetRect = e.currentTarget.getBoundingClientRect();
+        return {
+          x: targetRect.left + targetRect.width / 2 - frameRect.left,
+          y: targetRect.top + targetRect.height / 2 - frameRect.top
+        };
+      }
+      return { x: frameRect.width / 2, y: frameRect.height / 2 };
+    }
+
+    function handleBoxClick(e) {
+      const coords = getEventCoords(e);
+
+      spawnSmokePuff(coords.x, coords.y, 'orange');
+      playDeceiveSound();
+
+      const btn = document.getElementById('shaco-box-btn');
+      const toast = document.getElementById('arena-toast');
+      const stepCounter = document.getElementById('step-counter');
+      const hpBar = document.getElementById('box-hp');
+      const log = document.getElementById('telemetry-log');
+
+      if (disguiseStep === 1) {
+        disguiseStep = 2;
+        stepCounter.textContent = 'Adım 2 / 3';
+        hpBar.style.width = '45%';
+        const arenaRect = document.getElementById('arena').getBoundingClientRect();
+        const offsetX = Math.min(75, Math.floor(arenaRect.width * 0.22));
+        const offsetY = Math.min(28, Math.floor(arenaRect.height * 0.12));
+        btn.style.transform = `translate(${offsetX}px, -${offsetY}px)`;
+        document.getElementById('box-label').textContent = 'Kandırmaca (Q)! Yakala!';
+        toast.innerHTML = '💨 <span class="text-orange-400">Kandırmaca (Q)!</span> Kutu görünmez olup kaçtı, tekrar dokun!';
+        log.textContent = '> UYARI: Hedef Q (Kandırmaca) kullandı! Arkana bak Efe...';
+      } else if (disguiseStep === 2) {
+        disguiseStep = 3;
+        stepCounter.textContent = 'Adım 3 / 3 (SON)';
+        btn.classList.add('hidden');
+        const clones = document.getElementById('clones-container');
+        clones.classList.remove('hidden');
+        clones.classList.add('flex');
+        toast.innerHTML = '👯 <span class="text-purple-400">ULTİ: Halüsinasyon (R)!</span> Hangisi gerçek Shaco? Birine dokun!';
+        log.textContent = '> KRİTİK: Shaco klon çıkardı! Doğru hedefi seç Efe...';
+      }
+    }
+
+    function triggerFinalAmbush(e) {
+      const coords = getEventCoords(e);
+
+      spawnSmokePuff(coords.x, coords.y, 'confetti');
+      playAmbushSound();
+
+      const fearOverlay = document.getElementById('fear-overlay');
+      fearOverlay.classList.remove('hidden');
+      fearOverlay.classList.add('flex');
+
+      setTimeout(() => {
+        fearOverlay.classList.add('hidden');
+        fearOverlay.classList.remove('flex');
+
+        document.getElementById('stage-disguise').classList.add('hidden');
+        document.getElementById('stage-birthday').classList.remove('hidden');
+
+        document.getElementById('app-frame').classList.remove('hextech-border');
+        document.getElementById('app-frame').classList.add('shaco-border');
+        document.getElementById('header-title').textContent = '🃏 GANK BAŞARILI // İYİ Kİ DOĞDUN EFE! 🎂';
+        document.getElementById('status-dot').className = 'w-2.5 h-2.5 rounded-full bg-purple-500 shadow-[0_0_10px_#a855f7]';
+        document.title = '🎂 İyi ki Doğdun EFE! // Shaco Özel Sürprizi';
+
+        resizeCanvas();
+        spawnSmokePuff(canvas.width * 0.25, canvas.height * 0.3, 'confetti');
+        spawnSmokePuff(canvas.width * 0.75, canvas.height * 0.3, 'confetti');
+        setTimeout(() => playBirthdayMelody(), 250);
+      }, 1250);
+    }
+
+    let candlesLit = [true, true, true];
+
+    function blowCandle(index) {
+      if (!candlesLit[index]) return;
+      candlesLit[index] = false;
+      const flame = document.getElementById(`flame-${index}`);
+      if (flame) flame.style.display = 'none';
+
+      const remaining = candlesLit.filter(Boolean).length;
+      const status = document.getElementById('candle-status');
+      const actionText = document.getElementById('cake-action-text');
+
+      playDeceiveSound();
+      resizeCanvas();
+      spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.45, 'confetti');
+
+      if (remaining === 0) {
+        status.textContent = '🎉 Dilek Kabul Edildi!';
+        status.className = 'text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/40';
+        actionText.innerHTML = '✨ <strong>BÜTÜN MUMLAR SÖNDÜ!</strong> Yeni yaşında tüm dileklerin gerçek olsun <strong>Efe</strong>!';
+        playBirthdayMelody();
+      } else {
+        status.textContent = `🔥 ${remaining} Mum Kaldı`;
+      }
+    }
+
+    function castSkill(key) {
+      resizeCanvas();
+      const quoteEl = document.getElementById('shaco-quote');
+      const feedbackEl = document.getElementById('skill-feedback');
+      const cakeStage = document.getElementById('cake-stage');
+
+      if (key === 'P') {
+        playAmbushSound();
+        spawnSmokePuff(canvas.width * 0.5, canvas.height * 0.25, 'confetti');
+        quoteEl.textContent = '"Pasif: Arkadan Vuruş! Doğum günü kutlamasını hiç beklemediğin anda arkadan kritik vuruşla aldın Efe!"';
+        feedbackEl.textContent = '🗡️ Pasif tetiklendi: +%100 Kritik Doğum Günü Hasarı!';
+      } else if (key === 'Q') {
+        playDeceiveSound();
+        spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.5, 'orange');
+        cakeStage.style.opacity = '0.15';
+        cakeStage.style.transform = 'scale(0.85)';
+        quoteEl.textContent = '"Kandırmaca (Q)! Pasta 1 saniyeliğine görünmez oldu... ve mumları yenilenmiş olarak geri döndü!"';
+        feedbackEl.textContent = '💨 Q - Kandırmaca: Pasta görünmez oldu ve mumlar yeniden yandı!';
+        setTimeout(() => {
+          candlesLit = [true, true, true];
+          [0, 1, 2].forEach(i => {
+            const f = document.getElementById(`flame-${i}`);
+            if (f) f.style.display = 'block';
+          });
+          document.getElementById('candle-status').textContent = '🔥 3 Mum Yanıyor';
+          cakeStage.style.opacity = '1';
+          cakeStage.style.transform = 'scale(1)';
+          spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.5, 'orange');
+        }, 700);
+      } else if (key === 'W') {
+        playAmbushSound();
+        spawnSmokePuff(canvas.width * 0.2, canvas.height * 0.6, 'confetti');
+        spawnSmokePuff(canvas.width * 0.8, canvas.height * 0.6, 'confetti');
+        quoteEl.textContent = '"Soytarı Kutusu (W) kuruldu! Kutu patladı ve etrafa konfetiler saçıldı! Neden bu kadar ciddisin Efe?!"';
+        feedbackEl.textContent = '🤡 W - Soytarı Kutusu: Çifte konfeti tuzağı patladı!';
+      } else if (key === 'E') {
+        [0, 1, 2].forEach(i => {
+          candlesLit[i] = false;
+          const f = document.getElementById(`flame-${i}`);
+          if (f) f.style.display = 'none';
+        });
+        document.getElementById('candle-status').textContent = '🎉 Dilek Kabul Edildi!';
+        document.getElementById('candle-status').className = 'text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/40';
+        document.getElementById('cake-action-text').innerHTML = '🗡️ <strong>TAM İSABET!</strong> Çift Zehirli Bıçak ile tüm mumları tek seferde söndürdün Efe!';
+        quoteEl.textContent = '"Çift Zehirli Bıçak (E) tam on ikiden vurdu! Mumlar söndü, dileğin kabul edildi Efe!"';
+        feedbackEl.textContent = '🔪 E - Çift Zehirli Bıçak: Tüm mumlar tek atışta söndürüldü!';
+        spawnSmokePuff(canvas.width * 0.35, canvas.height * 0.45, 'confetti');
+        playBirthdayMelody();
+      } else if (key === 'R') {
+        playBirthdayMelody();
+        spawnSmokePuff(canvas.width * 0.3, canvas.height * 0.3, 'confetti');
+        spawnSmokePuff(canvas.width * 0.7, canvas.height * 0.3, 'confetti');
+        spawnSmokePuff(canvas.width * 0.5, canvas.height * 0.7, 'orange');
+        quoteEl.textContent = '"ULTİ: HALÜSİNASYON (R)! İki kat eğlence, iki kat şans, iki kat mutluluk! İyi ki doğdun Efe!"';
+        feedbackEl.textContent = '👯 R - Halüsinasyon: Ulti patladı! Her yer Hextech ganimeti oldu!';
+      }
+    }
+
+    function resetToDisguise() {
+      disguiseStep = 1;
+      document.getElementById('step-counter').textContent = 'Adım 1 / 3';
+      document.getElementById('box-hp').style.width = '100%';
+      const btn = document.getElementById('shaco-box-btn');
+      btn.style.transform = 'translate(0, 0)';
+      btn.classList.remove('hidden');
+      document.getElementById('box-label').textContent = 'Soytarı Kutusu (W)';
+      const clones = document.getElementById('clones-container');
+      clones.classList.add('hidden');
+      clones.classList.remove('flex');
+      document.getElementById('arena-toast').textContent = '🎯 Kutunun üzerine tıkla ve kilidi aç!';
+      document.getElementById('telemetry-log').textContent = '> Sistem hazır. Sihirdar EFE doğrulaması bekleniyor...';
+
+      document.getElementById('stage-birthday').classList.add('hidden');
+      document.getElementById('stage-disguise').classList.remove('hidden');
+      document.getElementById('app-frame').classList.add('hextech-border');
+      document.getElementById('app-frame').classList.remove('shaco-border');
+      document.getElementById('header-title').textContent = 'HEXTECH TELEMETRİ // SİHİRDAR DOĞRULAMA SİSTEMİ v14.21';
+      document.title = 'Hextech Analiz // Sihirdar: EFE';
+    }
+  </script>
+</body>
+</html>
